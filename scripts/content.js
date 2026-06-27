@@ -7,7 +7,7 @@ window.oncontextmenu = async (event) => {
     const result = await chrome.storage.local.get(["insp_visual_ligado"]);
     if(result.insp_visual_ligado == true) {
         try {
-            copyBuffer = Object.assign(event.target, {});
+            copyBuffer = event.target.cloneNode(true);
             let i = 0;
             while(document.querySelector("#inspetor-visual-copiado-"+i)) {
                 i++;
@@ -36,108 +36,124 @@ window.addEventListener('onload', () => {
 window.onmousemove = mousemove;
 
 async function mousemove (event) {
-    
-    const result = await chrome.storage.local.get(["insp_visual_ligado"]);
+    if(chrome.storage && chrome.storage.local) {
+        const result = await chrome.storage.local.get(["insp_visual_ligado"]);
 
-    let oldPopup = document.getElementById('inspetor-visual-popup');
-    let innerHTML = '';
-    const popup = document.createElement('div');
-    
-    if(oldPopup) {
-        oldPopup.remove();
-        delete oldPopup;
-    }
+        let oldPopup = document.getElementById('inspetor-visual-popup');
+        let innerHTML = '';
+        const popup = document.createElement('div');
+        
+        if(oldPopup) {
+            oldPopup.remove();
+            delete oldPopup;
+        }
 
-    popup.id = 'inspetor-visual-popup';
+        popup.id = 'inspetor-visual-popup';
 
-    popup.style.position = 'fixed';
-    popup.style.zIndex = 9999;
-    popup.style.top = (event.pageY + 14) + 'px';
-    popup.style.left = (event.pageX + 14) + 'px';
-    popup.style.width = 'fit-content';
-    popup.style.minWidth = '100px';
-    popup.style.height = 'fit-content';
-    popup.style.backgroundColor = 'rgba(0,0,0,.5)';
-    popup.style.color = 'white';
-    popup.style.padding = '14px';
-    popup.style.fontSize = '12px';
+        popup.style.position = 'fixed';
+        popup.style.zIndex = 9999;
+        popup.style.top = (event.pageY + 14) + 'px';
+        popup.style.left = (event.pageX + 14) + 'px';
+        popup.style.width = 'fit-content';
+        popup.style.minWidth = '100px';
+        popup.style.height = 'fit-content';
+        popup.style.backgroundColor = 'rgba(0,0,0,.5)';
+        popup.style.color = 'white';
+        popup.style.padding = '14px';
+        popup.style.fontSize = '12px';
 
-    try {
-        const element = event.target;
-        if(element != null) {
-            const estilos = getComputedStyle(element);
-            const dimensoes = element.getBoundingClientRect();
+        try {
+            const element = event.target;
+            if(element != null) {
+                const estilos = getComputedStyle(element);
+                const dimensoes = element.getBoundingClientRect();
+                if(element.innerText) {
+                    innerHTML += '<strong>' + element.innerText.split(' ')[0] + 
+                        (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
+                        (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
+                    '</strong>'
+                }
+                innerHTML += '<div>selector: ' + ((element.id || estilos.getPropertyValue('id') ? '#' + 
+                (element.id || estilos.getPropertyValue('id')) : ''));
 
-            innerHTML += '<div>selector: ' + (((element.id || estilos.getPropertyValue('id') ? '#' : '') + 
-            (element.id || estilos.getPropertyValue('id'))) || 
-            ((element.className || estilos.getPropertyValue('className')).split(' ').map((v)=> '.' + v).join(' ')))  + '</div>';
-            innerHTML += '<div>class: ' + element.className.split(' ').map((v)=> '.' + v).join(' ');
-            innerHTML += '<div>width: ' + (Math.abs(parseFloat(element.style.width || estilos.getPropertyValue('width')).toFixed(2))) + '</div>';
-            innerHTML += '<div>height: ' + (Math.abs(parseFloat(element.style.height || estilos.getPropertyValue('height')).toFixed(2))) + '</div>';
-            innerHTML += '<div>dimensões: ' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'x' + Math.abs(parseFloat(dimensoes.height).toFixed(2));
-            if((element.style.backgroundColor || estilos.getPropertyValue('background-color'))) innerHTML += '<div>background-color: <div style="display: inline-block; border: 2px solid lightgrey;  height: 12px; width: 12px; background-color: ' + 
-                (element.style.backgroundColor || estilos.getPropertyValue('background-color')) + 
-                '"></div> #' + 
-                (rgbaToHex(element.style.backgroundColor || estilos.getPropertyValue('background-color'))) + 
-                '</div></div>';
-            if((element.style.color || estilos.getPropertyValue('color'))) innerHTML += '<div>color: <div style="display: inline-block; border: 2px solid lightgrey; height: 12px; width: 12px; color: ' + 
-                (element.style.color || estilos.getPropertyValue('color')) + 
-                '"></div> #' + 
-                (rgbaToHex(element.style.color || estilos.getPropertyValue('color'))) + 
-                '</div></div>';
-            popup.innerHTML = innerHTML;
+                if((!(element.id || estilos.getPropertyValue('id')) && element.className || estilos.getPropertyValue('className'))) {
+                    const classList = (element.className || estilos.getPropertyValue('className')).split(' ').map((v)=> (element.className || estilos.getPropertyValue('className') ? '.' + v : ''));
+                    if(classList.length)
+                        innerHTML += classList.join(' ');
+                } else {
+                    innerHTML += element.localName
+                }  
+                innerHTML += '</div>';
+                innerHTML += '<div>class: ' + element.className.split(' ').map((v)=> '.' + v).join(' ');
+                const width = (Math.abs(parseFloat(element.style.width || estilos.getPropertyValue('width')).toFixed(2)));
+                const height = (Math.abs(parseFloat(element.style.height || estilos.getPropertyValue('height')).toFixed(2)));
+                innerHTML += '<div>width: ' + (!isNaN(width) ? width : 'não declarado') + '</div>';
+                innerHTML += '<div>height: ' + (!isNaN(height) ? height : 'não declarado') + '</div>';
+                innerHTML += '<div>dimensões: ' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'x' + Math.abs(parseFloat(dimensoes.height).toFixed(2));
+                if((element.style.backgroundColor || estilos.getPropertyValue('background-color'))) innerHTML += '<div>background-color: <div style="display: inline-block; border: 2px solid lightgrey;  height: 12px; width: 12px; background-color: ' + 
+                    (element.style.backgroundColor || estilos.getPropertyValue('background-color')) + 
+                    '"></div> #' + 
+                    (rgbaToHex(element.style.backgroundColor || estilos.getPropertyValue('background-color'))) + 
+                    '</div></div>';
+                if((element.style.color || estilos.getPropertyValue('color'))) innerHTML += '<div>color: <div style="display: inline-block; border: 2px solid lightgrey; height: 12px; width: 12px; color: ' + 
+                    (element.style.color || estilos.getPropertyValue('color')) + 
+                    '"></div> #' + 
+                    (rgbaToHex(element.style.color || estilos.getPropertyValue('color'))) + 
+                    '</div></div>';
+                popup.innerHTML = innerHTML;
 
-            if(!visitedElements.includes(element)) {
-                visitedElements.push(element);
-            }
-            
-            if(result.insp_visual_ligado == true) {
-                element.onmouseover = (event) => {
-                    element.style.border = "2px dashed blue";
-                    if(element.parent) {
-                        if(!visitedElements.includes(element.parent)) {
-                            visitedElements.push(element.parent);
-                        }
+                if(!visitedElements.includes(element)) {
+                    visitedElements.push(element);
+                }
+                
+                if(result.insp_visual_ligado == true) {
+                    element.onmouseover = (event) => {
+                        element.style.border = "2px dashed blue";
+                        if(element.parent) {
+                            if(!visitedElements.includes(element.parent)) {
+                                visitedElements.push(element.parent);
+                            }
 
-                        const parentElement = element.parent;
-                        parentElement.onmouseover = (parentEvent) => {
-                            parentElement.style.border = "12px dashed blue";
-                        }
-                        parentElement.onmouseout = (parentEvent) => {
-                            parentElement.style.border = "";
+                            const parentElement = element.parent;
+                            parentElement.onmouseover = (parentEvent) => {
+                                parentElement.style.border = "12px dashed blue";
+                            }
+                            parentElement.onmouseout = (parentEvent) => {
+                                parentElement.style.border = "";
+                            }
                         }
                     }
-                }
-                element.onmouseout = (event) => {
+                    element.onmouseout = (event) => {
+                        element.style.border = "";
+                    }
+                } else {
                     element.style.border = "";
+                    
+                    if(element.parent) {
+                        parentElement.style.border = "";
+                    }
+                    desativar();
                 }
-            } else {
-                element.style.border = "";
-                
-                if(element.parent) {
-                    parentElement.style.border = "";
-                }
-                desativar();
             }
+            setTimeout(()=>{
+                if(result.insp_visual_ligado == true) {
+                    let popupInDocument = document.getElementById(popup.id);
+                    if(!popupInDocument) {
+                        document.body.appendChild(popup);
+                        popupInDocument = document.getElementById(popup.id);
+                    } else 
+                        popupInDocument.innerHTML = innerHTML;
+                    
+                    const popupDimensions = popupInDocument.getBoundingClientRect();
+                    if((event.pageX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.pageX - window.scrollX + 14) + 'px';
+                    if((event.pageY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.pageY - window.scrollY + 14) + 'px';
+                } else {
+                    desativar();
+                }
+            }, 50);
+        } catch (e) {
+            console.log(e);
         }
-        setTimeout(()=>{
-            if(result.insp_visual_ligado == true) {
-                let popupInDocument = document.getElementById(popup.id);
-                if(!popupInDocument) {
-                    document.body.appendChild(popup);
-                    popupInDocument = document.getElementById(popup.id);
-                } else 
-                    popupInDocument.innerHTML = innerHTML;
-                
-                const popupDimensions = popupInDocument.getBoundingClientRect();
-                if((event.pageX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.pageX - window.scrollX + 14) + 'px';
-                if((event.pageY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.pageY - window.scrollY + 14) + 'px';
-            } else {
-                desativar();
-            }
-        }, 50);
-    } catch (e) {
-        console.log(e);
     }
 }
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
@@ -145,11 +161,6 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     sendResponse({ status: "success" }); 
     if (request.action === "copiarElemento") {
         copyBuffer.style.border = "";
-
-        let i = 0
-        for(const element of copyBuffer.children) {
-            element.id = "#"+ copyBuffer.id + "-filho-" + i;
-        }
 
         let textoParaCopiar = copyBuffer.outerHTML + "<style>#" + copyBuffer.id + " {" + getCssStyles(copyBuffer) + "}\n\n";
         
