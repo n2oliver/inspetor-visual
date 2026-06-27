@@ -80,9 +80,8 @@ async function mousemove (event) {
                 (element.id || estilos.getPropertyValue('id')) : ''));
 
                 if((!(element.id || estilos.getPropertyValue('id')) && element.className || estilos.getPropertyValue('className'))) {
-                    const classList = (element.className || estilos.getPropertyValue('className')).split(' ').map((v)=> (element.className || estilos.getPropertyValue('className') ? '.' + v : ''));
-                    if(classList.length)
-                        innerHTML += classList.join(' ');
+                    if(element.classList.length)
+                        innerHTML += Object.assign([], element.classList).map((v) => '.' + v).join(' ');
                 } else {
                     innerHTML += element.localName
                 }  
