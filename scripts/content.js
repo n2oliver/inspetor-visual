@@ -68,7 +68,9 @@ async function mousemove (event) {
                 const estilos = getComputedStyle(element);
                 const dimensoes = element.getBoundingClientRect();
                 if(element.innerText) {
-                    speak(element.innerText);
+                    if(result.insp_visual_ligado == true) {
+                        speak(element.innerText);
+                    }
                     innerHTML += '<strong>' + element.innerText.split(' ')[0] + 
                         (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
                         (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
