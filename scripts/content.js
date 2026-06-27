@@ -68,6 +68,7 @@ async function mousemove (event) {
                 const estilos = getComputedStyle(element);
                 const dimensoes = element.getBoundingClientRect();
                 if(element.innerText) {
+                    speak(element.innerText);
                     innerHTML += '<strong>' + element.innerText.split(' ')[0] + 
                         (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
                         (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
@@ -250,4 +251,26 @@ function desativar() {
         elem.onmouseout = null;
     });
     window.mousemove = null;
+}
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    cancelSpeak();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'pt-BR';
+
+    speechSynthesis.speak(utterance);
+  } else {
+    console.info('Desculpe, seu navegador não suporta a API Web Speech.');
+  }
+}
+document.addEventListener('mouseleave', ()=> {
+    cancelSpeak();
+})
+
+function cancelSpeak() {
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel();
+  } else {
+    console.info('Desculpe, seu navegador não suporta a API Web Speech.');
+  }
 }
