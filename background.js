@@ -9,19 +9,24 @@ async function createMenus () {
   if(result.insp_visual_ligado == true) {
     chrome.contextMenus.removeAll(() => {
       chrome.contextMenus.create({
+          id: "copiarTexto",
+          title: "Copiar texto",
+          contexts: ["page"]
+      });
+      chrome.contextMenus.create({
           id: "copiarElemento",
           title: "Copiar HTML + CSS",
-          contexts: ["all"]
+          contexts: ["page"]
       });
       chrome.contextMenus.create({
           id: "copiarHTML",
           title: "Copiar HTML",
-          contexts: ["all"]
+          contexts: ["page"]
       });
       chrome.contextMenus.create({
           id: "copiarCSS",
           title: "Copiar CSS",
-          contexts: ["all"]
+          contexts: ["page"]
       });
     });
   }
@@ -34,6 +39,19 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         target: { tabId: tab.id },
         func: () => console.log("Loading complete!")
       });
+      if (info.menuItemId === "copiarTexto") {
+        // Envia uma mensagem para a aba atual pedindo para copiar texto do elemento
+        chrome.tabs.sendMessage(tab.id, { action: "copiarTexto", targetElementId: info.targetElementId },
+          (response) => {
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError);
+                return;
+            }
+
+            console.log(response);
+          }
+        );
+      }
       if (info.menuItemId === "copiarElemento") {
         // Envia uma mensagem para a aba atual pedindo para copiar o elemento
         chrome.tabs.sendMessage(tab.id, { action: "copiarElemento", targetElementId: info.targetElementId },
@@ -48,7 +66,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         );
       }
       if (info.menuItemId === "copiarHTML") {
-        // Envia uma mensagem para a aba atual pedindo para copiar o elemento
+        // Envia uma mensagem para a aba atual pedindo para copiar o html do elemento
         chrome.tabs.sendMessage(tab.id, { action: "copiarHTML", targetElementId: info.targetElementId },
           (response) => {
             if (chrome.runtime.lastError) {
@@ -61,7 +79,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         );
       }
       if (info.menuItemId === "copiarCSS") {
-        // Envia uma mensagem para a aba atual pedindo para copiar o elemento
+        // Envia uma mensagem para a aba atual pedindo para copiar o CSS do elemento
         chrome.tabs.sendMessage(tab.id, { action: "copiarCSS", targetElementId: info.targetElementId },
           (response) => {
             if (chrome.runtime.lastError) {

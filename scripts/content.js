@@ -36,7 +36,7 @@ window.addEventListener('onload', () => {
 window.onmousemove = mousemove;
 
 async function mousemove (event) {
-    if(chrome.storage && chrome.storage.local) {
+    if(chrome.storage && chrome.storage.local && !!chrome?.runtime?.id) {
         const result = await chrome.storage.local.get(["insp_visual_ligado"]);
 
         let oldPopup = document.getElementById('inspetor-visual-popup');
@@ -68,6 +68,7 @@ async function mousemove (event) {
                 const estilos = getComputedStyle(element);
                 const dimensoes = element.getBoundingClientRect();
                 if(element.innerText) {
+                    await chrome.storage.local.set({inner_text_copy: false});
                     if(result.insp_visual_ligado == true) {
                         speak(element.innerText);
                     }
@@ -80,13 +81,16 @@ async function mousemove (event) {
                 (element.id || estilos.getPropertyValue('id')) : ''));
 
                 if((!(element.id || estilos.getPropertyValue('id')) && element.className || estilos.getPropertyValue('className'))) {
-                    if(element.classList.length)
-                        innerHTML += Object.assign([], element.classList).map((v) => '.' + v).join(' ');
+                    if(element.classList.length) {
+                        const className = Object.assign([], element.classList).map((v) => '.' + v).join(' ');
+                        innerHTML += className;
+                        innerHTML += '</div>';
+                        innerHTML += '<div>class: ' + className + '</div>';
+                    }
                 } else {
-                    innerHTML += element.localName
+                    innerHTML += element.localName;
+                    innerHTML += '</div>';
                 }  
-                innerHTML += '</div>';
-                innerHTML += '<div>class: ' + element.className.split(' ').map((v)=> '.' + v).join(' ');
                 const width = (Math.abs(parseFloat(element.style.width || estilos.getPropertyValue('width')).toFixed(2)));
                 const height = (Math.abs(parseFloat(element.style.height || estilos.getPropertyValue('height')).toFixed(2)));
                 innerHTML += '<div>width: ' + (!isNaN(width) ? width : 'não declarado') + '</div>';
@@ -161,6 +165,19 @@ async function mousemove (event) {
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     console.log("Message received:", request);
     sendResponse({ status: "success" }); 
+    if (request.action === "copiarTexto") {
+        copyBuffer.style.border = "";
+        const result = await chrome.storage.local.get(["inner_text_copy"])
+        let textoParaCopiar = result.inner_text_copy;
+
+        if (textoParaCopiar) {
+            navigator.clipboard.writeText(textoParaCopiar).then(() => {
+                console.log("Texto copiado com sucesso!");
+        }).catch(err => {
+            console.error("Erro ao copiar: ", err);
+        });
+        }
+    }
     if (request.action === "copiarElemento") {
         copyBuffer.style.border = "";
 
