@@ -38,6 +38,7 @@ window.onmousemove = mousemove;
 async function mousemove (event) {
     if(chrome.storage && chrome.storage.local && !!chrome?.runtime?.id) {
         const result = await chrome.storage.local.get(["insp_visual_ligado"]);
+        const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
 
         let oldPopup = document.getElementById('inspetor-visual-popup');
         let innerHTML = '';
@@ -69,7 +70,7 @@ async function mousemove (event) {
                 const dimensoes = element.getBoundingClientRect();
                 if(element.innerText) {
                     await chrome.storage.local.set({inner_text_copy: false});
-                    if(result.insp_visual_ligado == true) {
+                    if(speakerResult.insp_visual_leitor_de_tela == true) {
                         speak(element.innerText);
                     }
                     innerHTML += '<strong>' + element.innerText.split(' ')[0] + 
@@ -270,11 +271,17 @@ function desativar() {
     });
     window.mousemove = null;
 }
-function speak(text) {
+async function speak(text) {
   if ('speechSynthesis' in window) {
     cancelSpeak();
+    const result = await chrome.storage.local.get(["voz"]);
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'pt-BR';
+    utterance.rate = 2.0;
+    utterance.pitch = 0.5;
+    if(result.voz) {
+        utterance.voice = speechSynthesis.getVoices()[result.voz];
+    }
 
     speechSynthesis.speak(utterance);
   } else {
