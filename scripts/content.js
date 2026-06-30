@@ -1,7 +1,15 @@
 console.log("Content script carregado!");
 let copyBuffer = {};
-
 let visitedElements = [];
+const timeoutValue = 200;
+let timeout = setTimeout(()=>{},timeoutValue);
+()=>(async ()=>{
+    const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
+    if(!localStorage.getItem('inspetor_visual_bloqueado') || localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado) {
+        localStorage.setItem('inspetor_visual_bloqueado', false);
+    }
+})();
+
 
 window.oncontextmenu = async (event) => {
     const result = await chrome.storage.local.get(["insp_visual_ligado"]);
@@ -22,8 +30,13 @@ window.oncontextmenu = async (event) => {
         desativar();
     }
 }
-window.addEventListener('onload', () => {
+window.addEventListener('onload', async () => {
     document.body.onmouseenter = async (event) => {
+        const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
+        const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado;
+        if(bloqueado) {
+            return;
+        }
         const result = await chrome.storage.local.get(["insp_visual_ligado"]);
         if (result.insp_visual_ligado == false) {
             desativar();
@@ -34,122 +47,151 @@ window.addEventListener('onload', () => {
 });
 
 window.onmousemove = mousemove;
-
 async function mousemove(event) {
-    const result = await chrome.storage.local.get(["insp_visual_ligado"]);
-    const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
-    if (chrome.storage && chrome.storage.local && !!chrome?.runtime?.id && result.insp_visual_ligado == true) {
-
-        let oldPopup = document.getElementById('inspetor-visual-popup');
-        let innerHTML = '';
-        const popup = document.createElement('div');
-
-        if (oldPopup) {
-            oldPopup.remove();
-            delete oldPopup;
+    clearTimeout(timeout);
+    timeout = setTimeout(async () => {
+        const popupId = 'inspetor-visual-popup';
+        
+        const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
+        const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado;
+        if(bloqueado || event.target.closest(popupId)) {
+            return;
         }
+        const result = await chrome.storage.local.get(["insp_visual_ligado"]);
+        const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
+        if (chrome.storage && chrome.storage.local && !!chrome?.runtime?.id && 
+            result.insp_visual_ligado == true) {
 
-        popup.id = 'inspetor-visual-popup';
+            let oldPopup = document.getElementById('inspetor-visual-popup');
+            let innerHTML = '';
+            const popup = document.createElement('div');
 
-        popup.style.position = 'fixed';
-        popup.style.zIndex = 9999;
-        popup.style.top = (event.pageY + 14) + 'px';
-        popup.style.left = (event.pageX + 14) + 'px';
-        popup.style.width = 'fit-content';
-        popup.style.minWidth = '100px';
-        popup.style.height = 'fit-content';
-        popup.style.backgroundColor = 'rgba(0,0,0,.5)';
-        popup.style.color = 'white';
-        popup.style.padding = '14px';
-        popup.style.fontSize = '12px';
+            popup.id = popupId;
 
-        try {
-            const element = event.target;
-            if (element != null) {
-                const estilos = getComputedStyle(element);
-                const dimensoes = element.getBoundingClientRect();
-                if (element.innerText) {
-                    await chrome.storage.local.set({ inner_text_copy: false });
-                    if (speakerResult.insp_visual_leitor_de_tela == true) {
-                        speak(element.innerText);
+            popup.style.position = 'fixed';
+            popup.style.zIndex = 9999;
+            popup.style.top = (event.pageY + 14) + 'px';
+            popup.style.left = (event.pageX + 14) + 'px';
+            popup.style.width = 'fit-content';
+            popup.style.minWidth = '100px';
+            popup.style.height = 'fit-content';
+            popup.style.backgroundColor = 'rgba(0,0,0,.5)';
+            popup.style.color = 'white';
+            popup.style.padding = '14px';
+            popup.style.fontSize = '12px';
+
+            try {
+                const element = event.target;
+                if (element != null) {
+                    const estilos = getComputedStyle(element);
+                    const dimensoes = element.getBoundingClientRect();
+                    if (element.innerText) {
+                        await chrome.storage.local.set({ inner_text_copy: false });
+                        if (speakerResult.insp_visual_leitor_de_tela == true) {
+                            speak(element.innerText);
+                        }
+                        innerHTML += '<strong>' + element.innerText.split(' ')[0] +
+                            (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
+                            (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
+                            '</strong>'
                     }
-                    innerHTML += '<strong>' + element.innerText.split(' ')[0] +
-                        (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
-                        (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
-                        '</strong>'
-                }
-                innerHTML += '<div>selector: ' + ((element.id || estilos.getPropertyValue('id') ? '#' +
-                    (element.id || estilos.getPropertyValue('id')) : ''));
+                    innerHTML += '<div>selector: ' + ((element.id || estilos.getPropertyValue('id') ? '#' +
+                        (element.id || estilos.getPropertyValue('id')) : ''));
 
-                if ((!(element.id || estilos.getPropertyValue('id')) && element.className || estilos.getPropertyValue('className'))) {
-                    if (element.classList.length) {
-                        const className = Object.assign([], element.classList).map((v) => '.' + v).join(' ');
-                        innerHTML += className;
+                    if ((!(element.id || estilos.getPropertyValue('id')) && element.className || estilos.getPropertyValue('className'))) {
+                        if (element.classList.length) {
+                            const className = Object.assign([], element.classList).map((v) => '.' + v).join(' ');
+                            innerHTML += className;
+                            innerHTML += '</div>';
+                            innerHTML += '<div>class: ' + className + '</div>';
+                        }
+                    } else {
+                        innerHTML += element.localName;
                         innerHTML += '</div>';
-                        innerHTML += '<div>class: ' + className + '</div>';
                     }
-                } else {
-                    innerHTML += element.localName;
-                    innerHTML += '</div>';
-                }
-                const width = (Math.abs(parseFloat(element.style.width || estilos.getPropertyValue('width')).toFixed(2)));
-                const height = (Math.abs(parseFloat(element.style.height || estilos.getPropertyValue('height')).toFixed(2)));
-                innerHTML += '<div>width: ' + (!isNaN(width) ? width : 'não declarado') + '</div>';
-                innerHTML += '<div>height: ' + (!isNaN(height) ? height : 'não declarado') + '</div>';
-                innerHTML += '<div>dimensões: ' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'x' + Math.abs(parseFloat(dimensoes.height).toFixed(2));
-                if ((element.style.backgroundColor || estilos.getPropertyValue('background-color'))) innerHTML += '<div>background-color: <div style="display: inline-block; border: 2px solid lightgrey;  height: 12px; width: 12px; background-color: ' +
-                    (element.style.backgroundColor || estilos.getPropertyValue('background-color')) +
-                    '"></div> #' +
-                    (rgbaToHex(element.style.backgroundColor || estilos.getPropertyValue('background-color'))) +
-                    '</div></div>';
-                if ((element.style.color || estilos.getPropertyValue('color'))) innerHTML += '<div>color: <div style="display: inline-block; border: 2px solid lightgrey; height: 12px; width: 12px; color: ' +
-                    (element.style.color || estilos.getPropertyValue('color')) +
-                    '"></div> #' +
-                    (rgbaToHex(element.style.color || estilos.getPropertyValue('color'))) +
-                    '</div></div>';
-                popup.innerHTML = innerHTML;
+                    const width = (Math.abs(parseFloat(element.style.width || estilos.getPropertyValue('width')).toFixed(2)));
+                    const height = (Math.abs(parseFloat(element.style.height || estilos.getPropertyValue('height')).toFixed(2)));
+                    innerHTML += '<div>width: ' + (!isNaN(width) ? width : 'não declarado') + '</div>';
+                    innerHTML += '<div>height: ' + (!isNaN(height) ? height : 'não declarado') + '</div>';
+                    innerHTML += '<div>dimensões: ' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'x' + Math.abs(parseFloat(dimensoes.height).toFixed(2));
+                    if ((element.style.backgroundColor || estilos.getPropertyValue('background-color'))) innerHTML += '<div>background-color: <div style="display: inline-block; border: 2px solid lightgrey;  height: 12px; width: 12px; background-color: ' +
+                        (element.style.backgroundColor || estilos.getPropertyValue('background-color')) +
+                        '"></div> #' +
+                        (rgbaToHex(element.style.backgroundColor || estilos.getPropertyValue('background-color'))) +
+                        '</div></div>';
+                    if ((element.style.color || estilos.getPropertyValue('color'))) innerHTML += '<div>color: <div style="display: inline-block; border: 2px solid lightgrey; height: 12px; width: 12px; color: ' +
+                        (element.style.color || estilos.getPropertyValue('color')) +
+                        '"></div> #' +
+                        (rgbaToHex(element.style.color || estilos.getPropertyValue('color'))) +
+                        '</div></div>';
+                    popup.innerHTML = innerHTML;
 
-                if (!visitedElements.includes(element)) {
-                    visitedElements.push(element);
-                }
+                    if (!visitedElements.includes(element)) {
+                        visitedElements.push(element);
+                    }
 
-                if (result.insp_visual_ligado == true) {
-                    element.onmouseover = (event) => {
-                        element.style.border = "2px dashed blue";
-                        if (element.parent) {
-                            if (!visitedElements.includes(element.parent)) {
-                                visitedElements.push(element.parent);
+                    if (result.insp_visual_ligado == true) {
+                        element.onmouseover = (event) => {
+                            if(bloqueado) {
+                                return;
                             }
+                            element.style.border = "2px dashed blue";
+                            if (element.parent) {
+                                if (!visitedElements.includes(element.parent)) {
+                                    visitedElements.push(element.parent);
+                                }
 
-                            const parentElement = element.parent;
-                            parentElement.onmouseover = (parentEvent) => {
-                                parentElement.style.border = "12px dashed blue";
-                            }
-                            parentElement.onmouseout = (parentEvent) => {
-                                parentElement.style.border = "";
+                                const parentElement = element.parent;
+                                parentElement.onmouseover = (parentEvent) => {
+                                    if(bloqueado) {
+                                        return;
+                                    }
+                                    parentElement.style.border = "12px dashed blue";
+                                }
+                                parentElement.onmouseout = (parentEvent) => {
+                                    if(bloqueado) {
+                                        return;
+                                    }
+                                    parentElement.style.border = "";
+                                }
                             }
                         }
-                    }
-                    element.onmouseout = (event) => {
+                        element.onmouseout = (event) => {
+                            if(bloqueado) {
+                                return;
+                            }
+                            element.style.border = "";
+                        }
+                    } else {
+                        if(bloqueado) {
+                            return;
+                        }
                         element.style.border = "";
-                    }
-                } else {
-                    element.style.border = "";
 
-                    if (element.parent) {
-                        parentElement.style.border = "";
+                        if (element.parent) {
+                            parentElement.style.border = "";
+                        }
+                        desativar();
                     }
-                    desativar();
                 }
-            }
-            setTimeout(() => {
+                if(bloqueado) {
+                    return;
+                }
+                if (oldPopup) {
+                    oldPopup.remove();
+                    delete oldPopup;
+                }
                 if (result.insp_visual_ligado == true) {
-                    let popupInDocument = document.getElementById(popup.id);
+                    let popupInDocument = document.getElementById(popupId);
                     if (!popupInDocument) {
                         document.body.appendChild(popup);
                         popupInDocument = document.getElementById(popup.id);
-                    } else
+                        innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center" style="color: yellow"><a class="text-decoration-none" href="#" style="color: yellow !important" onclick="event.preventDefault()"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="display: none"> (bloqueado)</span></strong></a></div>'
                         popupInDocument.innerHTML = innerHTML;
+                    }
+                    window.focus();
+                    window.addEventListener("keydown", popupClick);
+                    
 
                     const popupDimensions = popupInDocument.getBoundingClientRect();
                     if ((event.pageX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.pageX - window.scrollX + 14) + 'px';
@@ -157,13 +199,13 @@ async function mousemove(event) {
                 } else {
                     desativar();
                 }
-            }, 50);
-        } catch (e) {
-            console.log(e);
+            } catch (e) {
+                console.log(e);
+            }
+        } else {
+            desativar();
         }
-    } else {
-        desativar();
-    }
+    }, timeoutValue);
 }
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     console.log("Message received:", request);
@@ -230,6 +272,24 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
     return true;
 });
+async function popupClick(event) {
+    if(event.keyCode == 66) {
+        const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
+        const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado || bloqueioResult.inspetor_visual_bloqueado;
+        const bloqueio = document.getElementById("insp_visual_bloquear");
+        if(bloqueado) {
+            chrome.storage.local.set({'inspetor_visual_bloqueado': false});
+            localStorage.setItem('inspetor_visual_bloqueado', false);
+            bloqueio.style.display = 'none';
+            clearTimeout(timeout);
+        } else {
+            chrome.storage.local.set({'inspetor_visual_bloqueado': false});
+            localStorage.setItem('inspetor_visual_bloqueado', true);
+            bloqueio.style.display = 'block';
+            clearTimeout(timeout);
+        }
+    }
+}
 function toHex(n) {
     return Number(n).toString(16).padStart(2, '0');
 }
@@ -297,8 +357,11 @@ async function speak(text) {
         console.info('Desculpe, seu navegador não suporta a API Web Speech.');
     }
 }
-document.addEventListener('mouseleave', () => {
-    cancelSpeak();
+document.addEventListener('mouseleave', async () => {
+    const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
+    const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado;
+    if(!bloqueado)
+        cancelSpeak();
 })
 
 function cancelSpeak() {
