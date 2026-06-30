@@ -5,18 +5,18 @@ let visitedElements = [];
 
 window.oncontextmenu = async (event) => {
     const result = await chrome.storage.local.get(["insp_visual_ligado"]);
-    if(result.insp_visual_ligado == true) {
+    if (result.insp_visual_ligado == true) {
         try {
             copyBuffer = event.target.cloneNode(true);
             let i = 0;
-            while(document.querySelector("#inspetor-visual-copiado-"+i)) {
+            while (document.querySelector("#inspetor-visual-copiado-" + i)) {
                 i++;
             }
             copyBuffer.id = "inspetor-visual-copiado-" + i
         } catch (e) {
             console.log(e);
         }
-        
+
         window.onmousemove = mousemove;
     } else {
         desativar();
@@ -25,7 +25,7 @@ window.oncontextmenu = async (event) => {
 window.addEventListener('onload', () => {
     document.body.onmouseenter = async (event) => {
         const result = await chrome.storage.local.get(["insp_visual_ligado"]);
-        if(result.insp_visual_ligado == false) {
+        if (result.insp_visual_ligado == false) {
             desativar();
         } else {
             window.onmousemove = mousemove;
@@ -35,16 +35,16 @@ window.addEventListener('onload', () => {
 
 window.onmousemove = mousemove;
 
-async function mousemove (event) {
-    if(chrome.storage && chrome.storage.local && !!chrome?.runtime?.id) {
-        const result = await chrome.storage.local.get(["insp_visual_ligado"]);
-        const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
+async function mousemove(event) {
+    const result = await chrome.storage.local.get(["insp_visual_ligado"]);
+    const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
+    if (chrome.storage && chrome.storage.local && !!chrome?.runtime?.id && result.insp_visual_ligado == true) {
 
         let oldPopup = document.getElementById('inspetor-visual-popup');
         let innerHTML = '';
         const popup = document.createElement('div');
-        
-        if(oldPopup) {
+
+        if (oldPopup) {
             oldPopup.remove();
             delete oldPopup;
         }
@@ -65,24 +65,24 @@ async function mousemove (event) {
 
         try {
             const element = event.target;
-            if(element != null) {
+            if (element != null) {
                 const estilos = getComputedStyle(element);
                 const dimensoes = element.getBoundingClientRect();
-                if(element.innerText) {
-                    await chrome.storage.local.set({inner_text_copy: false});
-                    if(speakerResult.insp_visual_leitor_de_tela == true) {
+                if (element.innerText) {
+                    await chrome.storage.local.set({ inner_text_copy: false });
+                    if (speakerResult.insp_visual_leitor_de_tela == true) {
                         speak(element.innerText);
                     }
-                    innerHTML += '<strong>' + element.innerText.split(' ')[0] + 
+                    innerHTML += '<strong>' + element.innerText.split(' ')[0] +
                         (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
                         (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
-                    '</strong>'
+                        '</strong>'
                 }
-                innerHTML += '<div>selector: ' + ((element.id || estilos.getPropertyValue('id') ? '#' + 
-                (element.id || estilos.getPropertyValue('id')) : ''));
+                innerHTML += '<div>selector: ' + ((element.id || estilos.getPropertyValue('id') ? '#' +
+                    (element.id || estilos.getPropertyValue('id')) : ''));
 
-                if((!(element.id || estilos.getPropertyValue('id')) && element.className || estilos.getPropertyValue('className'))) {
-                    if(element.classList.length) {
+                if ((!(element.id || estilos.getPropertyValue('id')) && element.className || estilos.getPropertyValue('className'))) {
+                    if (element.classList.length) {
                         const className = Object.assign([], element.classList).map((v) => '.' + v).join(' ');
                         innerHTML += className;
                         innerHTML += '</div>';
@@ -91,33 +91,33 @@ async function mousemove (event) {
                 } else {
                     innerHTML += element.localName;
                     innerHTML += '</div>';
-                }  
+                }
                 const width = (Math.abs(parseFloat(element.style.width || estilos.getPropertyValue('width')).toFixed(2)));
                 const height = (Math.abs(parseFloat(element.style.height || estilos.getPropertyValue('height')).toFixed(2)));
                 innerHTML += '<div>width: ' + (!isNaN(width) ? width : 'não declarado') + '</div>';
                 innerHTML += '<div>height: ' + (!isNaN(height) ? height : 'não declarado') + '</div>';
                 innerHTML += '<div>dimensões: ' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'x' + Math.abs(parseFloat(dimensoes.height).toFixed(2));
-                if((element.style.backgroundColor || estilos.getPropertyValue('background-color'))) innerHTML += '<div>background-color: <div style="display: inline-block; border: 2px solid lightgrey;  height: 12px; width: 12px; background-color: ' + 
-                    (element.style.backgroundColor || estilos.getPropertyValue('background-color')) + 
-                    '"></div> #' + 
-                    (rgbaToHex(element.style.backgroundColor || estilos.getPropertyValue('background-color'))) + 
+                if ((element.style.backgroundColor || estilos.getPropertyValue('background-color'))) innerHTML += '<div>background-color: <div style="display: inline-block; border: 2px solid lightgrey;  height: 12px; width: 12px; background-color: ' +
+                    (element.style.backgroundColor || estilos.getPropertyValue('background-color')) +
+                    '"></div> #' +
+                    (rgbaToHex(element.style.backgroundColor || estilos.getPropertyValue('background-color'))) +
                     '</div></div>';
-                if((element.style.color || estilos.getPropertyValue('color'))) innerHTML += '<div>color: <div style="display: inline-block; border: 2px solid lightgrey; height: 12px; width: 12px; color: ' + 
-                    (element.style.color || estilos.getPropertyValue('color')) + 
-                    '"></div> #' + 
-                    (rgbaToHex(element.style.color || estilos.getPropertyValue('color'))) + 
+                if ((element.style.color || estilos.getPropertyValue('color'))) innerHTML += '<div>color: <div style="display: inline-block; border: 2px solid lightgrey; height: 12px; width: 12px; color: ' +
+                    (element.style.color || estilos.getPropertyValue('color')) +
+                    '"></div> #' +
+                    (rgbaToHex(element.style.color || estilos.getPropertyValue('color'))) +
                     '</div></div>';
                 popup.innerHTML = innerHTML;
 
-                if(!visitedElements.includes(element)) {
+                if (!visitedElements.includes(element)) {
                     visitedElements.push(element);
                 }
-                
-                if(result.insp_visual_ligado == true) {
+
+                if (result.insp_visual_ligado == true) {
                     element.onmouseover = (event) => {
                         element.style.border = "2px dashed blue";
-                        if(element.parent) {
-                            if(!visitedElements.includes(element.parent)) {
+                        if (element.parent) {
+                            if (!visitedElements.includes(element.parent)) {
                                 visitedElements.push(element.parent);
                             }
 
@@ -135,25 +135,25 @@ async function mousemove (event) {
                     }
                 } else {
                     element.style.border = "";
-                    
-                    if(element.parent) {
+
+                    if (element.parent) {
                         parentElement.style.border = "";
                     }
                     desativar();
                 }
             }
-            setTimeout(()=>{
-                if(result.insp_visual_ligado == true) {
+            setTimeout(() => {
+                if (result.insp_visual_ligado == true) {
                     let popupInDocument = document.getElementById(popup.id);
-                    if(!popupInDocument) {
+                    if (!popupInDocument) {
                         document.body.appendChild(popup);
                         popupInDocument = document.getElementById(popup.id);
-                    } else 
+                    } else
                         popupInDocument.innerHTML = innerHTML;
-                    
+
                     const popupDimensions = popupInDocument.getBoundingClientRect();
-                    if((event.pageX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.pageX - window.scrollX + 14) + 'px';
-                    if((event.pageY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.pageY - window.scrollY + 14) + 'px';
+                    if ((event.pageX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.pageX - window.scrollX + 14) + 'px';
+                    if ((event.pageY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.pageY - window.scrollY + 14) + 'px';
                 } else {
                     desativar();
                 }
@@ -161,11 +161,13 @@ async function mousemove (event) {
         } catch (e) {
             console.log(e);
         }
+    } else {
+        desativar();
     }
 }
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     console.log("Message received:", request);
-    sendResponse({ status: "success" }); 
+    sendResponse({ status: "success" });
     if (request.action === "copiarTexto") {
         copyBuffer.style.border = "";
         const result = await chrome.storage.local.get(["inner_text_copy"])
@@ -174,18 +176,18 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         if (textoParaCopiar) {
             navigator.clipboard.writeText(textoParaCopiar).then(() => {
                 console.log("Texto copiado com sucesso!");
-        }).catch(err => {
-            console.error("Erro ao copiar: ", err);
-        });
+            }).catch(err => {
+                console.error("Erro ao copiar: ", err);
+            });
         }
     }
     if (request.action === "copiarElemento") {
         copyBuffer.style.border = "";
 
         let textoParaCopiar = copyBuffer.outerHTML + "<style>#" + copyBuffer.id + " {" + getCssStyles(copyBuffer) + "}\n\n";
-        
+
         i = 0
-        for(const element of copyBuffer.children) {
+        for (const element of copyBuffer.children) {
             textoParaCopiar += "#" + copyBuffer.id + "-filho-" + i + "\n{" + getCssStyles(element) + "}\n\n";
         }
         textoParaCopiar += "</style>";
@@ -193,52 +195,52 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         if (textoParaCopiar) {
             navigator.clipboard.writeText(textoParaCopiar).then(() => {
                 console.log("Elemento copiado com sucesso!");
-        }).catch(err => {
-            console.error("Erro ao copiar: ", err);
-        });
+            }).catch(err => {
+                console.error("Erro ao copiar: ", err);
+            });
         }
     }
     if (request.action === "copiarHTML") {
         copyBuffer.style.border = "";
-        
+
         let textoParaCopiar = copyBuffer.outerHTML;
         if (textoParaCopiar) {
             navigator.clipboard.writeText(textoParaCopiar).then(() => {
                 console.log("Elemento copiado com sucesso!");
-        }).catch(err => {
-            console.error("Erro ao copiar: ", err);
-        });
+            }).catch(err => {
+                console.error("Erro ao copiar: ", err);
+            });
         }
     }
     if (request.action === "copiarCSS") {
         let textoParaCopiar = "#inspetor-visual-copiado {" + getCssStyles(copyBuffer) + "}\n\n";
         let i = 0
-        for(const element of copyBuffer.children) {
+        for (const element of copyBuffer.children) {
             textoParaCopiar += "#inspetor-visual-filho-copiado-" + i + "\n{" + getCssStyles(element) + "}\n\n";
         }
 
         if (textoParaCopiar) {
             navigator.clipboard.writeText(textoParaCopiar).then(() => {
                 console.log("Estilo copiado com sucesso!");
-        }).catch(err => {
-            console.error("Erro ao copiar: ", err);
-        });
+            }).catch(err => {
+                console.error("Erro ao copiar: ", err);
+            });
         }
     }
-    
-    return true; 
+
+    return true;
 });
 function toHex(n) {
     return Number(n).toString(16).padStart(2, '0');
 }
 function rgbaToHex(rgba) {
     let rgbaSplit = rgba.split(','), r, g, b;
-    if(rgbaSplit[0] && rgbaSplit[1] && rgbaSplit[2]) {
+    if (rgbaSplit[0] && rgbaSplit[1] && rgbaSplit[2]) {
         r = rgbaSplit[0].trim().replace('rgba(', '').replace('rgb(', '');
         g = rgbaSplit[1].trim();
         b = rgbaSplit[2].trim().replace(')', '');
         let a = '';
-        if(rgbaSplit[0].includes('a') && rgbaSplit[3]) a = toHex(parseInt(rgbaSplit[3].trim().replace(')', '') * 255));
+        if (rgbaSplit[0].includes('a') && rgbaSplit[3]) a = toHex(parseInt(rgbaSplit[3].trim().replace(')', '') * 255));
 
         return toHex(r) + toHex(g) + toHex(b) + a;
     }
@@ -247,21 +249,25 @@ function rgbaToHex(rgba) {
 console.log(rgbaToHex('rgba(255,255,135, 1)'));
 function getCssStyles(elemento) {
     const estilos = getComputedStyle(elemento);
+    let css = "";
 
-    if (estilos.cssText) {
-        return estilos.cssText;
-    }
-
-    let cssTexto = '';
-
-    for (const prop of estilos) {
-        const value = estilos.getPropertyValue(prop);
-        if(value.substring(0,1) != '--') {
-            cssTexto += `${prop}: ${value};\n`;
+    for (prop in elemento.style) {
+        if (isNaN(prop) && 
+        elemento.style[prop] && 
+        prop != 'length' && 
+        prop != 'cssText' && 
+        prop != 'item' && 
+        prop != 'getProperty' && 
+        prop != 'setProperty' && 
+        prop != 'getPropertyPriority' && 
+        prop != 'getPropertyValue' && 
+        prop != 'removeProperty') {
+            css += prop + ': ' + elemento.style[prop] + ';\n';
         }
+
     }
 
-    return cssTexto;
+    return css;
 }
 function desativar() {
     visitedElements.forEach((elem) => {
@@ -269,33 +275,36 @@ function desativar() {
         elem.onmouseover = null;
         elem.onmouseout = null;
     });
+    visitedElements = [];
     window.mousemove = null;
+    const popup = document.getElementById('inspetor-visual-popup');
+    if (popup) popup.remove();
 }
 async function speak(text) {
-  if ('speechSynthesis' in window) {
-    cancelSpeak();
-    const result = await chrome.storage.local.get(["voz"]);
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'pt-BR';
-    utterance.rate = 2.0;
-    utterance.pitch = 0.5;
-    if(result.voz) {
-        utterance.voice = speechSynthesis.getVoices()[result.voz];
-    }
+    if ('speechSynthesis' in window) {
+        cancelSpeak();
+        const result = await chrome.storage.local.get(["voz"]);
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'pt-BR';
+        utterance.rate = 2.0;
+        utterance.pitch = 0.5;
+        if (result.voz) {
+            utterance.voice = speechSynthesis.getVoices()[result.voz];
+        }
 
-    speechSynthesis.speak(utterance);
-  } else {
-    console.info('Desculpe, seu navegador não suporta a API Web Speech.');
-  }
+        speechSynthesis.speak(utterance);
+    } else {
+        console.info('Desculpe, seu navegador não suporta a API Web Speech.');
+    }
 }
-document.addEventListener('mouseleave', ()=> {
+document.addEventListener('mouseleave', () => {
     cancelSpeak();
 })
 
 function cancelSpeak() {
-  if ('speechSynthesis' in window) {
-    speechSynthesis.cancel();
-  } else {
-    console.info('Desculpe, seu navegador não suporta a API Web Speech.');
-  }
+    if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+    } else {
+        console.info('Desculpe, seu navegador não suporta a API Web Speech.');
+    }
 }

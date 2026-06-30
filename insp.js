@@ -46,6 +46,7 @@ async function changeState() {
     const result = await chrome.storage.local.get(["insp_visual_ligado"]);
     if(result.insp_visual_ligado == true) {
         await chrome.storage.local.set({insp_visual_ligado: false});
+        chrome.contextMenus.remove("copiarTexto");
         chrome.contextMenus.remove("copiarElemento");
         chrome.contextMenus.remove("copiarHTML");
         chrome.contextMenus.remove("copiarCSS");
@@ -55,6 +56,11 @@ async function changeState() {
         await chrome.storage.local.set({insp_visual_ligado: true});
 
         chrome.contextMenus.removeAll(() => {
+            chrome.contextMenus.create({
+                id: "copiarTexto",
+                title: "Copiar texto",
+                contexts: ["page"]
+            });
             chrome.contextMenus.create({
                 id: "copiarElemento",
                 title: "Copiar HTML + CSS",
