@@ -3,11 +3,12 @@ let copyBuffer = {};
 let visitedElements = [];
 const timeoutValue = 200;
 let timeout = setTimeout(()=>{},timeoutValue);
+
+const popupId = 'inspetor-visual-popup';
+
 ()=>(async ()=>{
-    const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-    if(!localStorage.getItem('inspetor_visual_bloqueado') || localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado) {
-        localStorage.setItem('inspetor_visual_bloqueado', false);
-    }
+    await chrome.storage.local.set({'inspetor_visual_bloqueado': false});
+    localStorage.setItem('inspetor_visual_bloqueado', false);
 })();
 
 
@@ -33,7 +34,7 @@ window.oncontextmenu = async (event) => {
 window.addEventListener('onload', async () => {
     document.body.onmouseenter = async (event) => {
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-        const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado;
+        const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
         if(bloqueado) {
             return;
         }
@@ -50,11 +51,10 @@ window.onmousemove = mousemove;
 async function mousemove(event) {
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
-        const popupId = 'inspetor-visual-popup';
         
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-        const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado;
-        if(bloqueado || event.target.closest(popupId)) {
+        const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
+        if(bloqueado && event.target.closest(popupId)) {
             return;
         }
         const result = await chrome.storage.local.get(["insp_visual_ligado"]);
@@ -67,18 +67,20 @@ async function mousemove(event) {
             const popup = document.createElement('div');
 
             popup.id = popupId;
-
-            popup.style.position = 'fixed';
-            popup.style.zIndex = 9999;
-            popup.style.top = (event.pageY + 14) + 'px';
-            popup.style.left = (event.pageX + 14) + 'px';
-            popup.style.width = 'fit-content';
-            popup.style.minWidth = '100px';
-            popup.style.height = 'fit-content';
-            popup.style.backgroundColor = 'rgba(0,0,0,.5)';
-            popup.style.color = 'white';
-            popup.style.padding = '14px';
-            popup.style.fontSize = '12px';
+            const styles = {
+                width: 'fit-content',
+                height: 'fit-content',
+                backgroundColor: 'rgba(191, 249, 255, .93)',
+                border: 'solid 1px rgb(14, 8, 95)',
+                position: 'fixed',
+                top: (event.pageY + 14) + 'px',
+                left: (event.pageX + 14) + 'px',
+                zIndex: 9999,
+                minWidth: '100px',
+                padding: '14px',
+                color: 'rgb(14, 8, 95)',
+                fontSize: '12px'
+            }
 
             try {
                 const element = event.target;
@@ -95,35 +97,51 @@ async function mousemove(event) {
                             (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
                             '</strong>'
                     }
-                    innerHTML += '<div>selector: ' + ((element.id || estilos.getPropertyValue('id') ? '#' +
-                        (element.id || estilos.getPropertyValue('id')) : ''));
-
-                    if ((!(element.id || estilos.getPropertyValue('id')) && element.className || estilos.getPropertyValue('className'))) {
-                        if (element.classList.length) {
+                    innerHTML += '<div>ID: ' + ((element.id || estilos.id ? '#' + 
+                        (element.id || estilos.id) : '')) + '</div>';
+                        
+                    innerHTML += '<div>tag: ' + element.localName + '</div>';
+                    
+                    if((!(element.id || estilos.id) && element.className || estilos.className)) {
+                        if(element.classList.length) {
                             const className = Object.assign([], element.classList).map((v) => '.' + v).join(' ');
-                            innerHTML += className;
-                            innerHTML += '</div>';
                             innerHTML += '<div>class: ' + className + '</div>';
                         }
-                    } else {
-                        innerHTML += element.localName;
-                        innerHTML += '</div>';
                     }
-                    const width = (Math.abs(parseFloat(element.style.width || estilos.getPropertyValue('width')).toFixed(2)));
-                    const height = (Math.abs(parseFloat(element.style.height || estilos.getPropertyValue('height')).toFixed(2)));
-                    innerHTML += '<div>width: ' + (!isNaN(width) ? width : 'não declarado') + '</div>';
-                    innerHTML += '<div>height: ' + (!isNaN(height) ? height : 'não declarado') + '</div>';
-                    innerHTML += '<div>dimensões: ' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'x' + Math.abs(parseFloat(dimensoes.height).toFixed(2));
-                    if ((element.style.backgroundColor || estilos.getPropertyValue('background-color'))) innerHTML += '<div>background-color: <div style="display: inline-block; border: 2px solid lightgrey;  height: 12px; width: 12px; background-color: ' +
-                        (element.style.backgroundColor || estilos.getPropertyValue('background-color')) +
-                        '"></div> #' +
-                        (rgbaToHex(element.style.backgroundColor || estilos.getPropertyValue('background-color'))) +
-                        '</div></div>';
-                    if ((element.style.color || estilos.getPropertyValue('color'))) innerHTML += '<div>color: <div style="display: inline-block; border: 2px solid lightgrey; height: 12px; width: 12px; color: ' +
-                        (element.style.color || estilos.getPropertyValue('color')) +
-                        '"></div> #' +
-                        (rgbaToHex(element.style.color || estilos.getPropertyValue('color'))) +
-                        '</div></div>';
+                    
+
+                    const width = (Math.abs(parseFloat(element.style.width || estilos.width).toFixed(2)));
+                    const height = (Math.abs(parseFloat(element.style.height || estilos.height).toFixed(2)));
+                    innerHTML += '<div>width: ' + (!isNaN(width) ? width + 'px' : 'não declarado') + '</div>';
+                    innerHTML += '<div>height: ' + (!isNaN(height) ? height + 'px' : 'não declarado') + '</div>';
+                    innerHTML += '<div>dimensões: ' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'px x ' + Math.abs(parseFloat(dimensoes.height).toFixed(2)) + 'px</div>';
+                    if ((element.style.backgroundColor || estilos.backgroundColor)) {
+                        const bgColor = rgbaToHex(element.style.backgroundColor || estilos.backgroundColor);
+                        innerHTML += 
+                            `<div>
+                                background-color: 
+                                <div style="
+                                    display: inline-block;
+                                    border: 2px solid lightgrey;
+                                    height: 12px;
+                                    width: 12px;
+                                    background-color: #${bgColor}"></div> #${bgColor}
+                                </div>`;
+                    }
+                    if ((element.style.color || estilos.color)) {
+                        const color = rgbaToHex(element.style.color || estilos.color);
+                        innerHTML += 
+                            `<div>
+                                color:
+                                <div style="
+                                    display: inline-block;
+                                    border: 2px solid lightgrey;
+                                    height: 12px;
+                                    width: 12px;
+                                    color: #${color}"></div> #${color}
+                                </div>`;
+                    }
+                    innerHTML += '</div>';
                     popup.innerHTML = innerHTML;
 
                     if (!visitedElements.includes(element)) {
@@ -174,9 +192,6 @@ async function mousemove(event) {
                         desativar();
                     }
                 }
-                if(bloqueado) {
-                    return;
-                }
                 if (oldPopup) {
                     oldPopup.remove();
                     delete oldPopup;
@@ -186,9 +201,11 @@ async function mousemove(event) {
                     if (!popupInDocument) {
                         document.body.appendChild(popup);
                         popupInDocument = document.getElementById(popup.id);
-                        innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center" style="color: yellow"><a class="text-decoration-none" href="#" style="color: yellow !important" onclick="event.preventDefault()"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="display: none"> (bloqueado)</span></strong></a></div>'
-                        popupInDocument.innerHTML = innerHTML;
                     }
+                    
+                    Object.assign(popupInDocument.style, styles);
+                    innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center"><a class="text-decoration-none" href="#" style="color: orange !important" onclick="event.preventDefault()"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="display: none"> (bloqueado)</span></strong></a></div>'
+                    popupInDocument.innerHTML = innerHTML;
                     window.focus();
                     window.addEventListener("keydown", popupClick);
                     
@@ -300,9 +317,14 @@ function rgbaToHex(rgba) {
         g = rgbaSplit[1].trim();
         b = rgbaSplit[2].trim().replace(')', '');
         let a = '';
-        if (rgbaSplit[0].includes('a') && rgbaSplit[3]) a = toHex(parseInt(rgbaSplit[3].trim().replace(')', '') * 255));
+        if (rgbaSplit[0].includes('a') && rgbaSplit[3]) {
+            a = toHex(parseInt(rgbaSplit[3].trim().replace(')', '') * 255));
+            color = rgba;
+        } else {
+            color = toHex(r) + toHex(g) + toHex(b);
+        }
 
-        return toHex(r) + toHex(g) + toHex(b) + a;
+        return color;
     }
     return '';
 }
@@ -359,7 +381,7 @@ async function speak(text) {
 }
 document.addEventListener('mouseleave', async () => {
     const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-    const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado;
+    const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
     if(!bloqueado)
         cancelSpeak();
 })
