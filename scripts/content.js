@@ -54,7 +54,7 @@ async function mousemove(event) {
         
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
         const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
-        if(bloqueado && event.target.closest(popupId)) {
+        if(bloqueado) {
             return;
         }
         const result = await chrome.storage.local.get(["insp_visual_ligado"]);
@@ -95,7 +95,7 @@ async function mousemove(event) {
                         innerHTML += '<strong>' + element.innerText.split(' ')[0] +
                             (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
                             (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
-                            '</strong>'
+                            `<span onclick="event.target.closest('#${popupId}').remove()">[x]</span></strong>`
                     }
                     innerHTML += '<div>ID: ' + ((element.id || estilos.id ? '#' + 
                         (element.id || estilos.id) : '')) + '</div>';
@@ -138,7 +138,7 @@ async function mousemove(event) {
                                     border: 2px solid lightgrey;
                                     height: 12px;
                                     width: 12px;
-                                    color: #${color}"></div> #${color}
+                                    background-color: #${color}"></div> #${color}
                                 </div>`;
                     }
                     innerHTML += '</div>';
@@ -191,6 +191,9 @@ async function mousemove(event) {
                         }
                         desativar();
                     }
+                }
+                if(bloqueado) {
+                    return;
                 }
                 if (oldPopup) {
                     oldPopup.remove();
@@ -344,12 +347,19 @@ function getCssStyles(elemento) {
         prop != 'getPropertyPriority' && 
         prop != 'getPropertyValue' && 
         prop != 'removeProperty') {
-            css += prop + ': ' + elemento.style[prop] + ';\n';
+            css += camelParaHifen(prop) + ': ' + elemento.style[prop] + ';\n';
         }
 
     }
 
     return css;
+}
+function camelParaHifen(texto) {
+  return texto
+    // Adiciona um hífen antes de qualquer letra maiúscula
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    // Converte toda a string para minúsculas
+    .toLowerCase();
 }
 function desativar() {
     visitedElements.forEach((elem) => {
