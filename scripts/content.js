@@ -94,8 +94,7 @@ async function mousemove(event) {
                         }
                         innerHTML += '<strong>' + element.innerText.split(' ')[0] +
                             (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
-                            (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') +
-                            `<span onclick="event.target.closest('#${popupId}').remove()">[x]</span></strong>`
+                            (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '');
                     }
                     innerHTML += '<div>ID: ' + ((element.id || estilos.id ? '#' + 
                         (element.id || estilos.id) : '')) + '</div>';
