@@ -13,6 +13,9 @@ const popupId = 'inspetor-visual-popup';
 
 
 window.oncontextmenu = async (event) => {
+    if(!chrome.storage) {
+        return;
+    } 
     const result = await chrome.storage.local.get(["insp_visual_ligado"]);
     if (result.insp_visual_ligado == true) {
         try {
@@ -88,7 +91,7 @@ async function mousemove(event) {
                     const estilos = getComputedStyle(element);
                     const dimensoes = element.getBoundingClientRect();
                     if (element.innerText) {
-                        await chrome.storage.local.set({ inner_text_copy: false });
+                        await chrome.storage.local.set({ inner_text_copy: element.innerText });
                         if (speakerResult.insp_visual_leitor_de_tela == true) {
                             speak(element.innerText);
                         }
