@@ -7,6 +7,9 @@ let timeout = setTimeout(()=>{},timeoutValue);
 const popupId = 'inspetor-visual-popup';
 
 ()=>(async ()=>{
+    if(!chrome.storage) {
+        return;
+    }
     await chrome.storage.local.set({'inspetor_visual_bloqueado': false});
     localStorage.setItem('inspetor_visual_bloqueado', false);
 })();
@@ -36,6 +39,9 @@ window.oncontextmenu = async (event) => {
 }
 window.addEventListener('onload', async () => {
     document.body.onmouseenter = async (event) => {
+        if(!chrome.storage) {
+            return;
+        }
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
         const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
         if(bloqueado) {
@@ -55,6 +61,9 @@ async function mousemove(event) {
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
         
+        if(!chrome.storage) {
+            return;
+        }
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
         const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
         if(bloqueado) {
@@ -201,7 +210,7 @@ async function mousemove(event) {
                     oldPopup.remove();
                     delete oldPopup;
                 }
-                if (result.insp_visual_ligado == true) {
+                if (result.insp_visual_ligado == true && window.location.href.substring(window.location.href.length-4) != '.pdf') {
                     let popupInDocument = document.getElementById(popupId);
                     if (!popupInDocument) {
                         document.body.appendChild(popup);
@@ -392,6 +401,9 @@ async function speak(text) {
     }
 }
 document.addEventListener('mouseleave', async () => {
+    if(!chrome.storage) {
+        return;
+    }
     const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
     const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
     if(!bloqueado)
