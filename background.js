@@ -3,6 +3,11 @@ chrome.runtime.onInstalled.addListener(async () => {
   await chrome.storage.local.set({insp_visual_ligado: true});
   await chrome.storage.local.set({insp_visual_leitor_de_tela: false});
   createMenus();
+  const worker = await Tesseract.createWorker("por", 1, {
+    workerPath: chrome.runtime.getURL("scripts/tesseract/worker.min.js"),
+    corePath: chrome.runtime.getURL("scripts/tesseract/tesseract-core.wasm.js"),
+    langPath: chrome.runtime.getURL("scripts/lang/")
+  });
 });
 async function createMenus () {
   
