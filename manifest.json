@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Inspetor Visual",
   "version": "0.3.0",
   "description": "Visualize e copie os elementos do navegador com um clique.",
@@ -13,8 +13,7 @@
     "<all_urls>"
   ],
   "background": {
-    "service_worker": "background.js",
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   },
   "browser_specific_settings": {
     "gecko": {
