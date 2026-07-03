@@ -1,7 +1,7 @@
 console.log("Content script carregado!");
 let copyBuffer = {};
 let visitedElements = [];
-const timeoutValue = 200;
+const timeoutValue = 500;
 let timeout = setTimeout(()=>{},timeoutValue);
 
 const popupId = 'inspetor-visual-popup';
@@ -37,13 +37,21 @@ window.oncontextmenu = async (event) => {
         desativar();
     }
 }
-window.addEventListener('onload', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    if(!chrome.storage) {
+        return;
+    }
+    const bloqueado = document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true';
+    if(bloqueado) {
+        chrome.storage.local.set({'inspetor_visual_bloqueado': false});
+        localStorage.setItem('inspetor_visual_bloqueado', false);
+    }
     document.body.onmouseenter = async (event) => {
         if(!chrome.storage) {
             return;
         }
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-        const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
+        const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
         if(bloqueado) {
             return;
         }
@@ -65,7 +73,7 @@ async function mousemove(event) {
             return;
         }
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-        const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
+        const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
         if(bloqueado) {
             return;
         }
@@ -218,8 +226,12 @@ async function mousemove(event) {
                     }
                     
                     Object.assign(popupInDocument.style, styles);
-                    innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center"><a class="text-decoration-none" href="#" style="color: orange !important" onclick="event.preventDefault()"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="display: none"> (bloqueado)</span></strong></a></div>'
+                    innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center"><a id="inspetor_visual_popup_click" class="text-decoration-none" href="#" style="color: orange !important"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="' + (!bloqueado ? 'display: none' : '') + '"> (bloqueado)</span></strong></a></div>'
                     popupInDocument.innerHTML = innerHTML;
+                    popupInDocument.querySelector("#inspetor_visual_popup_click").addEventListener("click", ()=>{
+                        event.preventDefault();
+                        popupClick();
+                    });
                     window.focus();
                     window.addEventListener("keydown", popupClick);
                     
@@ -304,20 +316,48 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     return true;
 });
 async function popupClick(event) {
-    if(event.keyCode == 66) {
+    if((event && event.keyCode == 66) || window.event.type == 'click') {
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-        const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado || bloqueioResult.inspetor_visual_bloqueado;
+        const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado;
         const bloqueio = document.getElementById("insp_visual_bloquear");
+        const bloqueador = document.getElementById("insp_visual_bloqueador");
+        const popup = document.getElementById("inspetor-visual-popup");
+        if(!(bloqueio && bloqueador && popup)) {
+            return;
+        }
         if(bloqueado) {
             chrome.storage.local.set({'inspetor_visual_bloqueado': false});
             localStorage.setItem('inspetor_visual_bloqueado', false);
             bloqueio.style.display = 'none';
             clearTimeout(timeout);
+            popup.style.bottom = "";
+            popup.style.right = "";
+            popup.onmouseenter = null;
+            popup.onmouseleave = null;
         } else {
-            chrome.storage.local.set({'inspetor_visual_bloqueado': false});
+            chrome.storage.local.set({'inspetor_visual_bloqueado': true});
             localStorage.setItem('inspetor_visual_bloqueado', true);
             bloqueio.style.display = 'block';
+            window.addEventListener('beforeunload', ()=>{
+                const bloqueado = document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true';
+
+                if(bloqueado) {
+                    chrome.storage.local.set({'inspetor_visual_bloqueado': false});
+                    localStorage.setItem('inspetor_visual_bloqueado', false);
+                }
+            });
             clearTimeout(timeout);
+            popup.style.opacity = ".6";
+            popup.style.top = "";
+            popup.style.left = "";
+            popup.style.bottom = "0px";
+            popup.style.right = "0px";
+            popup.onmouseover = () => {
+                popup.style.opacity = "1";
+            }
+            popup.onmouseleave = () => {
+                popup.style.opacity = ".6";
+            }
         }
     }
 }
@@ -405,7 +445,7 @@ document.addEventListener('mouseleave', async () => {
         return;
     }
     const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-    const bloqueado = document.getElementById(popupId) && (localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado);
+    const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
     if(!bloqueado)
         cancelSpeak();
 })
