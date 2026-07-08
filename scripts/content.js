@@ -1,7 +1,7 @@
 console.log("Content script carregado!");
 let copyBuffer = {};
 let visitedElements = [];
-const timeoutValue = 500;
+const timeoutValue = 300;
 let timeout = setTimeout(()=>{},timeoutValue);
 
 const popupId = 'inspetor-visual-popup';
@@ -37,6 +37,13 @@ window.oncontextmenu = async (event) => {
         desativar();
     }
 }
+document.body.addEventListener('click', ()=>{
+    const popup = document.getElementById("inspetor-visual-popup");
+
+    if(popup && !event.target.closest('#'+popupId) && popup.style.position != 'sticky') {
+        desbloquear();
+    }
+});
 document.addEventListener('DOMContentLoaded', async () => {
     if(!chrome.storage) {
         return;
@@ -95,11 +102,13 @@ async function mousemove(event) {
                 position: 'fixed',
                 top: (event.pageY + 14) + 'px',
                 left: (event.pageX + 14) + 'px',
-                zIndex: 9999,
+                zIndex: 99999999,
                 minWidth: '100px',
                 padding: '14px',
                 color: 'rgb(14, 8, 95)',
-                fontSize: '12px'
+                fontSize: '12px',
+                display: 'flex',
+                flexDirection: 'column',
             }
 
             try {
@@ -114,50 +123,50 @@ async function mousemove(event) {
                         }
                         innerHTML += '<strong>' + element.innerText.split(' ')[0] +
                             (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
-                            (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '');
+                            (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') + '</strong>';
                     }
-                    innerHTML += '<div>ID: ' + ((element.id || estilos.id ? '#' + 
-                        (element.id || estilos.id) : '')) + '</div>';
+                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>ID:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + ((element.id || estilos.id ? '#' + 
+                        (element.id || estilos.id) : '(vazio)')) + '</pre></div>';
                         
-                    innerHTML += '<div>tag: ' + element.localName + '</div>';
+                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Tagname:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + element.localName + '</pre></div>';
                     
                     if((!(element.id || estilos.id) && element.className || estilos.className)) {
                         if(element.classList.length) {
                             const className = Object.assign([], element.classList).map((v) => '.' + v).join(' ');
-                            innerHTML += '<div>class: ' + className + '</div>';
+                            innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Classname:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + className + '</pre></div>';
                         }
                     }
                     
 
                     const width = (Math.abs(parseFloat(element.style.width || estilos.width).toFixed(2)));
                     const height = (Math.abs(parseFloat(element.style.height || estilos.height).toFixed(2)));
-                    innerHTML += '<div>width: ' + (!isNaN(width) ? width + 'px' : 'não declarado') + '</div>';
-                    innerHTML += '<div>height: ' + (!isNaN(height) ? height + 'px' : 'não declarado') + '</div>';
-                    innerHTML += '<div>dimensões: ' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'px x ' + Math.abs(parseFloat(dimensoes.height).toFixed(2)) + 'px</div>';
+                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Width:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + (!isNaN(width) ? width + 'px' : 'não declarado') + '</pre></div>';
+                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Height:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + (!isNaN(height) ? height + 'px' : 'não declarado') + '</pre></div>';
+                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Dimensões:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'px x ' + Math.abs(parseFloat(dimensoes.height).toFixed(2)) + 'px</pre></div>';
                     if ((element.style.backgroundColor || estilos.backgroundColor)) {
                         const bgColor = rgbaToHex(element.style.backgroundColor || estilos.backgroundColor);
                         innerHTML += 
-                            `<div>
-                                background-color: 
+                            `<div style="display: flex; white-space: nowrap; justify-content: space-between">
+                                <strong>Background-color:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0; display: flex">
                                 <div style="
                                     display: inline-block;
-                                    border: 2px solid lightgrey;
+                                    border: 2px solid white;
                                     height: 12px;
                                     width: 12px;
-                                    background-color: #${bgColor}"></div> #${bgColor}
+                                    background-color: ${bgColor}"></div> ${bgColor}</pre>
                                 </div>`;
                     }
                     if ((element.style.color || estilos.color)) {
                         const color = rgbaToHex(element.style.color || estilos.color);
                         innerHTML += 
-                            `<div>
-                                color:
+                            `<div style="display: flex; white-space: nowrap; justify-content: space-between">
+                                <strong>Color:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0; display: flex;">
                                 <div style="
                                     display: inline-block;
-                                    border: 2px solid lightgrey;
+                                    border: 2px solid white;
                                     height: 12px;
                                     width: 12px;
-                                    background-color: #${color}"></div> #${color}
+                                    background-color: ${color}"></div> ${color}</pre>
                                 </div>`;
                     }
                     innerHTML += '</div>';
@@ -232,13 +241,17 @@ async function mousemove(event) {
                         event.preventDefault();
                         popupClick();
                     });
+                    popupInDocument.addEventListener("mouseenter", ()=>{
+                        event.preventDefault();
+                        bloquear({fixed: true});
+                    });
                     window.focus();
                     window.addEventListener("keydown", popupClick);
                     
 
                     const popupDimensions = popupInDocument.getBoundingClientRect();
-                    if ((event.pageX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.pageX - window.scrollX + 14) + 'px';
-                    if ((event.pageY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.pageY - window.scrollY + 14) + 'px';
+                    if ((event.pageX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.pageX + 14) + 'px';
+                    if ((event.pageY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.pageY + 14) + 'px';
                 } else {
                     desativar();
                 }
@@ -325,40 +338,62 @@ async function popupClick(event) {
         if(!(bloqueio && bloqueador && popup)) {
             return;
         }
+        if(bloqueado && popup.style.position == "sticky") {
+            desbloquear(event);
+        } else {
+            bloquear(event);
+        }
+    }
+}
+function desbloquear() {
+    const bloqueio = document.getElementById("insp_visual_bloquear");
+    const popup = document.getElementById("inspetor-visual-popup");
+
+    chrome.storage.local.set({'inspetor_visual_bloqueado': false});
+    localStorage.setItem('inspetor_visual_bloqueado', false);
+    if(bloqueio) {
+        bloqueio.style.display = 'none';
+    }
+    clearTimeout(timeout);
+    if(popup) {
+        popup.style.top = "";
+        popup.style.right = "";
+        popup.style.bottom = "";
+        popup.style.left = "";
+        popup.style.position = "fixed";
+        popup.onmouseenter = null;
+        popup.onmouseleave = null;
+    }
+}
+function bloquear(settings) {
+    const bloqueio = document.getElementById("insp_visual_bloquear");
+    const popup = document.getElementById("inspetor-visual-popup");
+    
+    chrome.storage.local.set({'inspetor_visual_bloqueado': true});
+    localStorage.setItem('inspetor_visual_bloqueado', true);
+    bloqueio.style.display = 'block';
+    window.addEventListener('beforeunload', ()=>{
+        const bloqueado = document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true';
+
         if(bloqueado) {
             chrome.storage.local.set({'inspetor_visual_bloqueado': false});
             localStorage.setItem('inspetor_visual_bloqueado', false);
-            bloqueio.style.display = 'none';
-            clearTimeout(timeout);
-            popup.style.bottom = "";
-            popup.style.right = "";
-            popup.onmouseenter = null;
-            popup.onmouseleave = null;
-        } else {
-            chrome.storage.local.set({'inspetor_visual_bloqueado': true});
-            localStorage.setItem('inspetor_visual_bloqueado', true);
-            bloqueio.style.display = 'block';
-            window.addEventListener('beforeunload', ()=>{
-                const bloqueado = document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true';
-
-                if(bloqueado) {
-                    chrome.storage.local.set({'inspetor_visual_bloqueado': false});
-                    localStorage.setItem('inspetor_visual_bloqueado', false);
-                }
-            });
-            clearTimeout(timeout);
-            popup.style.opacity = ".6";
-            popup.style.top = "";
-            popup.style.left = "";
-            popup.style.bottom = "0px";
-            popup.style.right = "0px";
-            popup.onmouseover = () => {
-                popup.style.opacity = "1";
-            }
-            popup.onmouseleave = () => {
-                popup.style.opacity = ".6";
-            }
         }
+    });
+    clearTimeout(timeout);
+    popup.style.opacity = ".9";
+    if(!settings || settings && !settings.fixed) {
+        popup.style.top = "";
+        popup.style.right = "";
+        popup.style.bottom = "0%";
+        popup.style.left = "100%";
+        popup.style.position = "sticky";
+    }
+    popup.onmouseover = () => {
+        popup.style.opacity = "1";
+    }
+    popup.onmouseleave = () => {
+        popup.style.opacity = ".9";
     }
 }
 function toHex(n) {
@@ -375,7 +410,7 @@ function rgbaToHex(rgba) {
             a = toHex(parseInt(rgbaSplit[3].trim().replace(')', '') * 255));
             color = rgba;
         } else {
-            color = toHex(r) + toHex(g) + toHex(b);
+            color = '#' + toHex(r) + toHex(g) + toHex(b);
         }
 
         return color;

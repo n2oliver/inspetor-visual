@@ -1,10 +1,8 @@
 chrome.runtime.onStartup.addListener(createMenus);
-chrome.runtime.onInstalled.addListener(async () => {
+chrome.runtime.onInstalled.addListener(createMenus);
+async function createMenus () {
   await chrome.storage.local.set({insp_visual_ligado: true});
   await chrome.storage.local.set({insp_visual_leitor_de_tela: false});
-  createMenus();
-});
-async function createMenus () {
   
   const result = await chrome.storage.local.get(["insp_visual_ligado"]);
   if(result.insp_visual_ligado == true) {

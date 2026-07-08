@@ -99,4 +99,5 @@ window.onload = () => {
     checkSpeaker();
     document.getElementById("insp_visual_ligado").onclick= changeState
     document.getElementById("insp_visual_leitor_de_tela").onclick= speakerChangeState
+    document.getElementById("n2oliver-link").addEventListener("click", () => window.open('https://n2oliver.com'))
 }
