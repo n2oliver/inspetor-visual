@@ -109,6 +109,8 @@ async function mousemove(event) {
                     fontSize: '12px',
                     display: 'flex',
                     flexDirection: 'column',
+                    maxWidth: window.innerWidth,
+                    maxHeight: window.innerHeight,
                 }
 
                 const element = event.target;
@@ -120,12 +122,11 @@ async function mousemove(event) {
                         if (speakerResult.insp_visual_leitor_de_tela == true) {
                             speak(element.innerText);
                         }
-                        innerHTML += `<strong style="margin-bottom: 4px;"
-                                    onclick="navigator.clipboard.writeText(this.textContent)">${ 
-                            element.innerText.split(' ')[0] +
-                            (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
-                            (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') }</strong>`;
                     }
+                    copyBuffer = element.cloneNode(true);
+                    copyBuffer.style = getCssStyles(element);
+                    innerHTML += `<div style="margin-bottom: 4px; max-width: 320px;  max-height: 240px; overflow: auto;"
+                        onclick="navigator.clipboard.writeText(this.textContent)">${ copyBuffer.outerHTML }</div>`;
                     innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>ID:</strong>
                         <pre style="
                             background-color: lightgrey;
@@ -349,8 +350,11 @@ async function mousemove(event) {
                     
 
                     const popupDimensions = popupInDocument.getBoundingClientRect();
-                    if ((event.clientX + popupDimensions.width) < window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.clientX + window.pageXOffset + 14) + 'px';
-                    if ((event.clientY + popupDimensions.height) < window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.clientY + window.pageYOffset + 14) + 'px';
+                    if ((event.clientX + popupDimensions.width) > window.innerWidth) popupInDocument.style.left = (event.clientX + window.pageXOffset + 14 - popupDimensions.width) + 'px';
+                    if ((event.clientY + popupDimensions.height) > window.innerHeight) popupInDocument.style.top = (event.clientY + window.pageYOffset + 14 - popupDimensions.height) + 'px';
+                    if(parseInt(document.getElementById('inspetor-visual-popup').style.left) < 0) popupInDocument.style.left = 0;
+                    if(parseInt(document.getElementById('inspetor-visual-popup').style.top) < 0) popupInDocument.style.top = 0;
+                    
                 } else {
                     desativar();
                 }
@@ -549,7 +553,7 @@ function getCssStyles(elemento) {
 
     }
 
-    return css;
+    return css || estilos.cssText;
 }
 function camelParaHifen(texto) {
   return texto
