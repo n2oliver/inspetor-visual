@@ -97,7 +97,15 @@ async function speakerChangeState() {
 window.onload = () => {
     checkInspVisual();
     checkSpeaker();
-    document.getElementById("insp_visual_ligado").onclick= changeState
-    document.getElementById("insp_visual_leitor_de_tela").onclick= speakerChangeState
-    document.getElementById("n2oliver-link").addEventListener("click", () => window.open('https://n2oliver.com'))
+    document.getElementById("insp_visual_ligado").onclick= changeState;
+    document.getElementById("insp_visual_leitor_de_tela").onclick= speakerChangeState;
+    document.getElementById("btn-info").addEventListener("click", () => {
+        const info = document.getElementById("info");
+        if(info.style.display == 'none') {
+            info.style.display = 'block';
+        } else {
+            info.style.display = 'none';
+        }
+    });
+    document.getElementById("n2oliver-link").addEventListener("click", () => window.open('https://n2oliver.com'));
 }

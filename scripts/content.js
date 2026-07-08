@@ -101,8 +101,8 @@ async function mousemove(event) {
                     backgroundColor: 'rgba(191, 249, 255, .93)',
                     border: 'solid 1px rgb(14, 8, 95)',
                     position: 'fixed',
-                    top: (event.clientY + 14) + 'px',
-                    left: (event.clientX + 14) + 'px',
+                    top: (event.clientY + window.pageYOffset + 14) + 'px',
+                    left: (event.clientX + window.pageXOffset + 14) + 'px',
                     zIndex: 99999999,
                     minWidth: '100px',
                     padding: '14px',
@@ -250,8 +250,8 @@ async function mousemove(event) {
                     
 
                     const popupDimensions = popupInDocument.getBoundingClientRect();
-                    if ((event.clientX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.clientX + 14) + 'px';
-                    if ((event.clientY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.clientY + 14) + 'px';
+                    if ((event.clientX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.clientX + window.pageXOffset + 14) + 'px';
+                    if ((event.clientY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.clientY + window.pageYOffset + 14) + 'px';
                 } else {
                     desativar();
                 }
