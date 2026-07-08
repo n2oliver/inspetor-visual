@@ -76,42 +76,42 @@ async function mousemove(event) {
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
         
-        if(!chrome.storage) {
-            return;
-        }
-        const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-        const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
-        if(bloqueado) {
-            return;
-        }
-        const result = await chrome.storage.local.get(["insp_visual_ligado"]);
-        const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
-        if (chrome.storage && chrome.storage.local && !!chrome?.runtime?.id && 
-            result.insp_visual_ligado == true) {
-
-            let oldPopup = document.getElementById('inspetor-visual-popup');
-            let innerHTML = '';
-            const popup = document.createElement('div');
-
-            popup.id = popupId;
-            const styles = {
-                width: 'fit-content',
-                height: 'fit-content',
-                backgroundColor: 'rgba(191, 249, 255, .93)',
-                border: 'solid 1px rgb(14, 8, 95)',
-                position: 'fixed',
-                top: (event.pageY + 14) + 'px',
-                left: (event.pageX + 14) + 'px',
-                zIndex: 99999999,
-                minWidth: '100px',
-                padding: '14px',
-                color: 'rgb(14, 8, 95)',
-                fontSize: '12px',
-                display: 'flex',
-                flexDirection: 'column',
+        try {
+            if(!chrome.storage) {
+                return;
             }
+            const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
+            const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
+            if(bloqueado) {
+                return;
+            }
+            const result = await chrome.storage.local.get(["insp_visual_ligado"]);
+            const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
+            if (chrome.storage && chrome.storage.local && !!chrome?.runtime?.id && 
+                result.insp_visual_ligado == true) {
 
-            try {
+                let oldPopup = document.getElementById('inspetor-visual-popup');
+                let innerHTML = '';
+                const popup = document.createElement('div');
+
+                popup.id = popupId;
+                const styles = {
+                    width: 'fit-content',
+                    height: 'fit-content',
+                    backgroundColor: 'rgba(191, 249, 255, .93)',
+                    border: 'solid 1px rgb(14, 8, 95)',
+                    position: 'fixed',
+                    top: (event.clientY + 14) + 'px',
+                    left: (event.clientX + 14) + 'px',
+                    zIndex: 99999999,
+                    minWidth: '100px',
+                    padding: '14px',
+                    color: 'rgb(14, 8, 95)',
+                    fontSize: '12px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                }
+
                 const element = event.target;
                 if (element != null) {
                     const estilos = getComputedStyle(element);
@@ -250,16 +250,16 @@ async function mousemove(event) {
                     
 
                     const popupDimensions = popupInDocument.getBoundingClientRect();
-                    if ((event.pageX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.pageX + 14) + 'px';
-                    if ((event.pageY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.pageY + 14) + 'px';
+                    if ((event.clientX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.clientX + 14) + 'px';
+                    if ((event.clientY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.clientY + 14) + 'px';
                 } else {
                     desativar();
                 }
-            } catch (e) {
-                console.log(e);
+            } else {
+                desativar();
             }
-        } else {
-            desativar();
+        } catch (e) {
+            console.log(e);
         }
     }, timeoutValue);
 }
@@ -476,13 +476,17 @@ async function speak(text) {
     }
 }
 document.addEventListener('mouseleave', async () => {
-    if(!chrome.storage) {
-        return;
+    try {
+        if(!chrome.storage) {
+            return;
+        }
+        const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
+        const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
+        if(!bloqueado)
+            cancelSpeak();
+    } catch (e) {
+        console.log(e);
     }
-    const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
-    const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
-    if(!bloqueado)
-        cancelSpeak();
 })
 
 function cancelSpeak() {

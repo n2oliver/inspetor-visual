@@ -3,11 +3,11 @@ async function checkInspVisual() {
     if(result.insp_visual_ligado == true) {
         document.getElementById("insp_visual_ligado").checked = true;
         document.querySelector('#tooltip').innerHTML = "Copie um elemento pelo menu de contexto Inpetor Visual.";
-        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "&nbsp;Ativado";
+        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "Ativado";
     } else {
         document.getElementById("insp_visual_ligado").checked = false;
         document.querySelector('#tooltip').innerHTML = "Ative o Inpetor Visual para inspecionar elementos.";
-        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "&nbsp;Desativado";
+        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "Desativado";
     }
 }
 async function checkSpeaker() {
@@ -51,7 +51,7 @@ async function changeState() {
         chrome.contextMenus.remove("copiarHTML");
         chrome.contextMenus.remove("copiarCSS");
         document.querySelector('#tooltip').innerHTML = "Ative o Inpetor Visual para inspecionar elementos.";
-        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "&nbsp;Desativado";
+        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "Desativado";
     } else {
         await chrome.storage.local.set({insp_visual_ligado: true});
 
@@ -78,7 +78,7 @@ async function changeState() {
             });
         });
         document.querySelector('#tooltip').innerHTML = "Copie um elemento pelo menu de contexto Inpetor Visual.";
-        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "&nbsp;Ativado";
+        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "Ativado";
     }
 }
 async function speakerChangeState() {
