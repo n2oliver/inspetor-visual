@@ -44,15 +44,14 @@ document.body.addEventListener('click', ()=>{
         desbloquear();
     }
 });
-document.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('load', async () => {
     if(!chrome.storage) {
         return;
     }
-    const bloqueado = document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true';
-    if(bloqueado) {
-        chrome.storage.local.set({'inspetor_visual_bloqueado': false});
-        localStorage.setItem('inspetor_visual_bloqueado', false);
-    }
+    
+    chrome.storage.local.set({'inspetor_visual_bloqueado': false});
+    localStorage.setItem('inspetor_visual_bloqueado', false);
+
     document.body.onmouseenter = async (event) => {
         if(!chrome.storage) {
             return;
@@ -101,8 +100,8 @@ async function mousemove(event) {
                     backgroundColor: 'rgba(191, 249, 255, .93)',
                     border: 'solid 1px rgb(14, 8, 95)',
                     position: 'fixed',
-                    top: (event.clientY + window.pageYOffset + 14) + 'px',
-                    left: (event.clientX + window.pageXOffset + 14) + 'px',
+                    top: (event.clientY + 14) + 'px',
+                    left: (event.clientX + 14) + 'px',
                     zIndex: 99999999,
                     minWidth: '100px',
                     padding: '14px',
@@ -121,53 +120,153 @@ async function mousemove(event) {
                         if (speakerResult.insp_visual_leitor_de_tela == true) {
                             speak(element.innerText);
                         }
-                        innerHTML += '<strong>' + element.innerText.split(' ')[0] +
+                        innerHTML += `<strong style="margin-bottom: 4px;"
+                                    onclick="navigator.clipboard.writeText(this.textContent)">${ 
+                            element.innerText.split(' ')[0] +
                             (element.innerText.split(' ')[1] ? ' ' + element.innerText.split(' ')[1] : '') +
-                            (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') + '</strong>';
+                            (element.innerText.split(' ')[2] ? ' ' + element.innerText.split(' ')[2] : '') }</strong>`;
                     }
-                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>ID:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + ((element.id || estilos.id ? '#' + 
-                        (element.id || estilos.id) : '(vazio)')) + '</pre></div>';
+                    innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>ID:</strong>
+                        <pre style="
+                            background-color: lightgrey;
+                            width: fit-content;
+                            padding-left: .25rem !important;
+                            padding-right: .25rem !important;
+                            text-color: black;
+                            border-radius: 5px;
+                            margin: 0;
+                            border: solid 1px gray;
+                            padding: 0;"
+                            onclick="navigator.clipboard.writeText(this.textContent)">${(
+                                (element.id || estilos.id ? '#' + (element.id || estilos.id) : '(vazio)')
+                            )}</pre></div>`;
                         
-                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Tagname:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + element.localName + '</pre></div>';
+                    innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Tagname:</strong> 
+                        <pre style="
+                            background-color: lightgrey;
+                            width: fit-content;
+                            padding-left: .25rem !important;
+                            padding-right: .25rem !important;
+                            text-color: black;
+                            border-radius: 5px;
+                            margin: 0;
+                            border: solid 1px gray;
+                            padding: 0;"
+                            onclick="navigator.clipboard.writeText(this.textContent)">${element.localName}</pre>
+                        </div>`;
                     
                     if((!(element.id || estilos.id) && element.className || estilos.className)) {
                         if(element.classList.length) {
                             const className = Object.assign([], element.classList).map((v) => '.' + v).join(' ');
-                            innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Classname:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + className + '</pre></div>';
+                            innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Classname:</strong> 
+                                <pre style="
+                                    background-color: lightgrey;
+                                    width: fit-content;
+                                    padding-left: .25rem !important;
+                                    padding-right: .25rem !important;
+                                    text-color: black;
+                                    border-radius: 5px;
+                                    margin: 0;
+                                    border: solid 1px gray;
+                                    padding: 0;"
+                                    onclick="navigator.clipboard.writeText(this.textContent)">${className}</pre>
+                                </div>`;
                         }
                     }
                     
 
                     const width = (Math.abs(parseFloat(element.style.width || estilos.width).toFixed(2)));
                     const height = (Math.abs(parseFloat(element.style.height || estilos.height).toFixed(2)));
-                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Width:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + (!isNaN(width) ? width + 'px' : 'não declarado') + '</pre></div>';
-                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Height:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + (!isNaN(height) ? height + 'px' : 'não declarado') + '</pre></div>';
-                    innerHTML += '<div style="display: flex; white-space: nowrap; justify-content: space-between"><strong>Dimensões:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0;">' + Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 'px x ' + Math.abs(parseFloat(dimensoes.height).toFixed(2)) + 'px</pre></div>';
+                    innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Width:</strong> 
+                        <pre style="
+                            background-color: lightgrey;
+                            width: fit-content;
+                            padding-left: .25rem !important;
+                            padding-right: .25rem !important;
+                            text-color: black;
+                            border-radius: 5px;
+                            margin: 0; border: solid 1px gray;
+                            padding: 0;"
+                            onclick="navigator.clipboard.writeText(this.textContent)">${(!isNaN(width) ? width + 'px' : 'não declarado')}</pre>
+                        </div>`;
+                    innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Height:</strong>
+                        <pre style="
+                            background-color: lightgrey;
+                            width: fit-content;
+                            padding-left: .25rem !important;
+                            padding-right: .25rem !important;
+                            text-color: black;
+                            border-radius: 5px;
+                            margin: 0;
+                            border: solid 1px gray;
+                            padding: 0;"
+                            onclick="navigator.clipboard.writeText(this.textContent)">${(!isNaN(height) ? height + 'px' : 'não declarado')}</pre>
+                        </div>`;
+                    innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Dimensões:</strong> 
+                    <pre style="
+                        background-color: lightgrey;
+                        width: fit-content;
+                        padding-left: .25rem !important;
+                        padding-right: .25rem !important;
+                        text-color: black;
+                        border-radius: 5px;
+                        margin: 0; border: solid 1px gray;
+                        padding: 0;"
+                        onclick="navigator.clipboard.writeText(this.textContent)">${
+                            Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 
+                            'px x ' + 
+                            Math.abs(parseFloat(dimensoes.height).toFixed(2))
+                        }px</pre>
+                    </div>`;
                     if ((element.style.backgroundColor || estilos.backgroundColor)) {
                         const bgColor = rgbaToHex(element.style.backgroundColor || estilos.backgroundColor);
                         innerHTML += 
-                            `<div style="display: flex; white-space: nowrap; justify-content: space-between">
-                                <strong>Background-color:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0; display: flex">
-                                <div style="
-                                    display: inline-block;
-                                    border: 2px solid white;
-                                    height: 12px;
-                                    width: 12px;
-                                    background-color: ${bgColor}"></div> ${bgColor}</pre>
-                                </div>`;
+                            `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;">
+                                <strong>Background-color:</strong> 
+                                <pre style="
+                                    background-color: lightgrey;
+                                    width: fit-content;
+                                    padding-left: .25rem !important;
+                                    padding-right: .25rem !important;
+                                    text-color: black;
+                                    border-radius: 5px;
+                                    margin: 0;
+                                    border: solid 1px gray;
+                                    padding: 0;
+                                    display: flex;
+                                    align-items: center"
+                                    onclick="navigator.clipboard.writeText(this.textContent)"><div style="
+                                        display: inline-block;
+                                        border: 2px solid white;
+                                        height: 12px;
+                                        width: 12px;
+                                        background-color: ${bgColor}"></div>${bgColor}</pre>
+                            </div>`;
                     }
                     if ((element.style.color || estilos.color)) {
                         const color = rgbaToHex(element.style.color || estilos.color);
                         innerHTML += 
-                            `<div style="display: flex; white-space: nowrap; justify-content: space-between">
-                                <strong>Color:</strong> <pre style="background-color: lightgrey;width: fit-content; padding-left: .25rem !important; padding-right: .25rem !important; text-color: black; border-radius: 5px; margin: 0; border: solid 1px gray; padding: 0; display: flex;">
-                                <div style="
-                                    display: inline-block;
-                                    border: 2px solid white;
-                                    height: 12px;
-                                    width: 12px;
-                                    background-color: ${color}"></div> ${color}</pre>
-                                </div>`;
+                            `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;">
+                                <strong>Color:</strong>
+                                <pre style="
+                                    background-color: lightgrey;
+                                    width: fit-content;
+                                    padding-left: .25rem !important;
+                                    padding-right: .25rem !important;
+                                    text-color: black;
+                                    border-radius: 5px;
+                                    margin: 0;
+                                    border: solid 1px gray;
+                                    padding: 0;
+                                    display: flex;
+                                    align-items: center"
+                                    onclick="navigator.clipboard.writeText(this.textContent)"><div style="
+                                        display: inline-block;
+                                        border: 2px solid white;
+                                        height: 12px;
+                                        width: 12px;
+                                        background-color: ${color}"></div>${color}</pre>
+                            </div>`;
                     }
                     innerHTML += '</div>';
                     popup.innerHTML = innerHTML;
@@ -250,8 +349,8 @@ async function mousemove(event) {
                     
 
                     const popupDimensions = popupInDocument.getBoundingClientRect();
-                    if ((event.clientX + popupDimensions.width) > window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.clientX + window.pageXOffset + 14) + 'px';
-                    if ((event.clientY + popupDimensions.height) > window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.clientY + window.pageYOffset + 14) + 'px';
+                    if ((event.clientX + popupDimensions.width) < window.innerWidth - popupDimensions.width) popupInDocument.style.left = (event.clientX + window.pageXOffset + 14) + 'px';
+                    if ((event.clientY + popupDimensions.height) < window.innerHeight - popupDimensions.height) popupInDocument.style.top = (event.clientY + window.pageYOffset + 14) + 'px';
                 } else {
                     desativar();
                 }
@@ -349,6 +448,10 @@ function desbloquear() {
     const bloqueio = document.getElementById("insp_visual_bloquear");
     const popup = document.getElementById("inspetor-visual-popup");
 
+    if(!chrome.storage) {
+        return;
+    }
+
     chrome.storage.local.set({'inspetor_visual_bloqueado': false});
     localStorage.setItem('inspetor_visual_bloqueado', false);
     if(bloqueio) {
@@ -369,11 +472,19 @@ function bloquear(settings) {
     const bloqueio = document.getElementById("insp_visual_bloquear");
     const popup = document.getElementById("inspetor-visual-popup");
     
+    if(!chrome.storage) {
+        return;
+    }
+
     chrome.storage.local.set({'inspetor_visual_bloqueado': true});
     localStorage.setItem('inspetor_visual_bloqueado', true);
     bloqueio.style.display = 'block';
     window.addEventListener('beforeunload', ()=>{
         const bloqueado = document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true';
+
+        if(!chrome.storage) {
+            return;
+        }
 
         if(bloqueado) {
             chrome.storage.local.set({'inspetor_visual_bloqueado': false});
