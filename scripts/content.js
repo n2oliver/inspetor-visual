@@ -80,7 +80,14 @@ async function mousemove(event) {
                 return;
             }
             const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
+            const ocultarResult = await chrome.storage.local.get(['insp_visual_ocultar']);
             const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
+            if(ocultarResult.insp_visual_ocultar) {
+                const popup = document.getElementById(popupId);
+                if(popup) {
+                    limpar();
+                }
+            }
             if(bloqueado) {
                 return;
             }
@@ -94,6 +101,7 @@ async function mousemove(event) {
                 const popup = document.createElement('div');
 
                 popup.id = popupId;
+                popup.classList.add(popupId)
                 const styles = {
                     width: 'fit-content',
                     height: 'fit-content',
@@ -115,18 +123,25 @@ async function mousemove(event) {
 
                 const element = event.target;
                 if (element != null) {
-                    const estilos = getComputedStyle(element);
-                    const dimensoes = element.getBoundingClientRect();
                     if (element.innerText) {
                         await chrome.storage.local.set({ inner_text_copy: element.innerText });
                         if (speakerResult.insp_visual_leitor_de_tela == true) {
                             speak(element.innerText);
                         }
                     }
+                    if(ocultarResult.insp_visual_ocultar) {
+                        return;
+                    }
+                    const estilos = getComputedStyle(element);
+                    const dimensoes = element.getBoundingClientRect();
                     copyBuffer = element.cloneNode(true);
                     copyBuffer.style = getCssStyles(element);
+                    copyIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+     viewBox="0 0 24 24" fill="currentColor">
+    <path d="M16 1H4C2.9 1 2 1.9 2 3v12h2V3h12V1zm4 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h12v14z"/>
+</svg>`
                     innerHTML += `<div style="margin-bottom: 4px; max-width: 320px;  max-height: 240px; overflow: auto;"
-                        onclick="navigator.clipboard.writeText(this.textContent)">${ copyBuffer.outerHTML }</div>`;
+                        onclick="this.innetHTML ? navigator.clipboard.writeText(this.innetHTML) :  navigator.clipboard.writeText(this.outerHTML)">${ copyBuffer.outerHTML }${copyIcon}</div>`;
                     innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>ID:</strong>
                         <pre style="
                             background-color: lightgrey;
@@ -140,7 +155,7 @@ async function mousemove(event) {
                             padding: 0;"
                             onclick="navigator.clipboard.writeText(this.textContent)">${(
                                 (element.id || estilos.id ? '#' + (element.id || estilos.id) : '(vazio)')
-                            )}</pre></div>`;
+                            )}${copyIcon}</pre></div>`;
                         
                     innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Tagname:</strong> 
                         <pre style="
@@ -153,7 +168,7 @@ async function mousemove(event) {
                             margin: 0;
                             border: solid 1px gray;
                             padding: 0;"
-                            onclick="navigator.clipboard.writeText(this.textContent)">${element.localName}</pre>
+                            onclick="navigator.clipboard.writeText(this.textContent)">${element.localName + copyIcon}</pre>
                         </div>`;
                     
                     if((!(element.id || estilos.id) && element.className || estilos.className)) {
@@ -170,7 +185,7 @@ async function mousemove(event) {
                                     margin: 0;
                                     border: solid 1px gray;
                                     padding: 0;"
-                                    onclick="navigator.clipboard.writeText(this.textContent)">${className}</pre>
+                                    onclick="navigator.clipboard.writeText(this.textContent)">${className + copyIcon}</pre>
                                 </div>`;
                         }
                     }
@@ -188,7 +203,7 @@ async function mousemove(event) {
                             border-radius: 5px;
                             margin: 0; border: solid 1px gray;
                             padding: 0;"
-                            onclick="navigator.clipboard.writeText(this.textContent)">${(!isNaN(width) ? width + 'px' : 'não declarado')}</pre>
+                            onclick="navigator.clipboard.writeText(this.textContent)">${(!isNaN(width) ? width + 'px' : 'não declarado') + copyIcon}</pre>
                         </div>`;
                     innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Height:</strong>
                         <pre style="
@@ -201,7 +216,7 @@ async function mousemove(event) {
                             margin: 0;
                             border: solid 1px gray;
                             padding: 0;"
-                            onclick="navigator.clipboard.writeText(this.textContent)">${(!isNaN(height) ? height + 'px' : 'não declarado')}</pre>
+                            onclick="navigator.clipboard.writeText(this.textContent)">${(!isNaN(height) ? height + 'px' : 'não declarado') + copyIcon}</pre>
                         </div>`;
                     innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Dimensões:</strong> 
                     <pre style="
@@ -217,7 +232,7 @@ async function mousemove(event) {
                             Math.abs(parseFloat(dimensoes.width).toFixed(2)) + 
                             'px x ' + 
                             Math.abs(parseFloat(dimensoes.height).toFixed(2))
-                        }px</pre>
+                        }px${copyIcon}</pre>
                     </div>`;
                     if ((element.style.backgroundColor || estilos.backgroundColor)) {
                         const bgColor = rgbaToHex(element.style.backgroundColor || estilos.backgroundColor);
@@ -241,7 +256,7 @@ async function mousemove(event) {
                                         border: 2px solid white;
                                         height: 12px;
                                         width: 12px;
-                                        background-color: ${bgColor}"></div>${bgColor}</pre>
+                                        background-color: ${bgColor}"></div>${bgColor + copyIcon}</pre>
                             </div>`;
                     }
                     if ((element.style.color || estilos.color)) {
@@ -266,7 +281,7 @@ async function mousemove(event) {
                                         border: 2px solid white;
                                         height: 12px;
                                         width: 12px;
-                                        background-color: ${color}"></div>${color}</pre>
+                                        background-color: ${color}"></div>${color + copyIcon}</pre>
                             </div>`;
                     }
                     innerHTML += '</div>';
@@ -328,18 +343,27 @@ async function mousemove(event) {
                     delete oldPopup;
                 }
                 if (result.insp_visual_ligado == true && window.location.href.substring(window.location.href.length-4) != '.pdf') {
+                    
+                    let oldPopupsInDocument = document.getElementsByClassName(popupId);
+                    for(let old of oldPopupsInDocument) {
+                        old.remove();
+                    };
                     let popupInDocument = document.getElementById(popupId);
-                    if (!popupInDocument) {
+                    if (!popupInDocument && !event.target.closest(popupId)) {
                         document.body.appendChild(popup);
                         popupInDocument = document.getElementById(popup.id);
                     }
                     
                     Object.assign(popupInDocument.style, styles);
-                    innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center"><a id="inspetor_visual_popup_click" class="text-decoration-none" href="#" style="color: orange !important"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="' + (!bloqueado ? 'display: none' : '') + '"> (bloqueado)</span></strong></a></div>'
+                    innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center"><a id="inspetor_visual_ocultar" href="#" style="color: orange !important"><strong>(O) Ocultar</strong></a> <a id="inspetor_visual_link_bloqueador" class="text-decoration-none" href="#" style="color: orange !important"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="' + (!bloqueado ? 'display: none' : '') + '"> (bloqueado)</span></strong></a></div>'
                     popupInDocument.innerHTML = innerHTML;
-                    popupInDocument.querySelector("#inspetor_visual_popup_click").addEventListener("click", ()=>{
+                    popupInDocument.querySelector("#inspetor_visual_link_bloqueador").addEventListener("click", ()=>{
                         event.preventDefault();
-                        popupClick();
+                        eventos();
+                    });
+                    popupInDocument.querySelector("#inspetor_visual_ocultar").addEventListener("click", ()=>{
+                        event.preventDefault();
+                        eventos();
                     });
                     popupInDocument.addEventListener("mouseenter", async ()=>{
                         const lockOnOverlay = await chrome.storage.local.get(['insp_visual_bloquear_ao_sobrepor']);
@@ -349,7 +373,7 @@ async function mousemove(event) {
                         }
                     });
                     window.focus();
-                    window.addEventListener("keydown", popupClick);
+                    window.addEventListener("keydown", eventos);
                     
 
                     const popupDimensions = popupInDocument.getBoundingClientRect();
@@ -431,11 +455,16 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
             });
         }
     }
+    if (request.action === "desbloquear") {
+        desbloquear();
+    }
 
     return true;
 });
-async function popupClick(event) {
-    if((event && event.keyCode == 66) || window.event.type == 'click') {
+async function eventos(event) {
+    if((event && event.keyCode == 66) || 
+        (window.event.type == 'click' && window.event.target.id == "inspetor_visual_link_bloqueador") || 
+            window.event.target.closest('#inspetor_visual_link_bloqueador')) {
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
         const bloqueado = localStorage.getItem('inspetor_visual_bloqueado') == 'true' || bloqueioResult.inspetor_visual_bloqueado;
         const bloqueio = document.getElementById("insp_visual_bloquear");
@@ -449,6 +478,13 @@ async function popupClick(event) {
         } else {
             bloquear(event);
         }
+    }
+    if((event && event.keyCode == 79) || 
+        (window.event.type == 'click' && window.event.target.id == "inspetor_visual_ocultar" || 
+            window.event.target.closest('#inspetor_visual_ocultar'))) {
+        chrome.storage.local.set({insp_visual_ocultar: true});
+        chrome.storage.local.set({inspetor_visual_bloqueado: false});
+        localStorage.setItem("inspetor_visual_bloqueado", false)
     }
 }
 function desbloquear() {
@@ -566,13 +602,16 @@ function camelParaHifen(texto) {
     .toLowerCase();
 }
 function desativar() {
+    limpar();
+    window.mousemove = null;
+}
+function limpar() {
     visitedElements.forEach((elem) => {
         elem.style.border = "";
         elem.onmouseover = null;
         elem.onmouseout = null;
     });
     visitedElements = [];
-    window.mousemove = null;
     const popup = document.getElementById('inspetor-visual-popup');
     if (popup) popup.remove();
 }

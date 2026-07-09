@@ -18,6 +18,14 @@ async function checkLockOnOverlay() {
         document.getElementById("insp_visual_bloquear_ao_sobrepor").checked = false;
     }
 }
+async function checkHide() {
+    const result = await chrome.storage.local.get(["insp_visual_ocultar"]);
+    if(result.insp_visual_ocultar == true) {
+        document.getElementById("insp_visual_ocultar").checked = true;
+    } else {
+        document.getElementById("insp_visual_ocultar").checked = false;
+    }
+}
 async function checkSpeaker() {
     const result = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
     const vozResult = await chrome.storage.local.get(["voz"]);
@@ -111,13 +119,31 @@ async function changeLockOnOverlay() {
         await chrome.storage.local.set({insp_visual_bloquear_ao_sobrepor: true});
     }
 }
+async function changeHideState() {
+    const result = await chrome.storage.local.get(["insp_visual_ocultar"]);
+    if(result.insp_visual_ocultar == true) {
+        await chrome.storage.local.set({insp_visual_ocultar: false});
+        await chrome.storage.local.set({inspetor_visual_bloqueado: false});
+        
+        chrome.runtime.sendMessage({
+            action: "desbloquear",
+            dados: true
+        }, (resposta) => {
+            console.log(resposta);
+        });
+    } else {
+        await chrome.storage.local.set({insp_visual_ocultar: true});
+    }
+}
 window.onload = () => {
     checkInspVisual();
     checkLockOnOverlay();
     checkSpeaker();
+    checkHide();
     document.getElementById("insp_visual_ligado").onclick= changeState;
     document.getElementById("insp_visual_leitor_de_tela").onclick= speakerChangeState;
     document.getElementById("insp_visual_bloquear_ao_sobrepor").onclick= changeLockOnOverlay;
+    document.getElementById("insp_visual_ocultar").onclick= changeHideState;
     document.getElementById("btn-info").addEventListener("click", () => {
         const info = document.getElementById("info");
         if(info.style.display == 'none') {
