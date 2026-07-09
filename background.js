@@ -1,6 +1,7 @@
 chrome.runtime.onStartup.addListener(createMenus);
 chrome.runtime.onInstalled.addListener(async () => {
   await chrome.storage.local.set({insp_visual_ligado: true});
+  await chrome.storage.local.set({insp_visual_bloquear_ao_sobrepor: true});
   await chrome.storage.local.set({insp_visual_leitor_de_tela: false});
 
   createMenus();

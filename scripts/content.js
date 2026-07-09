@@ -341,9 +341,12 @@ async function mousemove(event) {
                         event.preventDefault();
                         popupClick();
                     });
-                    popupInDocument.addEventListener("mouseenter", ()=>{
-                        event.preventDefault();
-                        bloquear({fixed: true});
+                    popupInDocument.addEventListener("mouseenter", async ()=>{
+                        const lockOnOverlay = await chrome.storage.local.get(['insp_visual_bloquear_ao_sobrepor']);
+                        if(lockOnOverlay.insp_visual_bloquear_ao_sobrepor == true) {
+                            event.preventDefault();
+                            bloquear({fixed: true});
+                        }
                     });
                     window.focus();
                     window.addEventListener("keydown", popupClick);

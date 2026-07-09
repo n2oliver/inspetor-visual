@@ -10,6 +10,14 @@ async function checkInspVisual() {
         document.querySelector('[for="insp_visual_ligado"]').innerHTML = "Desativado";
     }
 }
+async function checkLockOnOverlay() {
+    const result = await chrome.storage.local.get(["insp_visual_bloquear_ao_sobrepor"]);
+    if(result.insp_visual_bloquear_ao_sobrepor == true) {
+        document.getElementById("insp_visual_bloquear_ao_sobrepor").checked = true;
+    } else {
+        document.getElementById("insp_visual_bloquear_ao_sobrepor").checked = false;
+    }
+}
 async function checkSpeaker() {
     const result = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
     const vozResult = await chrome.storage.local.get(["voz"]);
@@ -94,11 +102,22 @@ async function speakerChangeState() {
         document.getElementById("vozes").classList.remove("d-none");
     }
 }
+
+async function changeLockOnOverlay() {
+    const result = await chrome.storage.local.get(["insp_visual_bloquear_ao_sobrepor"]);
+    if(result.insp_visual_bloquear_ao_sobrepor == true) {
+        await chrome.storage.local.set({insp_visual_bloquear_ao_sobrepor: false});
+    } else {
+        await chrome.storage.local.set({insp_visual_bloquear_ao_sobrepor: true});
+    }
+}
 window.onload = () => {
     checkInspVisual();
+    checkLockOnOverlay();
     checkSpeaker();
     document.getElementById("insp_visual_ligado").onclick= changeState;
     document.getElementById("insp_visual_leitor_de_tela").onclick= speakerChangeState;
+    document.getElementById("insp_visual_bloquear_ao_sobrepor").onclick= changeLockOnOverlay;
     document.getElementById("btn-info").addEventListener("click", () => {
         const info = document.getElementById("info");
         if(info.style.display == 'none') {
