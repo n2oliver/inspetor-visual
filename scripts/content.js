@@ -24,7 +24,7 @@ async function lerPDF(url, from, to) {
                 finalText += text[i-1];
             }
         }
-        speak(finalText.replace(/-\n/gi, '').replace(/\n/gi, ' '));
+        speak(finalText);
         bloquear();
     }
 }
@@ -831,7 +831,7 @@ async function speak(text) {
     if ('speechSynthesis' in window) {
         cancelSpeak();
         const result = await chrome.storage.local.get(["voz"]);
-        const utterance = new SpeechSynthesisUtterance(text);
+        const utterance = new SpeechSynthesisUtterance(text.replace(/-\n/gi, '').replace(/\n/gi, ' '));
         utterance.lang = 'pt-BR';
         utterance.rate = 2.0;
         utterance.pitch = 0.5;
