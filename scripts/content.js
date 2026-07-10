@@ -3,7 +3,7 @@ let copyBuffer = {};
 let visitedElements = [];
 const timeoutValue = 300;
 let timeout = setTimeout(()=>{},timeoutValue);
-let currentTabId = "";
+let currentTab = {};
 
 const popupId = 'inspetor-visual-popup';
 
@@ -50,7 +50,7 @@ window.addEventListener('load', async () => {
         return;
     }
     
-    currentTabId = await chrome.storage.local.get(['tabId']);
+    currentTab = await chrome.storage.local.get(['tabId']);
     
     window.focus();
     window.addEventListener("keydown", eventos);
@@ -471,11 +471,15 @@ async function eventos(event) {
         const bloqueador = document.getElementById("insp_visual_bloqueador");
         const popup = document.getElementById("inspetor-visual-popup");
         if(!(bloqueio && bloqueador && popup)) {
+            const tab = await chrome.storage.local.get(['tabId']);
+            if(tab.tabId == currentTab.tabId || (event && event.keyCode == 66)) {
+                desbloquear(event);
+            }
             return;
         }
         if(bloqueado && popup.style.position == "sticky") {
             const tab = await chrome.storage.local.get(['tabId']);
-            if(tab.tabId == currentTabId || (event && event.keyCode == 66)) {
+            if(tab.tabId == currentTab.tabId || (event && event.keyCode == 66)) {
                 desbloquear(event);
             }
         } else {
