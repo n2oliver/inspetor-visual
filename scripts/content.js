@@ -1,19 +1,30 @@
 import { extractText, getDocumentProxy } from "unpdf";
 
-async function lerPDF(url) {
+async function lerPDF(url, from, to) {
     // Fetch a PDF from the web or load it from the file system
     const buffer = await fetch(url)
         .then(res => res.arrayBuffer())
     
     const pdf = await getDocumentProxy(new Uint8Array(buffer));
 
-    const { totalPages, text } = await extractText(pdf, {
-        mergePages: true
-    });
 
     const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
     if (speakerResult.insp_visual_leitor_de_tela == true) {
-        speak(text);
+        let mergePages = true;
+        if(!from && !to) {
+            mergePages = true;
+        } else {
+            mergePages = false;
+        }
+        const { totalPages, text } = await extractText(pdf, {mergePages});
+        let finalText = text;
+        if(from || to) {
+            finalText = "";
+            for(let i = from ? parseInt(from) : 0; i <= (to ? parseInt(to) : text.length); i++) {
+                finalText += text[i-1];
+            }
+        }
+        speak(finalText.replace(/-\n/gi, '').replace(/\n/gi, ' '));
         bloquear();
     }
 }
@@ -116,7 +127,34 @@ async function mousemove(event) {
                 desativar();
                 window.onmousemove = null;
                 window.focus();
-                
+
+                const livroStyles = {
+                    width: "108px",
+                    height: "66px",
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 108 66'%3E%3Cpath d='M2 6 Q28 1 54 9 Q80 1 106 6 V58 Q80 53 54 64 Q28 53 2 58 Z' fill='white' stroke='%23666' stroke-width='1.5'/%3E%3Cline x1='54' y1='9' x2='54' y2='64' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center",
+                    position: "fixed",
+                    bottom: "68px",
+                    right: "8px"
+                };
+
+                const deStyles = {
+                    position: "absolute",
+                    left: "4px",
+                    top: "20px",
+                    width: "40px",
+                    textAlign: "center",
+                }
+                const ateStyles = {
+                    position: "absolute",
+                    left: "56px",
+                    top: "20px",
+                    width: "40px",
+                    textAlign: "center",
+                }
+
                 const playStyles = {
                     width: '60px',
                     height: '60px',
@@ -162,6 +200,9 @@ async function mousemove(event) {
                 const playButton = document.createElement('div');
                 const pauseButton = document.createElement('div');
                 const stopButton = document.createElement('div');
+                const livro = document.createElement('div');
+                const de = document.createElement('input');
+                const ate = document.createElement('input');
 
                 playButton.id = 'ouvir-pdf';
                 playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +241,23 @@ async function mousemove(event) {
 </svg>`;
                 Object.assign(stopButton.style, stopStyles);
                 document.body.appendChild(stopButton);
+
+                livro.id = "livro";
+                Object.assign(livro.style, livroStyles);
+                document.body.appendChild(stopButton);
+
+                de.id = "de";
+                de.type = "number";
+                Object.assign(de.style, deStyles);
                 
+                ate.id = "ate";
+                ate.type = "number";
+                Object.assign(ate.style, ateStyles);
+
+                livro.appendChild(de);
+                livro.appendChild(ate);
+
+                document.body.appendChild(livro);
                 
                 playButtonElement.addEventListener('click', (event)=>{
                     playButtonElement.style.display = 'none';
@@ -209,7 +266,9 @@ async function mousemove(event) {
                         window.speechSynthesis.resume();
                         return;
                     }
-                    lerPDF(window.location.href);
+                    const deElement = document.getElementById(de.id);
+                    const ateElement = document.getElementById(ate.id);
+                    lerPDF(window.location.href, deElement.value, ateElement.value);
                 });
                 pauseButtonElement.addEventListener('click', (event)=>{
                     pauseButtonElement.style.display = 'none';
@@ -221,6 +280,7 @@ async function mousemove(event) {
                     playButtonElement.style.display = 'block';
                     cancelSpeak();
                 });
+
                 return;
             }
             if(bloqueado) {
