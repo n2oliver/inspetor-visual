@@ -1,7 +1,27 @@
-console.log("Content script carregado!");
+import { extractText, getDocumentProxy } from "unpdf";
+
+async function lerPDF(url) {
+    // Fetch a PDF from the web or load it from the file system
+    const buffer = await fetch(url)
+        .then(res => res.arrayBuffer())
+    
+    const pdf = await getDocumentProxy(new Uint8Array(buffer));
+
+    const { totalPages, text } = await extractText(pdf, {
+        mergePages: true
+    });
+
+    const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
+    if (speakerResult.insp_visual_leitor_de_tela == true) {
+        speak(text);
+        bloquear();
+    }
+}
+
 let copyBuffer = {};
 let visitedElements = [];
 const timeoutValue = 300;
+const ehPDF = window.location.href.substring(window.location.href.length-4) == '.pdf';
 let timeout = setTimeout(()=>{},timeoutValue);
 let currentTab = {};
 
@@ -34,14 +54,14 @@ window.oncontextmenu = async (event) => {
         }
 
         window.onmousemove = mousemove;
-    } else {
+    } else if(!ehPDF){
         desativar();
     }
 }
 document.body.addEventListener('click', ()=>{
     const popup = document.getElementById("inspetor-visual-popup");
 
-    if(popup && !event.target.closest('#'+popupId) && popup.style.position != 'sticky') {
+    if(popup && !event.target.closest('#'+popupId) && popup.style.position != 'sticky' && !ehPDF) {
         desbloquear();
     }
 });
@@ -65,9 +85,9 @@ window.addEventListener('load', async () => {
             return;
         }
         const result = await chrome.storage.local.get(["insp_visual_ligado"]);
-        if (result.insp_visual_ligado == false) {
+        if (result.insp_visual_ligado == false && !ehPDF) {
             desativar();
-        } else {
+        } else if(!ehPDF) {
             window.onmousemove = mousemove;
         }
     }
@@ -90,6 +110,118 @@ async function mousemove(event) {
                 if(popup) {
                     limpar();
                 }
+            }
+            if(ehPDF) {
+                desbloquear();
+                desativar();
+                window.onmousemove = null;
+                window.focus();
+                
+                const playStyles = {
+                    width: '60px',
+                    height: '60px',
+                    backgroundColor: 'darkgreen',
+                    color: 'forestgreen',
+                    position: 'fixed',
+                    borderRadius: '50%',
+                    bottom: '0px',
+                    right: '0px',
+                    marginRight: '8px',
+                    marginBottom: '8px',
+                    outline: 'outset',
+                }
+                
+                const pauseStyles = {
+                    width: '60px',
+                    height: '60px',
+                    backgroundColor: 'orange',
+                    color: 'darkorange',
+                    position: 'fixed',
+                    borderRadius: '50%',
+                    bottom: '0px',
+                    right: '0px',
+                    marginRight: '8px',
+                    marginBottom: '8px',
+                    outline: 'outset',
+                    display: 'none'
+                }
+                
+                const stopStyles = {
+                    width: '48px',
+                    height: '48px',
+                    backgroundColor: 'darkred',
+                    color: 'red',
+                    position: 'fixed',
+                    borderRadius: '50%',
+                    bottom: '0px',
+                    right: '72px',
+                    marginRight: '8px',
+                    marginBottom: '8px',
+                    outline: 'outset',
+                }
+                const playButton = document.createElement('div');
+                const pauseButton = document.createElement('div');
+                const stopButton = document.createElement('div');
+
+                playButton.id = 'ouvir-pdf';
+                playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
+     width="60"
+     height="60"
+     viewBox="0 0 24 24"
+     fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+             10-4.48 10-10S17.52 2 12 2zm-2 14V8l6 4-6 4z"/>
+</svg>`;
+                
+                Object.assign(playButton.style, playStyles);
+                document.body.appendChild(playButton);
+                const playButtonElement = document.getElementById(playButton.id);
+
+                pauseButton.id = 'pausar-pdf';
+                pauseButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
+     width="60"
+     height="60"
+     viewBox="0 0 24 24"
+     fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-4 5h3v10H8zm5 0h3v10h-3z"/>
+</svg>`;
+                
+                Object.assign(pauseButton.style, pauseStyles);
+                document.body.appendChild(pauseButton);
+                const pauseButtonElement = document.getElementById(pauseButton.id);
+
+                stopButton.id = 'parar-de-ouvir';
+                stopButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
+     width="48"
+     height="48"
+     viewBox="0 0 24 24"
+     fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-4 6h8v8H8z"/>
+</svg>`;
+                Object.assign(stopButton.style, stopStyles);
+                document.body.appendChild(stopButton);
+                
+                
+                playButtonElement.addEventListener('click', (event)=>{
+                    playButtonElement.style.display = 'none';
+                    pauseButtonElement.style.display = 'block';
+                    if(window.speechSynthesis.paused) {
+                        window.speechSynthesis.resume();
+                        return;
+                    }
+                    lerPDF(window.location.href);
+                });
+                pauseButtonElement.addEventListener('click', (event)=>{
+                    pauseButtonElement.style.display = 'none';
+                    playButtonElement.style.display = 'block';
+                    window.speechSynthesis.pause();
+                });
+                document.getElementById(stopButton.id).addEventListener('click', (event)=>{
+                    pauseButtonElement.style.display = 'none';
+                    playButtonElement.style.display = 'block';
+                    cancelSpeak();
+                });
+                return;
             }
             if(bloqueado) {
                 return;
@@ -339,7 +471,7 @@ async function mousemove(event) {
                 if(bloqueado) {
                     return;
                 }
-                if (result.insp_visual_ligado == true && window.location.href.substring(window.location.href.length-4) != '.pdf') {
+                if (result.insp_visual_ligado == true) {
                     
                     let oldPopupsInDocument = document.getElementsByClassName(popupId);
                     for(let old of oldPopupsInDocument) {
@@ -382,8 +514,6 @@ async function mousemove(event) {
                     if(parseInt(document.getElementById('inspetor-visual-popup').style.left) < 0) popupInDocument.style.left = 0;
                     if(parseInt(document.getElementById('inspetor-visual-popup').style.top) < 0) popupInDocument.style.top = 0;
                     
-                } else {
-                    desativar();
                 }
             } else {
                 desativar();
@@ -515,9 +645,9 @@ function desbloquear() {
 
     chrome.storage.local.set({'inspetor_visual_bloqueado': false});
     localStorage.setItem('inspetor_visual_bloqueado', false);
-    if(bloqueio) {
-        bloqueio.style.display = 'none';
-    }
+    
+    if(bloqueio) bloqueio.style.display = 'none';
+
     clearTimeout(timeout);
     if(popup) {
         popup.style.top = "";
@@ -539,7 +669,9 @@ function bloquear(settings) {
 
     chrome.storage.local.set({'inspetor_visual_bloqueado': true});
     localStorage.setItem('inspetor_visual_bloqueado', true);
-    bloqueio.style.display = 'block';
+
+    if(bloqueio) bloqueio.style.display = 'block';
+
     window.addEventListener('beforeunload', ()=>{
         const bloqueado = document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true';
 
@@ -553,19 +685,21 @@ function bloquear(settings) {
         }
     });
     clearTimeout(timeout);
-    popup.style.opacity = ".9";
-    if(!settings || settings && !settings.fixed) {
-        popup.style.top = "";
-        popup.style.right = "";
-        popup.style.bottom = "0%";
-        popup.style.left = "100%";
-        popup.style.position = "sticky";
-    }
-    popup.onmouseover = () => {
-        popup.style.opacity = "1";
-    }
-    popup.onmouseleave = () => {
+    if(popup) {
         popup.style.opacity = ".9";
+        if(!settings || settings && !settings.fixed) {
+            popup.style.top = "";
+            popup.style.right = "";
+            popup.style.bottom = "0%";
+            popup.style.left = "100%";
+            popup.style.position = "sticky";
+        }
+        popup.onmouseover = () => {
+            popup.style.opacity = "1";
+        }
+        popup.onmouseleave = () => {
+            popup.style.opacity = ".9";
+        }
     }
 }
 function toHex(n) {
@@ -657,7 +791,7 @@ document.addEventListener('mouseleave', async () => {
         }
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);
         const bloqueado = (document.getElementById(popupId) && localStorage.getItem('inspetor_visual_bloqueado') == 'true') || bloqueioResult.inspetor_visual_bloqueado;
-        if(!bloqueado)
+        if(!bloqueado && !ehPDF)
             cancelSpeak();
     } catch (e) {
         console.log(e);

@@ -35,7 +35,7 @@
   },
   "content_scripts": [
     {
-      "js": ["scripts/content.js"],
+      "js": ["dist/content.js"],
       "matches": [
         "<all_urls>"
       ],
