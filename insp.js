@@ -49,10 +49,10 @@ async function checkSpeaker() {
     }
     if(result.insp_visual_leitor_de_tela == true) {
         document.getElementById("insp_visual_leitor_de_tela").checked = true;
-        document.getElementById("vozes").classList.remove("d-none");
+        document.getElementById("vozes").parentElement.classList.remove("d-none");
     } else {
         document.getElementById("insp_visual_leitor_de_tela").checked = false;
-        document.getElementById("vozes").classList.add("d-none");
+        document.getElementById("vozes").parentElement.classList.add("d-none");
         if ('speechSynthesis' in window) {
             speechSynthesis.cancel();
         }
@@ -104,10 +104,10 @@ async function speakerChangeState() {
             speechSynthesis.cancel();
         }
         await chrome.storage.local.set({insp_visual_leitor_de_tela: false});
-        document.getElementById("vozes").classList.add("d-none");
+        document.getElementById("vozes").parentElement.classList.add("d-none");
     } else {
         await chrome.storage.local.set({insp_visual_leitor_de_tela: true});
-        document.getElementById("vozes").classList.remove("d-none");
+        document.getElementById("vozes").parentElement.classList.remove("d-none");
     }
 }
 

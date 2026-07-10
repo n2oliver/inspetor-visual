@@ -96,7 +96,6 @@ async function mousemove(event) {
             if (chrome.storage && chrome.storage.local && !!chrome?.runtime?.id && 
                 result.insp_visual_ligado == true) {
 
-                let oldPopup = document.getElementById('inspetor-visual-popup');
                 let innerHTML = '';
                 const popup = document.createElement('div');
 
@@ -140,8 +139,7 @@ async function mousemove(event) {
      viewBox="0 0 24 24" fill="currentColor">
     <path d="M16 1H4C2.9 1 2 1.9 2 3v12h2V3h12V1zm4 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h12v14z"/>
 </svg>`
-                    innerHTML += `<div style="margin-bottom: 4px; max-width: 320px;  max-height: 240px; overflow: auto;"
-                        onclick="this.innetHTML ? navigator.clipboard.writeText(this.innetHTML) :  navigator.clipboard.writeText(this.outerHTML)">${ copyBuffer.outerHTML }${copyIcon}</div>`;
+                    innerHTML += '<div style="margin-bottom: 4px; max-width: 320px;  max-height: 240px; overflow: auto;" onclick="navigator.clipboard.writeText(`' + copyBuffer.outerHTML.replace(/"/gi, '\'') + `\`)">${ copyBuffer.outerHTML }${copyIcon}</div>`;
                     innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>ID:</strong>
                         <pre style="
                             background-color: lightgrey;
@@ -338,10 +336,6 @@ async function mousemove(event) {
                 if(bloqueado) {
                     return;
                 }
-                if (oldPopup) {
-                    oldPopup.remove();
-                    delete oldPopup;
-                }
                 if (result.insp_visual_ligado == true && window.location.href.substring(window.location.href.length-4) != '.pdf') {
                     
                     let oldPopupsInDocument = document.getElementsByClassName(popupId);
@@ -353,6 +347,12 @@ async function mousemove(event) {
                         document.body.appendChild(popup);
                         popupInDocument = document.getElementById(popup.id);
                     }
+                    setTimeout(()=>{
+                        oldPopupsInDocument = document.getElementsByClassName(popupId);
+                        for(let old of oldPopupsInDocument) {
+                            if(old != popupInDocument) old.remove();
+                        };
+                    }, timeoutValue);
                     
                     Object.assign(popupInDocument.style, styles);
                     innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center"><a id="inspetor_visual_ocultar" href="#" style="color: orange !important"><strong>(O) Ocultar</strong></a> <a id="inspetor_visual_link_bloqueador" class="text-decoration-none" href="#" style="color: orange !important"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="' + (!bloqueado ? 'display: none' : '') + '"> (bloqueado)</span></strong></a></div>'
