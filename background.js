@@ -98,3 +98,17 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     console.log(tab.status);
   }
 });
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+
+    const tabId = sender.tab?.id;
+
+    console.log("Tab ID:", tabId);
+    if(message.action == "salvarTabId") {
+      chrome.storage.local.set({tabId});
+    }
+    sendResponse({
+        tabId
+    });
+
+    return true;
+});

@@ -3,6 +3,7 @@ let copyBuffer = {};
 let visitedElements = [];
 const timeoutValue = 300;
 let timeout = setTimeout(()=>{},timeoutValue);
+let currentTabId = "";
 
 const popupId = 'inspetor-visual-popup';
 
@@ -49,8 +50,10 @@ window.addEventListener('load', async () => {
         return;
     }
     
-    chrome.storage.local.set({'inspetor_visual_bloqueado': false});
-    localStorage.setItem('inspetor_visual_bloqueado', false);
+    currentTabId = await chrome.storage.local.get(['tabId']);
+    
+    window.focus();
+    window.addEventListener("keydown", eventos);
 
     document.body.onmouseenter = async (event) => {
         if(!chrome.storage) {
@@ -372,9 +375,6 @@ async function mousemove(event) {
                             bloquear({fixed: true});
                         }
                     });
-                    window.focus();
-                    window.addEventListener("keydown", eventos);
-                    
 
                     const popupDimensions = popupInDocument.getBoundingClientRect();
                     if ((event.clientX + popupDimensions.width) > window.innerWidth) popupInDocument.style.left = (event.clientX + window.pageXOffset + 14 - popupDimensions.width) + 'px';
@@ -474,17 +474,31 @@ async function eventos(event) {
             return;
         }
         if(bloqueado && popup.style.position == "sticky") {
-            desbloquear(event);
+            const tab = await chrome.storage.local.get(['tabId']);
+            if(tab.tabId == currentTabId || (event && event.keyCode == 66)) {
+                desbloquear(event);
+            }
         } else {
+            chrome.runtime.sendMessage({
+                action: "salvarTabId",
+                dados: true
+            }, (resposta) => {
+                console.log(resposta);
+            });
             bloquear(event);
         }
     }
     if((event && event.keyCode == 79) || 
-        (window.event.type == 'click' && window.event.target.id == "inspetor_visual_ocultar" || 
+        (window.event && window.event.type == 'click' && window.event.target.id == "inspetor_visual_ocultar" || 
             window.event.target.closest('#inspetor_visual_ocultar'))) {
-        chrome.storage.local.set({insp_visual_ocultar: true});
-        chrome.storage.local.set({inspetor_visual_bloqueado: false});
-        localStorage.setItem("inspetor_visual_bloqueado", false)
+        const hideState = await chrome.storage.local.get(['insp_visual_ocultar']);
+        if(hideState.insp_visual_ocultar) {
+            chrome.storage.local.set({insp_visual_ocultar: false});
+        } else {
+            chrome.storage.local.set({insp_visual_ocultar: true});
+            chrome.storage.local.set({inspetor_visual_bloqueado: false});
+            localStorage.setItem("inspetor_visual_bloqueado", false);
+        }
     }
 }
 function desbloquear() {
