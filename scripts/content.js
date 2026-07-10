@@ -5,11 +5,14 @@ const pauseButtonId = "pausar-pdf";
 async function lerPDF(url, from, to) {
     const input = document.getElementById(fileFieldId);
     let file = input.files[0];
-    if(!window.location.href.endsWith(file.name)) {
+    let fileBytes;
+    if(window.location.protocol == 'file:' && !window.location.href.endsWith(file.name)) {
         alert("Para uma boa leitura, lembre-se de selecionar o mesmo .pdf que está aberto no navegador.");
     }
     try {
-        const fileBytes = await file.arrayBuffer();
+        if(window.location.protocol == 'file:') {
+            fileBytes = await file.arrayBuffer();
+        }
         // Fetch a PDF from the web or load it from the file system
         const buffer = window.location.protocol != 'file:' ? await fetch(url)
             .then(res => res.arrayBuffer()) : fileBytes;
