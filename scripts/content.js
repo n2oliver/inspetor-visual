@@ -1,31 +1,51 @@
 import { extractText, getDocumentProxy } from "unpdf";
-
+const fileFieldId = "file-field";
+const playButtonId = "ouvir-pdf";
+const pauseButtonId = "pausar-pdf";
 async function lerPDF(url, from, to) {
-    // Fetch a PDF from the web or load it from the file system
-    const buffer = await fetch(url)
-        .then(res => res.arrayBuffer())
-    
-    const pdf = await getDocumentProxy(new Uint8Array(buffer));
-
-
-    const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
-    if (speakerResult.insp_visual_leitor_de_tela == true) {
-        let mergePages = true;
-        if(!from && !to) {
-            mergePages = true;
-        } else {
-            mergePages = false;
+    const input = document.getElementById(fileFieldId);
+    let file = input.files[0];
+    if(!window.location.href.endsWith(file.name)) {
+        alert("Para uma boa leitura, lembre-se de selecionar o mesmo .pdf que está aberto no navegador.");
+    }
+    try {
+        const fileBytes = await file.arrayBuffer();
+        // Fetch a PDF from the web or load it from the file system
+        const buffer = window.location.protocol != 'file:' ? await fetch(url)
+            .then(res => res.arrayBuffer()) : fileBytes;
+        
+        if(!buffer) {
+            return;
         }
-        const { totalPages, text } = await extractText(pdf, {mergePages});
-        let finalText = text;
-        if(from || to) {
-            finalText = "";
-            for(let i = from ? parseInt(from) : 0; i <= (to ? parseInt(to) : text.length); i++) {
-                finalText += text[i-1];
+        const pdf = await getDocumentProxy(new Uint8Array(buffer));
+
+
+        const speakerResult = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
+        if (speakerResult.insp_visual_leitor_de_tela == true) {
+            let mergePages = true;
+            if(!from && !to) {
+                mergePages = true;
+            } else {
+                mergePages = false;
             }
+            const { totalPages, text } = await extractText(pdf, {mergePages});
+            let finalText = text;
+            if(from || to) {
+                finalText = "";
+                for(let i = from ? parseInt(from) : 0; i <= (to ? parseInt(to) : text.length); i++) {
+                    finalText += text[i-1];
+                }
+            }
+            speak(finalText);
+            bloquear();
         }
-        speak(finalText);
-        bloquear();
+        
+    } catch(e) {
+        alert("Primeiro selecionE o .pdf no campo 'Escolher arquivo'.");
+        document.getElementById(playButtonId).style.display = "block";
+        document.getElementById(pauseButtonId).style.display = "none";
+        
+        return;
     }
 }
 
@@ -197,14 +217,23 @@ async function mousemove(event) {
                     marginBottom: '8px',
                     outline: 'outset',
                 }
+
+                const fileStyles = {
+                    position: "fixed",
+                    bottom: "142px",
+                    right: "-156px",
+                    color: "transparent",
+                };
+
                 const playButton = document.createElement('div');
                 const pauseButton = document.createElement('div');
                 const stopButton = document.createElement('div');
                 const livro = document.createElement('div');
                 const de = document.createElement('input');
                 const ate = document.createElement('input');
+                const fileField = document.createElement('input');
 
-                playButton.id = 'ouvir-pdf';
+                playButton.id = playButtonId;
                 playButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
      width="60"
      height="60"
@@ -218,7 +247,7 @@ async function mousemove(event) {
                 document.body.appendChild(playButton);
                 const playButtonElement = document.getElementById(playButton.id);
 
-                pauseButton.id = 'pausar-pdf';
+                pauseButton.id = pauseButtonId;
                 pauseButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
      width="60"
      height="60"
@@ -258,6 +287,19 @@ async function mousemove(event) {
                 livro.appendChild(ate);
 
                 document.body.appendChild(livro);
+
+                fileField.id = fileFieldId;
+                fileField.type = "file";
+                fileField.accept = "application/pdf";
+                fileField.innerHTML = `<label for="${fileFieldId}"></label>`;
+
+                Object.assign(fileField.style, fileStyles);
+
+                if(!window.location.href.startsWith("file:")) {
+                    fileField.style.display = "none";
+                }
+                
+                document.body.appendChild(fileField);
                 
                 playButtonElement.addEventListener('click', (event)=>{
                     playButtonElement.style.display = 'none';
