@@ -40,7 +40,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (tab.status === 'complete') {
       chrome.scripting.executeScript({
         target: { tabId: tab.id },
-        func: () => console.log("Loading complete!")
+        func: () => {}
       });
       if (info.menuItemId === "copiarTexto") {
         // Envia uma mensagem para a aba atual pedindo para copiar texto do elemento
@@ -50,8 +50,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                 console.error(chrome.runtime.lastError);
                 return;
             }
-
-            console.log(response);
           }
         );
       }
@@ -63,8 +61,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                 console.error(chrome.runtime.lastError);
                 return;
             }
-
-            console.log(response);
           }
         );
       }
@@ -76,39 +72,48 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                 console.error(chrome.runtime.lastError);
                 return;
             }
-
-            console.log(response);
           }
         );
       }
       if (info.menuItemId === "copiarCSS") {
-        // Envia uma mensagem para a aba atual pedindo para copiar o CSS do elemento
         chrome.tabs.sendMessage(tab.id, { action: "copiarCSS", targetElementId: info.targetElementId },
           (response) => {
             if (chrome.runtime.lastError) {
                 console.error(chrome.runtime.lastError);
                 return;
             }
-
-            console.log(response);
           }
         );
       }
     }
-    console.log(tab.status);
   }
 });
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+  const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true
+  });
+  const tabId = tab.id;
 
-    const tabId = sender.tab?.id;
+  if(message.action == "salvarTabId") {
+    chrome.storage.local.set({tabId: tab.id});
+  }
+  if(message.action == "desbloquear") {
+    chrome.tabs.sendMessage(tab.id, { action: "desbloquear", targetElementId: message.dados.targetElementId },
+      (response) => {
+        if (chrome.runtime.lastError) {
+            console.error(chrome.runtime.lastError);
+            return;
+        }
+      }
+    );
+  }
+  if(message.action == "ocultar") {
+    chrome.runtime.sendMessage({ action: "ocultar", targetElementId: message.dados.targetElementId });
+  }
+  sendResponse({
+      tabId
+  });
 
-    console.log("Tab ID:", tabId);
-    if(message.action == "salvarTabId") {
-      chrome.storage.local.set({tabId});
-    }
-    sendResponse({
-        tabId
-    });
-
-    return true;
+  return true;
 });

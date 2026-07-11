@@ -283,7 +283,7 @@ window.oncontextmenu = async (event) => {
             }
             copyBuffer.id = "inspetor-visual-copiado-" + i
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
 
         window.onmousemove = mousemove;
@@ -653,7 +653,6 @@ async function mousemove(event) {
     }, timeoutValue);
 }
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-    console.log("Message received:", request);
     sendResponse({ status: "success" });
     if (request.action === "copiarTexto") {
         copyBuffer.style.border = "";
@@ -746,7 +745,6 @@ async function eventos(event) {
                 action: "salvarTabId",
                 dados: true
             }, (resposta) => {
-                console.log(resposta);
             });
             bloquear(event);
         }
@@ -762,6 +760,12 @@ async function eventos(event) {
             chrome.storage.local.set({insp_visual_ocultar: true});
             chrome.storage.local.set({inspetor_visual_bloqueado: false});
             localStorage.setItem("inspetor_visual_bloqueado", false);
+            
+            chrome.runtime.sendMessage({
+                action: "ocultar",
+                dados: { targetElementId: (event || window.event).target.id }
+            }, (resposta) => {
+            });
         }
         ocultarLeitorDePDF();
     }
@@ -1008,7 +1012,7 @@ document.addEventListener('mouseleave', async () => {
         if(!bloqueado && !ehPDF)
             cancelSpeak();
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 })
 

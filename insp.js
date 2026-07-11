@@ -119,7 +119,7 @@ async function changeLockOnOverlay() {
         await chrome.storage.local.set({insp_visual_bloquear_ao_sobrepor: true});
     }
 }
-async function changeHideState() {
+async function changeHideState(event) {
     const result = await chrome.storage.local.get(["insp_visual_ocultar"]);
     if(result.insp_visual_ocultar == true) {
         await chrome.storage.local.set({insp_visual_ocultar: false});
@@ -127,9 +127,8 @@ async function changeHideState() {
         
         chrome.runtime.sendMessage({
             action: "desbloquear",
-            dados: true
+            dados: {targetElementId: event.target.id}
         }, (resposta) => {
-            console.log(resposta);
         });
     } else {
         await chrome.storage.local.set({insp_visual_ocultar: true});
@@ -154,3 +153,11 @@ window.onload = () => {
     });
     document.getElementById("n2oliver-link").addEventListener("click", () => window.open('https://n2oliver.com'));
 }
+
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+    sendResponse({ status: "success" });
+    if (request.action === "ocultar") {
+        document.getElementById("insp_visual_ocultar").checked = true;
+        await chrome.storage.local.set({insp_visual_ocultar: true});
+    }
+});
