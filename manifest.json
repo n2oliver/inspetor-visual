@@ -40,12 +40,6 @@
         "<all_urls>"
       ],
      "run_at": "document_idle"
-    },
-    {
-      "js": ["scripts/bootstrap-5.0.2-dist/js/bootstrap.min.js"],
-      "matches": [
-        "<all_urls>"
-      ]
     }
   ]
 }
