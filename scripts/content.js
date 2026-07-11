@@ -1,9 +1,211 @@
 import { extractText, getDocumentProxy } from "unpdf";
+const ordinais = {
+    1: ["primeiro", "primeira"],
+    2: ["segundo", "segunda"],
+    3: ["terceiro", "terceira"],
+    4: ["quarto", "quarta"],
+    5: ["quinto", "quinta"],
+    6: ["sexto", "sexta"],
+    7: ["sétimo", "sétima"],
+    8: ["oitavo", "oitava"],
+    9: ["nono", "nona"],
+    10: ["décimo", "décima"],
+    11: ["décimo primeiro", "décima primeira"],
+    12: ["décimo segundo", "décima segunda"],
+    13: ["décimo terceiro", "décima terceira"],
+    14: ["décimo quarto", "décima quarta"],
+    15: ["décimo quinto", "décima quinta"],
+    16: ["décimo sexto", "décima sexta"],
+    17: ["décimo sétimo", "décima sétima"],
+    18: ["décimo oitavo", "décima oitava"],
+    19: ["décimo nono", "décima nona"],
+    20: ["vigésimo", "vigésima"],
+    21: ["vigésimo primeiro", "vigésima primeira"],
+    22: ["vigésimo segundo", "vigésima segunda"],
+    23: ["vigésimo terceiro", "vigésima terceira"],
+    24: ["vigésimo quarto", "vigésima quarta"],
+    25: ["vigésimo quinto", "vigésima quinta"],
+    26: ["vigésimo sexto", "vigésima sexta"],
+    27: ["vigésimo sétimo", "vigésima sétima"],
+    28: ["vigésimo oitavo", "vigésima oitava"],
+    29: ["vigésimo nono", "vigésima nona"],
+    30: ["trigésimo", "trigésima"],
+    31: ["trigésimo primeiro", "trigésima primeira"],
+    32: ["trigésimo segundo", "trigésima segunda"],
+    33: ["trigésimo terceiro", "trigésima terceira"],
+    34: ["trigésimo quarto", "trigésima quarta"],
+    35: ["trigésimo quinto", "trigésima quinta"],
+    36: ["trigésimo sexto", "trigésima sexta"],
+    37: ["trigésimo sétimo", "trigésima sétima"],
+    38: ["trigésimo oitavo", "trigésima oitava"],
+    39: ["trigésimo nono", "trigésima nona"],
+    40: ["quadragésimo", "quadragésima"],
+    41: ["quadragésimo primeiro", "quadragésima primeira"],
+    42: ["quadragésimo segundo", "quadragésima segunda"],
+    43: ["quadragésimo terceiro", "quadragésima terceira"],
+    44: ["quadragésimo quarto", "quadragésima quarta"],
+    45: ["quadragésimo quinto", "quadragésima quinta"],
+    46: ["quadragésimo sexto", "quadragésima sexta"],
+    47: ["quadragésimo sétimo", "quadragésima sétima"],
+    48: ["quadragésimo oitavo", "quadragésima oitava"],
+    49: ["quadragésimo nono", "quadragésima nona"],
+    50: ["quinquagésimo", "quinquagésima"],
+    51: ["quinquagésimo primeiro", "quinquagésima primeira"],
+    52: ["quinquagésimo segundo", "quinquagésima segunda"],
+    53: ["quinquagésimo terceiro", "quinquagésima terceira"],
+    54: ["quinquagésimo quarto", "quinquagésima quarta"],
+    55: ["quinquagésimo quinto", "quinquagésima quinta"],
+    56: ["quinquagésimo sexto", "quinquagésima sexta"],
+    57: ["quinquagésimo sétimo", "quinquagésima sétima"],
+    58: ["quinquagésimo oitavo", "quinquagésima oitava"],
+    59: ["quinquagésimo nono", "quinquagésima nona"],
+    60: ["sexagésimo", "sexagésima"],
+    61: ["sexagésimo primeiro", "sexagésima primeira"],
+    62: ["sexagésimo segundo", "sexagésima segunda"],
+    63: ["sexagésimo terceiro", "sexagésima terceira"],
+    64: ["sexagésimo quarto", "sexagésima quarta"],
+    65: ["sexagésimo quinto", "sexagésima quinta"],
+    66: ["sexagésimo sexto", "sexagésima sexta"],
+    67: ["sexagésimo sétimo", "sexagésima sétima"],
+    68: ["sexagésimo oitavo", "sexagésima oitava"],
+    69: ["sexagésimo nono", "sexagésima nona"],
+    70: ["septuagésimo", "septuagésima"],
+    71: ["septuagésimo primeiro", "septuagésima primeira"],
+    72: ["septuagésimo segundo", "septuagésima segunda"],
+    73: ["septuagésimo terceiro", "septuagésima terceira"],
+    74: ["septuagésimo quarto", "septuagésima quarta"],
+    75: ["septuagésimo quinto", "septuagésima quinta"],
+    76: ["septuagésimo sexto", "septuagésima sexta"],
+    77: ["septuagésimo sétimo", "septuagésima sétima"],
+    78: ["septuagésimo oitavo", "septuagésima oitava"],
+    79: ["septuagésimo nono", "septuagésima nona"],
+    80: ["octogésimo", "octogésima"],
+    81: ["octogésimo primeiro", "octogésima primeira"],
+    82: ["octogésimo segundo", "octogésima segunda"],
+    83: ["octogésimo terceiro", "octogésima terceira"],
+    84: ["octogésimo quarto", "octogésima quarta"],
+    85: ["octogésimo quinto", "octogésima quinta"],
+    86: ["octogésimo sexto", "octogésima sexta"],
+    87: ["octogésimo sétimo", "octogésima sétima"],
+    88: ["octogésimo oitavo", "octogésima oitava"],
+    89: ["octogésimo nono", "octogésima nona"],
+    90: ["nonagésimo", "nonagésima"],
+    91: ["nonagésimo primeiro", "nonagésima primeira"],
+    92: ["nonagésimo segundo", "nonagésima segunda"],
+    93: ["nonagésimo terceiro", "nonagésima terceira"],
+    94: ["nonagésimo quarto", "nonagésima quarta"],
+    95: ["nonagésimo quinto", "nonagésima quinta"],
+    96: ["nonagésimo sexto", "nonagésima sexta"],
+    97: ["nonagésimo sétimo", "nonagésima sétima"],
+    98: ["nonagésimo oitavo", "nonagésima oitava"],
+    99: ["nonagésimo nono", "nonagésima nona"],
+    100: ["centésimo", "centésima"]
+};
+
+const abreviacoes = [
+    [/\b\:/gi, ".\n"],
+    [/\bex\./gi, "exemplo"],
+    [/\bEx\./gi, "Exemplo"],
+    [/\bex\./gi, "exemplo"],
+    [/\bEx\./gi, "Exemplo"],
+    [/\bexs\./gi, "exemplos"],
+    [/\bExs\./gi, "Exemplos"],
+    [/\bexs\./gi, "exemplos"],
+    [/\bExs\./gi, "Exemplos"],
+    [/\bDr\./gi, "Doutor"],
+    [/\bDra\./gi, "Doutora"],
+    [/\bSr\./gi, "Senhor"],
+    [/\bSra\./gi, "Senhora"],
+    [/\bSrs\./gi, "Senhores"],
+    [/\bSrta\./gi, "Senhorita"],
+    [/\bProf\./gi, "Professor"],
+    [/\bProfa\./gi, "Professora"],
+    [/\bEng\./gi, "Engenheiro"],
+    [/\bArq\./gi, "Arquiteto"],
+    [/\bAdv\./gi, "Advogado"],
+    [/\bCel\./gi, "Coronel"],
+    [/\bGen\./gi, "General"],
+    [/\bCap\./gi, "Capitão"],
+    [/\bTen\./gi, "Tenente"],
+    [/\bMaj\./gi, "Major"],
+    [/\bMin\./gi, "Ministro"],
+    [/\bDep\./gi, "Deputado"],
+    [/\bDepª\./gi, "Deputada"],
+    [/\bSen\./gi, "Senador"],
+    [/\bGov\./gi, "Governador"],
+    [/\bPres\./gi, "Presidente"],
+    [/\bExmo\./gi, "Excelentíssimo"],
+    [/\bExma\./gi, "Excelentíssima"],
+    [/\bIlmo\./gi, "Ilustríssimo"],
+    [/\bArt\./gi, "Artigo"],
+    [/\bArts\./gi, "Artigos"],
+    [/\bCap\./gi, "Capítulo"],
+    [/\bVol\./gi, "Volume"],
+    [/\bPág\./gi, "Página"],
+    [/\bPgs\./gi, "Páginas"],
+    [/\bEd\./gi, "Edição"],
+    [/\bEds\./gi, "Edições"],
+    [/\bAv\./gi, "Avenida"],
+    [/\bR\./gi, "Rua"],
+    [/\bRod\./gi, "Rodovia"],
+    [/\bEst\./gi, "Estrada"],
+    [/\bNº\b/gi, "Número"],
+    [/\bN°\b/gi, "Número"],
+    [/\bnº\b/gi, "número"],
+    [/\betc\./gi, "etcetera"],
+    [/\bObs\./gi, "Observação"],
+    [/\bRef\./gi, "Referência"],
+    [/\bResp\./gi, "Responsável"],
+    [/\bDepto\./gi, "Departamento"],
+    [/\bAdm\./gi, "Administração"],
+    [/\bEmp\./gi, "Empresa"],
+    [/\bTel\./gi, "Telefone"],
+    [/\bCEP\b/g, "CEP"],
+    [/\bCPF\b/g, "C P F"],
+    [/\bCNPJ\b/g, "C N P J"],
+    [/\bRG\b/g, "R G"],
+    [/\bCNH\b/g, "C N H"],
+    [/\bHTML\b/g, "H T M L"],
+    [/\bCSS\b/g, "C S S"],
+    [/\bJS\b/g, "J S"],
+    [/\bAPI\b/g, "A P I"],
+    [/\bSQL\b/g, "S Q L"],
+    [/\bPDF\b/g, "P D F"],
+    [/\bUSB\b/g, "U S B"],
+    [/\bWi-?Fi\b/gi, "Uai Fai"],
+    [/\bwww\./gi, "www ponto "],
+    [/\.com\b/gi, " ponto com"],
+    [/\.com\.br\b/gi, " ponto com ponto br"]
+];
+
 const fileFieldId = "file-field";
 const playButtonId = "ouvir-pdf";
 const pauseButtonId = "pausar-pdf";
+
+const styleNode = document.createElement("style");
+styleNode.textContent = `/* Remove as setas no Chrome, Safari e Edge */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove as setas no Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}`;
+document.body.appendChild(styleNode);
+
 async function lerPDF(url, from, to) {
     const input = document.getElementById(fileFieldId);
+    if(!document.getElementById("frame")) {
+        const div = document.createElement('div');
+        div.innerHTML = `<div id="frame" style="margin: 0 auto; text-align: center; width: 100vw;margin: auto;position: fixed; bottom: 0; z-index: 99998;">
+            <iframe data-aa='2421579' src='//acceptable.a-ads.com/2421579/?size=Adaptive'
+                                style='border:0; padding:0; width:100vw; height:auto; overflow:hidden;display: block;margin: 0 auto; bottom: 0; position: sticky'></iframe>
+            </div>`;
+        document.body.appendChild(div.childNodes[0])
+    }
     let file = input.files[0];
     let fileBytes;
     if(window.location.protocol == 'file:' && !window.location.href.endsWith(file.name)) {
@@ -36,7 +238,7 @@ async function lerPDF(url, from, to) {
             if(from || to) {
                 finalText = "";
                 for(let i = from ? parseInt(from) : 0; i <= (to ? parseInt(to) : text.length); i++) {
-                    finalText += text[i-1];
+                    finalText += text[i-1] + '\n';
                 }
             }
             speak(finalText);
@@ -160,22 +362,29 @@ async function mousemove(event) {
                     backgroundPosition: "center",
                     position: "fixed",
                     bottom: "68px",
-                    right: "8px"
+                    right: "8px",
+                    zIndex: "99999998",
                 };
 
                 const deStyles = {
                     position: "absolute",
-                    left: "4px",
+                    left: "8px",
                     top: "20px",
-                    width: "40px",
+                    width: "32px",
                     textAlign: "center",
+                    borderRadius: "50%",
+                    zIndex: "99999999",
+                    cursor: "pointer",
                 }
                 const ateStyles = {
                     position: "absolute",
-                    left: "56px",
+                    left: "60px",
                     top: "20px",
-                    width: "40px",
+                    width: "32px",
                     textAlign: "center",
+                    borderRadius: "50%",
+                    zIndex: "99999999",
+                    cursor: "pointer",
                 }
 
                 const playStyles = {
@@ -190,6 +399,8 @@ async function mousemove(event) {
                     marginRight: '8px',
                     marginBottom: '8px',
                     outline: 'outset',
+                    zIndex: "99999999",
+                    cursor: "pointer",
                 }
                 
                 const pauseStyles = {
@@ -204,7 +415,9 @@ async function mousemove(event) {
                     marginRight: '8px',
                     marginBottom: '8px',
                     outline: 'outset',
-                    display: 'none'
+                    display: 'none',
+                    zIndex: "99999999",
+                    cursor: "pointer",
                 }
                 
                 const stopStyles = {
@@ -219,6 +432,8 @@ async function mousemove(event) {
                     marginRight: '8px',
                     marginBottom: '8px',
                     outline: 'outset',
+                    zIndex: "99999999",
+                    cursor: "pointer",
                 }
 
                 const fileStyles = {
@@ -226,6 +441,8 @@ async function mousemove(event) {
                     bottom: "142px",
                     right: "-156px",
                     color: "transparent",
+                    zIndex: "99999999",
+                    cursor: "pointer",
                 };
 
                 const playButton = document.createElement('div');
@@ -323,6 +540,7 @@ async function mousemove(event) {
                 document.getElementById(stopButton.id).addEventListener('click', (event)=>{
                     pauseButtonElement.style.display = 'none';
                     playButtonElement.style.display = 'block';
+                    desbloquear();
                     cancelSpeak();
                 });
 
@@ -828,7 +1046,7 @@ function rgbaToHex(rgba) {
     }
     return '';
 }
-console.log(rgbaToHex('rgba(255,255,135, 1)'));
+
 function getCssStyles(elemento) {
     const estilos = getComputedStyle(elemento);
     let css = "";
@@ -875,11 +1093,22 @@ function limpar() {
 async function speak(text) {
     if ('speechSynthesis' in window) {
         cancelSpeak();
+        for (const [regex, substituicao] of abreviacoes) {
+            text = text.replace(regex, substituicao);
+            text = text.replace(/\n/gi, '').replace(/\./gi, '. ');
+        }
+        text = text.replace(
+            /(?<!\d)(10|[1-9])(?:\s*\.?\s*)([ºoªa])(?!\d)/gi,
+            (_, numero, genero) => {
+                const feminino = genero === "ª" || genero.toLowerCase() === "a";
+                return ordinais[numero][feminino ? 1 : 0];
+            }
+        );
         const result = await chrome.storage.local.get(["voz"]);
-        const utterance = new SpeechSynthesisUtterance(text.replace(/-\n/gi, '').replace(/\n/gi, ' '));
+        const utterance = new SpeechSynthesisUtterance(capitalizeSentences(text));
         utterance.lang = 'pt-BR';
-        utterance.rate = 2.0;
-        utterance.pitch = 0.5;
+        utterance.rate = 1.6;
+        utterance.pitch = 1.05;
         if (result.voz) {
             utterance.voice = speechSynthesis.getVoices()[result.voz];
         }
@@ -909,4 +1138,10 @@ function cancelSpeak() {
     } else {
         console.info('Desculpe, seu navegador não suporta a API Web Speech.');
     }
+}
+function capitalizeSentences(texto) {
+    return texto.replace(
+        /(^|[.!?]\s+)([a-zà-ÿ])/gi,
+        (_, inicio, letra) => inicio + letra.toUpperCase()
+    );
 }
