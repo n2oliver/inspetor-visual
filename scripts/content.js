@@ -716,6 +716,9 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     if (request.action === "desbloquear") {
         desbloquear();
     }
+    if (request.action === "ocultar") {
+        ocultarLeitorDePDF();
+    }
 
     return true;
 });
@@ -992,7 +995,7 @@ async function speak(text) {
         const utterance = new SpeechSynthesisUtterance(capitalizeSentences(text));
         utterance.lang = 'pt-BR';
         utterance.rate = 1.6;
-        utterance.pitch = 1.05;
+        utterance.pitch = 1.3;
         if (result.voz) {
             utterance.voice = speechSynthesis.getVoices()[result.voz];
         }
@@ -1220,7 +1223,6 @@ fill="currentColor">
     document.getElementById(stopButtonId).addEventListener('click', (event)=>{
         pauseButtonElement.style.display = 'none';
         playButtonElement.style.display = 'block';
-        desbloquear();
         cancelSpeak();
     });
     if(!document.getElementById(frameId)) {
