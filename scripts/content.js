@@ -103,6 +103,7 @@ const ordinais = {
 };
 
 const abreviacoes = [
+    [/\n•/gi, ";\n"],
     [/\b\:/gi, ".\n"],
     [/\bex\./gi, "exemplo"],
     [/\bEx\./gi, "Exemplo"],
@@ -982,7 +983,7 @@ async function speak(text) {
         cancelSpeak();
         for (const [regex, substituicao] of abreviacoes) {
             text = text.replace(regex, substituicao);
-            text = text.replace(/\n/gi, '').replace(/\./gi, '. ');
+            text = text.replace(/\n/gi, '. ');
         }
         text = text.replace(
             /(?<!\d)(10|[1-9])(?:\s*\.?\s*)([ºoªa])(?!\d)/gi,
@@ -995,7 +996,7 @@ async function speak(text) {
         const utterance = new SpeechSynthesisUtterance(capitalizeSentences(text));
         utterance.lang = 'pt-BR';
         utterance.rate = 1.6;
-        utterance.pitch = 1.3;
+        utterance.pitch = 1.2;
         if (result.voz) {
             utterance.voice = speechSynthesis.getVoices()[result.voz];
         }
