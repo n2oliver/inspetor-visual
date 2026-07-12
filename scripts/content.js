@@ -103,8 +103,12 @@ const ordinais = {
 };
 
 const abreviacoes = [
-    [/\n•/gi, ";\n"],
-    [/\b\:/gi, ".\n"],
+    [/\—/gi, '\n '],
+    [/\*/gi, ' '],
+    [/-\n/gi, ''],
+    [/\n/gi, ' '],
+    [/•/gi, "; "],
+    [/\b\:/gi, ". "],
     [/\bex\./gi, "exemplo"],
     [/\bEx\./gi, "Exemplo"],
     [/\bex\./gi, "exemplo"],
@@ -822,10 +826,10 @@ function exibirLeitorDePDF() {
         if(fileField) {
             fileField.style.display = 'block';
         }
-        if(playButton) {
+        if(playButton && 'speechSynthesis' in window && !speechSynthesis.paused) {
             playButton.style.display = 'block';
         }
-        if(pauseButton) {
+        if(pauseButton && 'speechSynthesis' in window && speechSynthesis.paused) {
             pauseButton.style.display = 'block';
         }
         if(stopButton) {
@@ -983,7 +987,6 @@ async function speak(text) {
         cancelSpeak();
         for (const [regex, substituicao] of abreviacoes) {
             text = text.replace(regex, substituicao);
-            text = text.replace(/\n/gi, '. ');
         }
         text = text.replace(
             /(?<!\d)(10|[1-9])(?:\s*\.?\s*)([ºoªa])(?!\d)/gi,
@@ -996,7 +999,7 @@ async function speak(text) {
         const utterance = new SpeechSynthesisUtterance(capitalizeSentences(text));
         utterance.lang = 'pt-BR';
         utterance.rate = 1.6;
-        utterance.pitch = 1.2;
+        utterance.pitch = 1.25;
         if (result.voz) {
             utterance.voice = speechSynthesis.getVoices()[result.voz];
         }
@@ -1100,7 +1103,7 @@ function buildLeitorDePDF() {
         marginBottom: '8px',
         outline: 'outset',
         display: 'none',
-        zIndex: "99999999",
+        zIndex: "99999998",
         cursor: "pointer",
     }
     
