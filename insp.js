@@ -155,20 +155,6 @@ async function changeHideState(event) {
         });
     } else {
         await chrome.storage.local.set({insp_visual_ocultar: true});
-        const [tab] = await chrome.tabs.query({
-            active: true,
-            currentWindow: true
-        });
-        const tabId = tab.id;
-
-        chrome.tabs.sendMessage(tabId, { action: "ocultar", targetElementId: event.target.id },
-        (response) => {
-            if (chrome.runtime.lastError) {
-                console.error(chrome.runtime.lastError);
-                return;
-            }
-        }
-        );
     }
 }
 

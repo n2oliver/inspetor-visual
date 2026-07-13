@@ -236,152 +236,133 @@ const languagesTitles = {
 2. Para desbloquear, se apenas tocou no inspetor, toque fora dele.
 3. Toque no botão 'bloqueado' ou tecle B novamente para desbloquear.
 4. Para ouvir a narração, ative o Leitor de tela e clique na página ao menos uma vez.
-5. Clique em um dos itens do popup para copiá-lo.
-6. Abra um PDF e ouça-o em voz alta (como um audiobook).`,
+5. Clique em um dos itens do popup para copiá-lo.`
     },
     "en-US": {
         "btn-info": `1. To lock the inspector on the screen, tap it or press B.
 2. To unlock it, if you only tapped the inspector, tap outside it.
 3. Tap the "locked" button or press B again to unlock.
 4. To hear the narration, enable the screen reader and click the page at least once.
-5. Click one of the popup items to copy it.
-6. Open a PDF and listen to it read aloud (like an audiobook).`,
+5. Click one of the popup items to copy it.`
     },
     "fr-FR": {
         "btn-info": `1. Pour verrouiller l'inspecteur à l'écran, cliquez dessus ou appuyez sur B.
 2. Pour le déverrouiller, cliquez en dehors si vous l'avez seulement sélectionné.
 3. Cliquez sur le bouton « verrouillé » ou appuyez de nouveau sur B.
 4. Activez le lecteur d'écran et cliquez au moins une fois sur la page pour entendre la narration.
-5. Cliquez sur un élément de la fenêtre pour le copier.
-6. Ouvrez un PDF et écoutez-le à voix haute (comme un livre audio).`,
+5. Cliquez sur un élément de la fenêtre pour le copier.`
     },
     "it-IT": {
         "btn-info": `1. Per bloccare l'ispettore sullo schermo, fai clic su di esso o premi B.
 2. Per sbloccarlo, fai clic fuori se lo avevi solo selezionato.
 3. Premi il pulsante "bloccato" o B per sbloccarlo.
 4. Attiva il lettore dello schermo e fai clic almeno una volta sulla pagina.
-5. Fai clic su uno degli elementi del popup per copiarlo.
-6. Apri un PDF e ascoltalo ad alta voce (come un audiolibro).`,
+5. Fai clic su uno degli elementi del popup per copiarlo.`
     },
     "es-ES": {
         "btn-info": `1. Para bloquear el inspector en la pantalla, haga clic en él o pulse B.
 2. Para desbloquearlo, haga clic fuera si solo lo había seleccionado.
 3. Pulse el botón «bloqueado» o B nuevamente para desbloquearlo.
 4. Active el lector de pantalla y haga clic al menos una vez en la página.
-5. Haga clic en un elemento de la ventana emergente para copiarlo.
-6. Abra un PDF y escúchelo en voz alta (como un audiolibro).`,
+5. Haga clic en un elemento de la ventana emergente para copiarlo.`
     },
     "ru-RU": {
         "btn-info": `1. Чтобы закрепить инспектор на экране, нажмите на него или клавишу B.
 2. Чтобы снять закрепление, щёлкните вне него.
 3. Нажмите кнопку «Закреплено» или B ещё раз.
 4. Включите экранный диктор и щёлкните по странице хотя бы один раз.
-5. Щёлкните по элементу всплывающего окна, чтобы скопировать его.
-6. Откройте PDF и прослушайте его вслух (как аудиокнигу).`,
+5. Щёлкните по элементу всплывающего окна, чтобы скопировать его.`
     },
     "ro-RO": {
         "btn-info": `1. Pentru a fixa inspectorul pe ecran, faceți clic pe el sau apăsați B.
 2. Pentru deblocare, faceți clic în afara lui.
 3. Faceți clic pe butonul „blocat” sau apăsați din nou B.
 4. Activați cititorul de ecran și faceți clic cel puțin o dată pe pagină.
-5. Faceți clic pe un element din fereastra pop-up pentru a-l copia.
-6. Deschideți un PDF și ascultați-l cu voce tare (ca un audiobook).`,
+5. Faceți clic pe un element din fereastra pop-up pentru a-l copia.`
     },
     "sr-RS": {
         "btn-info": `1. Да бисте закључали инспектор на екрану, кликните на њега или притисните B.
 2. Да бисте га откључали, кликните ван њега.
 3. Кликните на дугме „закључано“ или поново притисните B.
 4. Омогућите читач екрана и кликните на страницу бар једном.
-5. Кликните на ставку у искачућем прозору да је копирате.
-6. Отворите PDF и слушајте га наглас (као аудио-књигу).`,
+5. Кликните на ставку у искачућем прозору да је копирате.`
     },
     "zh-CN": {
         "btn-info": `1. 单击检查器或按 B 将其固定在屏幕上。
 2. 若要解锁，请单击检查器外部。
 3. 再次单击“已锁定”按钮或按 B。
 4. 启用屏幕阅读器，并至少点击页面一次。
-5. 点击弹出窗口中的项目即可复制。
-6. 打开 PDF，并像有声读物一样朗读。`,
+5. 点击弹出窗口中的项目即可复制。`
     },
     "zh-TW": {
         "btn-info": `1. 點擊檢查器或按 B 將其固定在畫面上。
 2. 若要解除鎖定，請點擊檢查器外部。
 3. 再次點擊「已鎖定」按鈕或按 B。
 4. 啟用螢幕閱讀器，並至少點擊頁面一次。
-5. 點擊彈出視窗中的項目即可複製。
-6. 開啟 PDF，像有聲書一樣朗讀。`,
+5. 點擊彈出視窗中的項目即可複製。`
     },
     "ja-JP": {
         "btn-info": `1. インスペクターを固定するにはクリックするか B を押します。
 2. 解除するには外側をクリックします。
 3. 「固定」ボタンまたは B をもう一度押します。
 4. スクリーンリーダーを有効にし、ページを一度クリックしてください。
-5. ポップアップ内の項目をクリックするとコピーできます。
-6. PDF を開き、オーディオブックのように読み上げます。`,
+5. ポップアップ内の項目をクリックするとコピーできます`
     },
     "nl-NL": {
         "btn-info": `1. Klik op de inspector of druk op B om deze vast te zetten.
 2. Klik buiten de inspector om te ontgrendelen.
 3. Klik opnieuw op 'vergrendeld' of druk op B.
 4. Schakel de schermlezer in en klik minstens één keer op de pagina.
-5. Klik op een item in de pop-up om het te kopiëren.
-6. Open een PDF en laat deze hardop voorlezen (zoals een audioboek).`,
+5. Klik op een item in de pop-up om het te kopiëren.`
     },
     "bn-BD": {
         "btn-info": `১. ইন্সপেক্টর লক করতে সেটিতে ক্লিক করুন বা B চাপুন।
 ২. আনলক করতে বাইরে ক্লিক করুন।
 ৩. আবার "লক" বোতাম বা B চাপুন।
 ৪. স্ক্রিন রিডার চালু করে পৃষ্ঠায় অন্তত একবার ক্লিক করুন।
-৫. পপআপের একটি আইটেমে ক্লিক করে কপি করুন।
-৬. একটি PDF খুলে অডিওবুকের মতো শুনুন।`,
+৫. পপআপের একটি আইটেমে ক্লিক করে কপি করুন।`
     },
     "id-ID": {
         "btn-info": `1. Klik inspektur atau tekan B untuk menguncinya.
 2. Untuk membuka, klik di luar inspektur.
 3. Klik tombol "terkunci" atau tekan B lagi.
 4. Aktifkan pembaca layar dan klik halaman setidaknya sekali.
-5. Klik item pada popup untuk menyalinnya.
-6. Buka PDF dan dengarkan seperti audiobook.`,
+5. Klik item pada popup untuk menyalinnya.`
     },
     "ur-PK": {
         "btn-info": `1. انسپکٹر کو لاک کرنے کے لیے اس پر کلک کریں یا B دبائیں۔
 2. ان لاک کرنے کے لیے باہر کلک کریں۔
 3. دوبارہ "لاک" بٹن یا B دبائیں۔
 4. اسکرین ریڈر فعال کریں اور صفحے پر کم از کم ایک بار کلک کریں۔
-5. پاپ اپ میں موجود آئٹم پر کلک کر کے کاپی کریں۔
-6. PDF کھولیں اور آڈیو بک کی طرح سنیں۔`,
+5. پاپ اپ میں موجود آئٹم پر کلک کر کے کاپی کریں۔`
     },
     "el-GR": {
         "btn-info": `1. Κάντε κλικ στον επιθεωρητή ή πατήστε B για κλείδωμα.
 2. Για ξεκλείδωμα, κάντε κλικ έξω από αυτόν.
 3. Πατήστε ξανά «κλειδωμένο» ή B.
 4. Ενεργοποιήστε τον αναγνώστη οθόνης και κάντε κλικ στη σελίδα μία φορά.
-5. Κάντε κλικ σε στοιχείο του αναδυόμενου παραθύρου για αντιγραφή.
-6. Ανοίξτε ένα PDF και ακούστε το σαν ηχητικό βιβλίο.`,
+5. Κάντε κλικ σε στοιχείο του αναδυόμενου παραθύρου για αντιγραφή.`
     },
     "ar-SA": {
         "btn-info": `1. انقر على المفتش أو اضغط B لتثبيته.
 2. لإلغاء التثبيت انقر خارج المفتش.
 3. اضغط زر "مقفل" أو B مرة أخرى.
 4. فعّل قارئ الشاشة وانقر على الصفحة مرة واحدة على الأقل.
-5. انقر على عنصر من النافذة المنبثقة لنسخه.
-6. افتح ملف PDF واستمع إليه ككتاب صوتي.`,
+5. انقر على عنصر من النافذة المنبثقة لنسخه.`
     },
     "tr-TR": {
         "btn-info": `1. Denetçiyi sabitlemek için üzerine tıklayın veya B tuşuna basın.
 2. Kilidi açmak için dışına tıklayın.
 3. "Kilitli" düğmesine veya tekrar B'ye basın.
 4. Ekran okuyucuyu etkinleştirin ve sayfaya en az bir kez tıklayın.
-5. Kopyalamak için açılır penceredeki bir öğeye tıklayın.
-6. Bir PDF açın ve sesli kitap gibi dinleyin.`,
+5. Kopyalamak için açılır penceredeki bir öğeye tıklayın.`
     },
     "lv-LV": {
         "btn-info": `1. Noklikšķiniet uz inspektora vai nospiediet B, lai to bloķētu.
 2. Lai atbloķētu, noklikšķiniet ārpus tā.
 3. Vēlreiz noklikšķiniet uz "bloķēts" vai nospiediet B.
 4. Aktivizējiet ekrāna lasītāju un vismaz vienu reizi noklikšķiniet lapā.
-5. Noklikšķiniet uz uznirstošā loga vienuma, lai to kopētu.
-6. Atveriet PDF un klausieties to kā audiogrāmatu.`,
+5. Noklikšķiniet uz uznirstošā loga vienuma, lai to kopētu.`
     }
 };
 
@@ -393,7 +374,6 @@ const languagesElements = {
                 <li>Toque no botão 'bloqueado' ou tecle B novamente para desbloquear.</li>
                 <li>Para ouvir a narração, ative o Leitor de tela e clique na página ao menos uma vez.</li>
                 <li>Clique em um dos itens do popup para copiá-lo.</li>
-                <li>Abra um PDF e ouça-o em voz alta (como um audiobook).</li>
             </ol>`
     },
     "en-US": {
@@ -403,7 +383,6 @@ const languagesElements = {
                 <li>Click the "locked" button or press B again to unlock.</li>
                 <li>Enable the screen reader and click the page at least once to hear the narration.</li>
                 <li>Click one of the popup items to copy it.</li>
-                <li>Open a PDF and listen to it read aloud (like an audiobook).</li>
             </ol>`
     },
     "fr-FR": {
@@ -413,7 +392,6 @@ const languagesElements = {
                 <li>Cliquez sur le bouton « verrouillé » ou appuyez de nouveau sur B.</li>
                 <li>Activez le lecteur d'écran et cliquez au moins une fois sur la page.</li>
                 <li>Cliquez sur un élément de la fenêtre contextuelle pour le copier.</li>
-                <li>Ouvrez un PDF et écoutez-le à voix haute (comme un livre audio).</li>
             </ol>`
     },
     "it-IT": {
@@ -423,7 +401,6 @@ const languagesElements = {
                 <li>Fai clic sul pulsante "bloccato" o premi di nuovo B.</li>
                 <li>Attiva il lettore dello schermo e fai clic almeno una volta sulla pagina.</li>
                 <li>Fai clic su un elemento del popup per copiarlo.</li>
-                <li>Apri un PDF e ascoltalo come un audiolibro.</li>
             </ol>`
     },
     "es-ES": {
@@ -433,7 +410,6 @@ const languagesElements = {
                 <li>Pulse el botón "bloqueado" o B nuevamente.</li>
                 <li>Active el lector de pantalla y haga clic al menos una vez en la página.</li>
                 <li>Haga clic en un elemento de la ventana emergente para copiarlo.</li>
-                <li>Abra un PDF y escúchelo como un audiolibro.</li>
             </ol>`
     },
     "ru-RU": {
@@ -443,7 +419,6 @@ const languagesElements = {
                 <li>Нажмите кнопку «Закреплено» или B ещё раз.</li>
                 <li>Включите экранный диктор и щёлкните по странице хотя бы один раз.</li>
                 <li>Щёлкните по элементу всплывающего окна, чтобы скопировать его.</li>
-                <li>Откройте PDF и прослушайте его как аудиокнигу.</li>
             </ol>`
     },
     "ro-RO": {
@@ -453,7 +428,6 @@ const languagesElements = {
                 <li>Faceți clic pe butonul „blocat” sau apăsați din nou B.</li>
                 <li>Activați cititorul de ecran și faceți clic cel puțin o dată pe pagină.</li>
                 <li>Faceți clic pe un element din fereastra pop-up pentru a-l copia.</li>
-                <li>Deschideți un PDF și ascultați-l ca audiobook.</li>
             </ol>`
     },
     "sr-RS": {
@@ -463,7 +437,6 @@ const languagesElements = {
                 <li>Поново кликните на „закључано“ или притисните B.</li>
                 <li>Омогућите читач екрана и кликните на страницу једном.</li>
                 <li>Кликните на ставку у искачућем прозору да је копирате.</li>
-                <li>Отворите PDF и слушајте га као аудио-књигу.</li>
             </ol>`
     },
     "zh-CN": {
@@ -473,7 +446,6 @@ const languagesElements = {
                 <li>再次单击“已锁定”按钮或按 B。</li>
                 <li>启用屏幕阅读器，并至少点击页面一次。</li>
                 <li>点击弹出窗口中的项目即可复制。</li>
-                <li>打开 PDF，像有声读物一样收听。</li>
             </ol>`
     },
     "zh-TW": {
@@ -483,7 +455,6 @@ const languagesElements = {
                 <li>再次點擊「已鎖定」按鈕或按 B。</li>
                 <li>啟用螢幕閱讀器並至少點擊頁面一次。</li>
                 <li>點擊彈出視窗中的項目即可複製。</li>
-                <li>開啟 PDF，像有聲書一樣收聽。</li>
             </ol>`
     },
     "ja-JP": {
@@ -493,7 +464,6 @@ const languagesElements = {
                 <li>「固定」ボタンまたは B をもう一度押します。</li>
                 <li>スクリーンリーダーを有効にし、ページを一度クリックしてください。</li>
                 <li>ポップアップの項目をクリックするとコピーできます。</li>
-                <li>PDF を開き、オーディオブックのように聞くことができます。</li>
             </ol>`
     },
     "nl-NL": {
@@ -503,7 +473,6 @@ const languagesElements = {
                 <li>Klik opnieuw op "vergrendeld" of druk op B.</li>
                 <li>Schakel de schermlezer in en klik minstens één keer op de pagina.</li>
                 <li>Klik op een item in de pop-up om het te kopiëren.</li>
-                <li>Open een PDF en luister ernaar als een audioboek.</li>
             </ol>`
     },
     "bn-BD": {
@@ -513,7 +482,6 @@ const languagesElements = {
                 <li>আবার "লক" বোতাম বা B চাপুন।</li>
                 <li>স্ক্রিন রিডার চালু করে একবার পৃষ্ঠায় ক্লিক করুন।</li>
                 <li>পপআপের একটি আইটেমে ক্লিক করে কপি করুন।</li>
-                <li>PDF খুলে অডিওবুকের মতো শুনুন।</li>
             </ol>`
     },
     "id-ID": {
@@ -523,7 +491,6 @@ const languagesElements = {
                 <li>Klik tombol "terkunci" atau tekan B lagi.</li>
                 <li>Aktifkan pembaca layar dan klik halaman sekali.</li>
                 <li>Klik item popup untuk menyalinnya.</li>
-                <li>Buka PDF dan dengarkan seperti audiobook.</li>
             </ol>`
     },
     "ur-PK": {
@@ -533,7 +500,6 @@ const languagesElements = {
                 <li>دوبارہ "لاک" بٹن یا B دبائیں۔</li>
                 <li>اسکرین ریڈر فعال کریں اور صفحے پر ایک بار کلک کریں۔</li>
                 <li>پاپ اپ آئٹم پر کلک کر کے کاپی کریں۔</li>
-                <li>PDF کھولیں اور آڈیو بک کی طرح سنیں۔</li>
             </ol>`
     },
     "el-GR": {
@@ -543,7 +509,6 @@ const languagesElements = {
                 <li>Πατήστε ξανά «κλειδωμένο» ή B.</li>
                 <li>Ενεργοποιήστε τον αναγνώστη οθόνης και κάντε κλικ μία φορά.</li>
                 <li>Κάντε κλικ σε στοιχείο του αναδυόμενου παραθύρου.</li>
-                <li>Ανοίξτε ένα PDF και ακούστε το σαν ηχητικό βιβλίο.</li>
             </ol>`
     },
     "ar-SA": {
@@ -553,7 +518,6 @@ const languagesElements = {
                 <li>اضغط "مقفل" أو B مرة أخرى.</li>
                 <li>فعّل قارئ الشاشة وانقر على الصفحة مرة واحدة.</li>
                 <li>انقر على عنصر في النافذة المنبثقة لنسخه.</li>
-                <li>افتح PDF واستمع إليه ككتاب صوتي.</li>
             </ol>`
     },
     "tr-TR": {
@@ -563,7 +527,6 @@ const languagesElements = {
                 <li>"Kilitli" düğmesine veya B'ye tekrar basın.</li>
                 <li>Ekran okuyucuyu etkinleştirin ve sayfaya bir kez tıklayın.</li>
                 <li>Açılır penceredeki öğeye tıklayarak kopyalayın.</li>
-                <li>PDF açın ve sesli kitap gibi dinleyin.</li>
             </ol>`
     },
     "lv-LV": {
@@ -573,7 +536,6 @@ const languagesElements = {
                 <li>Vēlreiz nospiediet "bloķēts" vai B.</li>
                 <li>Aktivizējiet ekrāna lasītāju un noklikšķiniet uz lapas vienu reizi.</li>
                 <li>Noklikšķiniet uz uznirstošā loga vienuma, lai to kopētu.</li>
-                <li>Atveriet PDF un klausieties to kā audiogrāmatu.</li>
             </ol>`
     }
 };
