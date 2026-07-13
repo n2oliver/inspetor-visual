@@ -76,9 +76,6 @@ async function checkSpeaker() {
     } else {
         document.getElementById("insp_visual_leitor_de_tela").checked = false;
         document.getElementById("vozes").parentElement.classList.add("d-none");
-        if ('speechSynthesis' in window) {
-            speechSynthesis.cancel();
-        }
     }
 }
 async function changeState() {
