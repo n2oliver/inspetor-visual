@@ -1,36 +1,25 @@
-async function checkLanguage() {
-    let savedLanguage = await chrome.storage.local.get(['language']);
-    const language = savedLanguage.language ? savedLanguage.language : navigator.language;
-    document.getElementById("lang").value = language;
-    changeLanguage(language)
-}
-async function changeLanguage(language) {
-    await chrome.storage.local.set({language});
-    
-    for(let item in languages[language]) {
-        document.getElementById(item).innerText = languages[language][item];
-    }
-    for(let item in languagesTitles[language]) {
-        document.getElementById(item).title = languagesTitles[language][item];
-    }
-    for(let item in languagesElements[language]) {
-        document.getElementById(item).innerHTML = languagesElements[language][item];
-    }
+async function changeLanguage() {
+    document.getElementById("tooltip").textContent = chrome.i18n.getMessage("tooltip");
+    document.querySelector('[for="insp_visual_ligado"]').textContent = chrome.i18n.getMessage("labelForInspVisualLigado");
+    document.querySelector('[for="insp_visual_bloquear_ao_sobrepor"]').textContent = chrome.i18n.getMessage("labelForInspVisualBloquearAoSobrepor");
+    document.querySelector('[for="insp_visual_leitor_de_tela"]').textContent = chrome.i18n.getMessage("labelForInspVisualLeitorDeTela");
+    document.querySelector('[for="insp_visual_ocultar"]').textContent = chrome.i18n.getMessage("labelForInspVisualOcultar");
+    document.getElementById("btn-info").title = chrome.i18n.getMessage("btnInfo");
+    document.getElementById("info").innerHTML = chrome.i18n.getMessage("info");
     checkInspVisual();
 }
 async function checkInspVisual() {
     const result = await chrome.storage.local.get(["insp_visual_ligado"]);
     const langInput = document.getElementById("lang");
-    const language = langInput.options[langInput.selectedIndex].value;
 
     if(result.insp_visual_ligado == true) {
         document.getElementById("insp_visual_ligado").checked = true;
-        document.querySelector('#tooltip').innerHTML = languages[language].tooltip;
-        document.querySelector('[for="insp_visual_ligado"]').innerHTML = languages[language].label_for_insp_visual_ligado;
+        document.querySelector('#tooltip').innerHTML = chrome.i18n.getMessage("tooltip");
+        document.querySelector('[for="insp_visual_ligado"]').innerHTML = chrome.i18n.getMessage("labelForInspVisualLigado");
     } else {
         document.getElementById("insp_visual_ligado").checked = false;
-        document.querySelector('#tooltip').innerHTML = languagesExtra[language].tooltip;
-        document.querySelector('[for="insp_visual_ligado"]').innerHTML = languagesExtra[language].desativado;
+        document.querySelector('#tooltip').innerHTML = chrome.i18n.getMessage("labelForInspVisualLigado");
+        document.querySelector('[for="insp_visual_ligado"]').innerHTML = chrome.i18n.getMessage("labelForInspVisualDesligado");
     }
 }
 async function checkLockOnOverlay() {
@@ -157,12 +146,11 @@ async function changeHideState(event) {
 
 window.onload = () => {
     const langInput = document.getElementById("lang");
-    checkLanguage();
+    changeLanguage();
     checkInspVisual();
     checkLockOnOverlay();
     checkSpeaker();
     checkHide();
-    langInput.onchange = (event) => changeLanguage(langInput.options[langInput.selectedIndex].value);
     document.getElementById("insp_visual_ligado").onclick= changeState;
     document.getElementById("insp_visual_leitor_de_tela").onclick= speakerChangeState;
     document.getElementById("insp_visual_bloquear_ao_sobrepor").onclick= changeLockOnOverlay;

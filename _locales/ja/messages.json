@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Visual Inspectorのコンテキストメニューを使用して要素をコピーします。",
+        "description": "Visual Inspectorのコンテキストメニュー用ツールチップメッセージ。"
+    },
+    "labelForInspVisualLigado": {
+        "message": "Visual Inspectorを有効にして要素を調査します。",
+        "description": "Visual Inspectorが無効な時のツールチップメッセージ。"
+    },
+    "labelForInspVisualLigado": {
+        "message": "有効",
+        "description": "Visual Inspectorが有効であることを示すラベル。"
+    },
+    "labelForInspVisualDesligado": {
+        "message": "無効",
+        "description": "Visual Inspectorが無効であることを示すラベル。"
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "重なり時にロック",
+        "description": "要素が重なった際にVisual Inspectorをロックするオプションのラベル。"
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "スクリーンリーダー",
+        "description": "Visual Inspectorでスクリーンリーダーのサポートを有効にするオプションのラベル。"
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Visual Inspectorを非表示にする",
+        "description": "Visual Inspectorを非表示にするオプションのラベル。"
+    },
+    "btnInfo": {
+        "message": "1. インスペクターを画面に固定するには、タップするか「B」キーを押します。\n2. 固定を解除するには、タップで固定した場合はインスペクターの外側をタップします。\n3. 「固定中」ボタンをタップするか、再度「B」キーを押して固定を解除します。\n4. ナレーションを聞くには、スクリーンリーダーを有効にし、ページを少なくとも1回クリックしてください。\n5. ポップアップ内の項目をクリックすると、その内容をコピーできます。",
+        "description": "Visual Inspector（ビジュアルインスペクター）に関する情報メッセージ。"
+    },
+    "info": {
+        "message": "<ol><li>インスペクターを画面に固定するには、インスペクターをタップするか、Bキーを押します。</li><li>固定を解除するには、インスペクターをタップしただけの場合は、インスペクターの外側をタップします。</li><li>「固定」ボタンをタップするか、もう一度Bキーを押して固定を解除します。</li><li>ナレーションを聞くには、スクリーンリーダーを有効にし、ページ上を少なくとも1回クリックしてください。</li><li>ポップアップ内の項目をクリックすると、その項目をコピーできます。</li></ol>",
+        "description": "ビジュアルインスペクターに関する情報メッセージ。"
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Copiați un element folosind meniul contextual Visual Inspector.",
+        "description": "Mesaj de tip tooltip pentru meniul contextual Visual Inspector."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activați Visual Inspector pentru a inspecta elementele.",
+        "description": "Mesaj de tip tooltip când Visual Inspector este dezactivat."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activat",
+        "description": "Etichetă care indică faptul că Visual Inspector este activat."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Dezactivat",
+        "description": "Etichetă care indică faptul că Visual Inspector este dezactivat."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Blocare la suprapunere",
+        "description": "Etichetă pentru opțiunea de blocare a Visual Inspector la suprapunerea elementelor."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Cititor de ecran",
+        "description": "Etichetă pentru opțiunea de activare a suportului pentru cititorul de ecran în Inspectorul vizual."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Ascunde Inspectorul vizual",
+        "description": "Etichetă pentru opțiunea de ascundere a Inspectorului vizual."
+    },
+    "btnInfo": {
+        "message": "1. Pentru a bloca inspectorul pe ecran, atingeți-l sau apăsați B.\n2. Pentru a-l debloca, dacă ați atins doar inspectorul, atingeți în afara acestuia.\n3. Atingeți butonul „blocat” sau apăsați din nou B pentru a-l debloca.\n4. Pentru a asculta narațiunea, activați cititorul de ecran și faceți clic pe pagină cel puțin o dată.\n5. Faceți clic pe unul dintre elementele pop-up pentru a-l copia.",
+        "description": "Mesaj informativ pentru Inspectorul vizual."
+    },
+    "info": {
+        "message": "<ol><li>Pentru a bloca inspectorul pe ecran, atingeți-l sau apăsați B.</li><li>Pentru a-l debloca, dacă ați atins doar inspectorul, atingeți în afara acestuia.</li><li>Atingeți butonul „blocat” sau apăsați din nou B pentru a-l debloca.</li><li>Pentru a asculta narațiunea, activați cititorul de ecran și faceți clic pe pagină cel puțin o dată.</li><li>Faceți clic pe unul dintre elementele din fereastra pop-up pentru a-l copia.</li></ol>",
+        "description": "Mesaj informativ pentru Inspectorul vizual."
+    }
+}

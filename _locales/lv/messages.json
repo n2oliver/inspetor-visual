@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Kopēt elementu, izmantojot Vizuālā inspektora konteksta izvēlni.",
+        "description": "Rīka padoma ziņojums Vizuālā inspektora konteksta izvēlnei."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Aktivizēt Vizuālo inspektoru, lai pārbaudītu elementus.",
+        "description": "Rīka padoma ziņojums, kad Vizuālais inspektors ir deaktivizēts."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Aktivizēts",
+        "description": "Apzīmējums, kas norāda, ka Vizuālais inspektors ir iespējots."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Deaktivizēts",
+        "description": "Apzīmējums, kas norāda, ka Vizuālais inspektors ir atspējots."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Bloķēt pārklāšanās gadījumā",
+        "description": "Apzīmējums opcijai, kas bloķē Vizuālo inspektoru, ja elementi pārklājas."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Ekrāna lasītājs",
+        "description": "Apzīmējums opcijai, kas ļauj iespējot ekrāna lasītāja atbalstu Vizuālajā inspektorā."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Paslēpt Vizuālo inspektoru",
+        "description": "Apzīmējums opcijai, kas ļauj paslēpt Vizuālo inspektoru."
+    },
+    "btnInfo": {
+        "message": "1. Lai bloķētu inspektoru ekrānā, pieskarieties tam vai nospiediet B.\n2. Lai to atbloķētu, ja esat tikai pieskāries inspektoram, pieskarieties ārpus tā.\n3. Pieskarieties pogai \"bloķēts\" vai vēlreiz nospiediet B, lai atbloķētu.\n4. Lai noklausītos stāstījumu, iespējojiet ekrāna lasītāju un vismaz vienu reizi noklikšķiniet uz lapas.\n5. Noklikšķiniet uz viena no uznirstošajiem vienumiem, lai to kopētu.",
+        "description": "Informatīvs ziņojums vizuālajam inspektoram."
+    },
+    "info": {
+        "message": "<ol><li>Lai bloķētu inspektoru ekrānā, pieskarieties tam vai nospiediet B.</li><li>Lai to atbloķētu, ja esat tikai pieskāries inspektoram, pieskarieties ārpus tā.</li><li>Pieskarieties pogai “bloķēts” vai vēlreiz nospiediet B, lai atbloķētu.</li><li>Lai noklausītos stāstījumu, iespējojiet ekrāna lasītāju un vismaz vienu reizi noklikšķiniet uz lapas.</li><li>Noklikšķiniet uz viena no uznirstošajā logā esošajiem vienumiem, lai to kopētu.</li></ol>",
+        "description": "Informatīvs ziņojums vizuālajam inspektoram."
+    }
+}

@@ -130,7 +130,7 @@ viewBox="0 0 24 24" fill="currentColor">
                 white-space: wrap;"
                 onclick="navigator.clipboard.writeText(this.textContent)">${(!isNaN(height) ? height + 'px' : 'não declarado') + copyIcon}</pre>
             </div>`;
-        innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Dimensões:</strong> 
+        innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>Dimensions:</strong> 
         <pre style="
             background-color: lightgrey;
             width: fit-content;

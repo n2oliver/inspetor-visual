@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Görsel İnceleyici bağlam menüsünü kullanarak bir öğeyi kopyalayın.",
+        "description": "Görsel İnceleyici bağlam menüsü için araç ipucu mesajı."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Öğeleri incelemek için Görsel İnceleyici'yi etkinleştirin.",
+        "description": "Görsel İnceleyici devre dışıyken gösterilen araç ipucu mesajı."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Etkin",
+        "description": "Görsel İnceleyici'nin etkin olduğunu belirten etiket."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Devre dışı",
+        "description": "Görsel İnceleyici'nin devre dışı olduğunu belirten etiket."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Üst üste binmede kilitle",
+        "description": "Öğeler üst üste bindiğinde Görsel İnceleyici'yi kilitleme seçeneği için etiket."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Ekran okuyucu",
+        "description": "Görsel İnceleyici'de ekran okuyucu desteğini etkinleştirme seçeneği için etiket."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Görsel İnceleyici'yi gizle",
+        "description": "Görsel İnceleyici'yi gizleme seçeneği için etiket."
+    },
+    "btnInfo": {
+        "message": "1. Denetçiyi ekrana sabitlemek için üzerine dokunun veya B tuşuna basın.\n2. Sabitlemeyi kaldırmak için; eğer sadece denetçiye dokunduysanız, denetçinin dışındaki bir alana dokunun.\n3. Sabitlemeyi kaldırmak için \"kilitli\" düğmesine dokunun veya tekrar B tuşuna basın.\n4. Sesli anlatımı duymak için ekran okuyucuyu etkinleştirin ve sayfaya en az bir kez tıklayın.\n5. Kopyalamak için açılır penceredeki öğelerden birine tıklayın.",
+        "description": "Görsel Denetçi için bilgilendirme mesajı."
+    },
+    "info": {
+        "message": "<ol><li>İnceleme aracını ekrana sabitlemek için üzerine dokunun veya B tuşuna basın.</li><li>Sabitlemeyi kaldırmak için; eğer sadece inceleme aracına dokunduysanız, aracın dışındaki bir alana dokunun.</li><li>Sabitlemeyi kaldırmak için 'kilitli' düğmesine dokunun veya tekrar B tuşuna basın.</li><li>Sesli anlatımı duymak için ekran okuyucuyu etkinleştirin ve sayfaya en az bir kez tıklayın.</li><li>Kopyalamak için açılır penceredeki öğelerden birine tıklayın.</li></ol>",
+        "description": "Görsel İnceleme Aracı için bilgilendirme mesajı."
+    }
+}

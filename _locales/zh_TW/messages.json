@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "使用視覺化檢查器上下文選單複製元素。",
+        "description": "可視化檢查器上下文選單的工具提示訊息。"
+    },
+    "labelForInspVisualLigado": {
+        "message": "啟動視覺化檢查器以檢查元素。",
+        "description": "可視化檢查器停用時的工具提示訊息。"
+    },
+    "labelForInspVisualLigado": {
+        "message": "已啟動",
+        "description": "指示可視化檢查器已啟用的標籤。"
+    },
+    "labelForInspVisualDesligado": {
+        "message": "已停用",
+        "description": "指示可視化檢查器已停用的標籤。"
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "重疊時鎖定",
+        "description": "重疊元素時鎖定視覺化檢查器的選項標籤。"
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "螢幕閱讀器",
+        "description": "在視覺化檢查器中啟用螢幕閱讀器支援的選項標籤。"
+    },
+    "labelForInspVisualOcultar": {
+        "message": "隱藏式視覺化檢查器",
+        "description": "隱藏可視化檢查器的選項標籤。"
+    },
+    "btnInfo": {
+        "message": "1. 若要鎖定螢幕上的檢查器，請點選它或按 B 鍵。 \n2. 要解鎖它，如果您只點擊了檢查器，請點擊其外部。 \n3. 點選「鎖定」按鈕或再次按 B 鍵解鎖。 \n4. 若要收聽旁白，請啟用螢幕閱讀器並至少點擊頁面一次。 \n5. 點擊其中一個彈出項目即可複製它。",
+        "description": "視覺檢查器的資訊訊息。"
+    },
+    "info": {
+        "message": "<ol><li>要鎖定螢幕上的檢查器，請點選它或按 B 鍵。 </li><li>要解鎖它，如果您只點擊了檢查器，請點擊其外部區域。 </li><li>點擊「鎖定」按鈕或再次按 B 鍵即可解鎖。 </li><li>要收聽語音朗讀，請啟用螢幕閱讀器並至少點擊頁面一次。 </li><li>點擊彈出視窗中的某個項目即可複製它。 </li></ol>",
+        "description": "視覺檢查器的資訊提示。"
+    }
+}

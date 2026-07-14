@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Copiez un élément à l'aide du menu contextuel de l'inspecteur visuel.",
+        "description": "Message d'info-bulle pour le menu contextuel de l'inspecteur visuel."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activez l'inspecteur visuel pour examiner les éléments.",
+        "description": "Message d'info-bulle lorsque l'inspecteur visuel est désactivé."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activé",
+        "description": "Étiquette indiquant que l'inspecteur visuel est activé."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Désactivé",
+        "description": "Étiquette indiquant que l'inspecteur visuel est désactivé."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Blocage en cas de chevauchement",
+        "description": "Étiquette indiquant l'option de bloquer l'inspecteur visuel lors du chevauchement d'éléments."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Lecteur d'écran",
+        "description": "Étiquette indiquant l'option d'activer le support du lecteur d'écran dans l'inspecteur visuel."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Cacher l'inspecteur visuel",
+        "description": "Étiquette indiquant l'option de cacher l'inspecteur visuel."
+    },
+    "btnInfo": {
+        "message": "1. Pour verrouiller l'inspecteur à l'écran, touchez-le ou appuyez sur la touche B.\n2. Pour le déverrouiller, si vous avez simplement touché l'inspecteur, touchez une zone en dehors de celui-ci.\n3. Touchez le bouton « verrouillé » ou appuyez à nouveau sur la touche B pour le déverrouiller.\n4. Pour entendre la narration, activez le lecteur d'écran et cliquez sur la page au moins une fois.\n5. Cliquez sur l'un des éléments de la fenêtre contextuelle pour le copier.",
+        "description": "Message d'information pour l'inspecteur visuel."
+    },
+    "info": {
+        "message": "<ol><li>Pour verrouiller l'inspecteur à l'écran, appuyez dessus ou sur la touche B.</li><li>Pour le déverrouiller, si vous avez simplement appuyé sur l'inspecteur, appuyez en dehors de celui-ci.</li><li>Appuyez sur le bouton « verrouillé » ou à nouveau sur la touche B pour le déverrouiller.</li><li>Pour entendre la narration, activez le lecteur d'écran et cliquez au moins une fois sur la page.</li><li>Cliquez sur l'un des éléments de la fenêtre contextuelle pour le copier.</li></ol>",
+        "description": "Message d'information pour l'inspecteur visuel."
+    }
+}

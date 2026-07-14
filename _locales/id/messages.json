@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Salin elemen menggunakan menu konteks Visual Inspector.",
+        "description": "Pesan tooltip untuk menu konteks Visual Inspector."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Aktifkan Visual Inspector untuk memeriksa elemen.",
+        "description": "Pesan tooltip saat Visual Inspector dinonaktifkan."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Diaktifkan",
+        "description": "Label yang menunjukkan bahwa Visual Inspector sedang aktif."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Dinonaktifkan",
+        "description": "Label yang menunjukkan bahwa Visual Inspector sedang tidak aktif."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Kunci saat tumpang tindih",
+        "description": "Label untuk opsi mengunci Visual Inspector saat elemen saling tumpang tindih."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Pembaca layar",
+        "description": "Label untuk opsi mengaktifkan dukungan pembaca layar pada Visual Inspector."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Sembunyikan Visual Inspector",
+        "description": "Label untuk opsi menyembunyikan Visual Inspector."
+    },
+    "btnInfo": {
+        "message": "1. Untuk mengunci inspektur di layar, ketuk inspektur tersebut atau tekan tombol B.\n2. Untuk membukanya kembali, jika Anda hanya mengetuk inspektur, ketuklah area di luar inspektur.\n3. Ketuk tombol \"terkunci\" atau tekan kembali tombol B untuk membuka kunci.\n4. Untuk mendengarkan narasi, aktifkan pembaca layar (screen reader) dan klik halaman setidaknya satu kali.\n5. Klik salah satu item pada popup untuk menyalinnya.",
+        "description": "Pesan informasi untuk Inspektur Visual."
+    },
+    "info": {
+        "message": "<ol><li>Untuk mengunci inspector di layar, ketuk inspector tersebut atau tekan tombol B.</li><li>Untuk membuka kuncinya, jika Anda hanya mengetuk inspector, ketuklah di luar area inspector tersebut.</li><li>Ketuk tombol 'terkunci' atau tekan kembali tombol B untuk membuka kunci.</li><li>Untuk mendengarkan narasi, aktifkan pembaca layar (screen reader) dan klik halaman setidaknya satu kali.</li><li>Klik salah satu item di dalam popup untuk menyalinnya.</li></ol>",
+        "description": "Pesan informasi untuk Visual Inspector."
+    }
+}

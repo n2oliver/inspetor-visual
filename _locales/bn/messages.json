@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Visual Inspector-এর কনটেক্সট মেনু ব্যবহার করে একটি এলিমেন্ট কপি করুন।",
+        "description": "Visual Inspector-এর কনটেক্সট মেনুর জন্য টুলটিপ বার্তা।"
+    },
+    "labelForInspVisualLigado": {
+        "message": "এলিমেন্ট পরীক্ষা (inspect) করতে Visual Inspector চালু করুন।",
+        "description": "Visual Inspector নিষ্ক্রিয় অবস্থায় টুলটিপ বার্তা।"
+    },
+    "labelForInspVisualLigado": {
+        "message": "চালু",
+        "description": "Visual Inspector চালু আছে তা নির্দেশকারী লেবেল।"
+    },
+    "labelForInspVisualDesligado": {
+        "message": "বন্ধ",
+        "description": "Visual Inspector বন্ধ আছে তা নির্দেশকারী লেবেল।"
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "ওভারল্যাপ হলে লক করুন",
+        "description": "এলিমেন্ট ওভারল্যাপ বা একে অপরের ওপর পড়ার সময় Visual Inspector-কে লক করার বিকল্পের লেবেল।"
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "স্ক্রিন রিডার",
+        "description": "Visual Inspector-এ স্ক্রিন রিডার সহায়তা চালু করার বিকল্পের লেবেল।"
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Visual Inspector লুকান",
+        "description": "Visual Inspector লুকানোর বিকল্পের লেবেল।"
+    },
+    "btnInfo": {
+        "message": "1. স্ক্রিনে ইন্সপেক্টরটিকে (inspector) লক করতে, সেটিতে ট্যাপ করুন অথবা B চাপুন।\n2. এটি আনলক করতে—যদি আপনি শুধুমাত্র ইন্সপেক্টরটিতে ট্যাপ করে থাকেন—তবে সেটির বাইরে কোথাও ট্যাপ করুন।\n3. আনলক করতে \"locked\" বোতামটিতে ট্যাপ করুন অথবা পুনরায় B চাপুন।\n4. বর্ণনা (narration) শুনতে, স্ক্রিন রিডার চালু করুন এবং পৃষ্ঠায় অন্তত একবার ক্লিক করুন।\n5. কোনো পপ-আপ আইটেম কপি করতে সেটিতে ক্লিক করুন।",
+        "description": "ভিজ্যুয়াল ইন্সপেক্টরের জন্য তথ্যমূলক বার্তা।"
+    },
+    "info": {
+        "message": "<ol><li>স্ক্রিনে ইন্সপেক্টরটিকে লক করতে, সেটিতে ট্যাপ করুন অথবা B চাপুন।</li><li>এটি আনলক করতে—যদি আপনি শুধুমাত্র ইন্সপেক্টরটিতে ট্যাপ করে থাকেন—তবে সেটির বাইরে কোথাও ট্যাপ করুন।</li><li>আনলক করতে 'locked' বোতামটিতে ট্যাপ করুন অথবা পুনরায় B চাপুন।</li><li>বর্ণনা বা ন্যারেশন শুনতে, স্ক্রিন রিডার চালু করুন এবং পৃষ্ঠায় অন্তত একবার ক্লিক করুন।</li><li>পপ-আপে থাকা কোনো আইটেম কপি করতে সেটিতে ক্লিক করুন।</li></ol>",
+        "description": "ভিজ্যুয়াল ইন্সপেক্টরের জন্য তথ্যমূলক বার্তা।"
+    }
+}

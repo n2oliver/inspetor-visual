@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Copiar um elemento pelo menu de contexto Inspetor Visual.",
+        "description": "Mensagem de dica para o menu de contexto do Visual Inspector."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Ativo o Inspetor Visual para funcionar elementos.",
+        "description": "Mensagem de dica quando o Inspetor Visual está desativado."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Ativado",
+        "description": "Etiqueta inferior a que o Inspetor Visual está ativado."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Desativado",
+        "description": "Rótulo inferior que o Inspetor Visual está desativado."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Bloquear a sobreposição",
+        "description": "Etiqueta para a opção de bloqueio do Inspetor Visual ao sobrepor elementos."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Leitor de ecrã",
+        "description": "Etiqueta para a opção de ativar o suporte do leitor de ecrã no Visual Inspector."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Ocultar o Inspetor Visual",
+        "description": "Etiqueta para a opção de ocultar o Inspetor Visual."
+    },
+    "btnInfo": {
+        "message": "1. Para corrigir o inspetor no ecrã, toque nele ou pressione a tecla B. \n2. Para o libertar, tenha apenas tocado no inspetor, toque para o apagar. \n3. Toque no botão de \"fixado\" ou pressione novamente a tecla B para o libertar. \n4. Para ouvir a narração, ative o leitor de ecrã e clique na página pelo menos uma vez. \n5. Clique num dos itens do pop-up para copiá-lo.",
+        "description": "Mensagem informativa para o Inspetor Visual."
+    },
+    "info": {
+        "message": "<ol><li>Para bloquear o inspetor no ecrã, toque nele ou prima B.</li><li>Para o desbloquear, se apenas tocou no inspetor, toque fora dele.</li><li>Toque no botão 'bloqueado' ou prima B novamente para desbloquear.</li><li>Para ouvir a narração, ative o leitor de ecrã e clique na página pelo menos uma vez.</li><li>Clique num dos itens no pop-up para copiá-lo.</li></ol>",
+        "description": "Mensagem informativa para o Inspetor Visual."
+    }
+}

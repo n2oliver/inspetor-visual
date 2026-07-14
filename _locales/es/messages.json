@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Copia un elemento usando el menú contextual del Inspector visual.",
+        "description": "Mensaje de información sobre herramientas para el menú contextual del Inspector visual."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activa el Inspector visual para inspeccionar elementos.",
+        "description": "Mensaje de información sobre herramientas cuando el Inspector visual está desactivado."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activado",
+        "description": "Etiqueta que indica que el Inspector visual está habilitado."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Desactivado",
+        "description": "Etiqueta que indica que el Inspector visual está deshabilitado."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Bloquear al superponerse",
+        "description": "Etiqueta para la opción de bloquear el Inspector visual al superponer elementos."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Lector de pantalla",
+        "description": "Etiqueta para la opción de habilitar la compatibilidad con lectores de pantalla en el Inspector visual."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Ocultar Inspector visual",
+        "description": "Etiqueta para la opción de ocultar el Inspector visual."
+    },
+    "btnInfo": {
+        "message": "1. Para fijar el inspector en la pantalla, tócalo o pulsa B.\n2. Para desbloquearlo, si solo has tocado el inspector, toca fuera de él.\n3. Toca el botón de «bloqueado» o pulsa B de nuevo para desbloquearlo.\n4. Para escuchar la narración, activa el lector de pantalla y haz clic en la página al menos una vez.\n5. Haz clic en uno de los elementos emergentes para copiarlo.",
+        "description": "Mensaje informativo para el inspector visual."
+    },
+    "info": {
+        "message": "<ol><li>Para fijar el inspector en la pantalla, tócalo o pulsa B.</li><li>Para desbloquearlo, si solo habías tocado el inspector, toca fuera de él.</li><li>Toca el botón de «bloqueado» o vuelve a pulsar B para desbloquearlo.</li><li>Para escuchar la narración, activa el lector de pantalla y haz clic en la página al menos una vez.</li><li>Haz clic en uno de los elementos de la ventana emergente para copiarlo.</li></ol>",
+        "description": "Mensaje informativo para el inspector visual."
+    }
+}

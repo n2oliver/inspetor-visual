@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Copy an element using the Visual Inspector context menu.",
+        "description": "Tooltip message for the Visual Inspector context menu."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activate the Visual Inspector to inspect elements.",
+        "description": "Tooltip message when the Visual Inspector is deactivated."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activated",
+        "description": "Label indicating that the Visual Inspector is enabled."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Deactivated",
+        "description": "Label indicating that the Visual Inspector is disabled."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Lock on overlap",
+        "description": "Label for the option to block the Visual Inspector when overlapping elements."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Screen reader",
+        "description": "Label for the option to enable screen reader support in the Visual Inspector."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Hide Visual Inspector",
+        "description": "Label for the option to hide the Visual Inspector."
+    },
+    "btnInfo": {
+        "message": "1. To lock the inspector on the screen, tap it or press B.\n2. To unlock it, if you only tapped the inspector, tap outside it.\n3. Tap the \"locked\" button or press B again to unlock.\n4. To hear the narration, enable the screen reader and click the page at least once.\n5. Click one of the popup items to copy it.",
+        "description": "Information message for the Visual Inspector."
+    },
+    "info": {
+        "message": "<ol><li>To lock the inspector on the screen, tap it or press B.</li><li>To unlock it, if you only tapped the inspector, tap outside of it.</li><li>Tap the 'locked' button or press B again to unlock.</li><li>To hear the narration, enable the screen reader and click on the page at least once.</li><li>Click one of the items in the popup to copy it.</li></ol>",
+        "description": "Informational message for the Visual Inspector."
+    }
+}

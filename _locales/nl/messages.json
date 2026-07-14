@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Kopieer een element via het contextmenu van de Visual Inspector.",
+        "description": "Tooltipbericht voor het contextmenu van de Visual Inspector."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Activeer de Visual Inspector om elementen te inspecteren.",
+        "description": "Tooltipbericht wanneer de Visual Inspector is gedeactiveerd."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Geactiveerd",
+        "description": "Label dat aangeeft dat de Visual Inspector is ingeschakeld."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Gedeactiveerd",
+        "description": "Label dat aangeeft dat de Visual Inspector is uitgeschakeld."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Vergrendelen bij overlappen",
+        "description": "Label voor de optie om de Visual Inspector te blokkeren bij overlappende elementen."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Schermlezer",
+        "description": "Label voor de optie om ondersteuning voor schermlezers in de Visual Inspector in te schakelen."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Visual Inspector verbergen",
+        "description": "Label voor de optie om de Visual Inspector te verbergen."
+    },
+    "btnInfo": {
+        "message": "1. Tik op de inspector of druk op B om deze op het scherm vast te zetten.\n2. Als je alleen op de inspector hebt getikt, tik je er buiten om deze weer los te maken.\n3. Tik op de knop 'vergrendeld' of druk nogmaals op B om de vergrendeling op te heffen.\n4. Schakel de schermlezer in en klik ten minste één keer op de pagina om de gesproken tekst te horen.\n5. Klik op een van de pop-upitems om dit te kopiëren.",
+        "description": "Informatiebericht voor de Visual Inspector."
+    },
+    "info": {
+        "message": "<ol><li>Tik op de inspector of druk op B om deze op het scherm vast te zetten.</li><li>Als je alleen op de inspector hebt getikt, tik je er buiten om deze weer los te maken.</li><li>Tik op de knop 'Vastgezet' of druk nogmaals op B om de inspector los te maken.</li><li>Schakel de schermlezer in en klik ten minste één keer op de pagina om de gesproken tekst te horen.</li><li>Klik op een van de items in de pop-up om deze te kopiëren.</li></ol>",
+        "description": "Informatief bericht voor de Visual Inspector."
+    }
+}

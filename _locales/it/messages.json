@@ -1,0 +1,38 @@
+{
+    "tooltip": {
+        "message": "Copia un elemento utilizzando il menu contestuale dell'Ispettore visivo.",
+        "description": "Messaggio del tooltip per il menu contestuale dell'Ispettore visivo."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Attiva l'Ispettore visivo per esaminare gli elementi.",
+        "description": "Messaggio del tooltip quando l'Ispettore visivo è disattivato."
+    },
+    "labelForInspVisualLigado": {
+        "message": "Attivato",
+        "description": "Etichetta che indica che l'Ispettore visivo è abilitato."
+    },
+    "labelForInspVisualDesligado": {
+        "message": "Disattivato",
+        "description": "Etichetta che indica che l'Ispettore visivo è disabilitato."
+    },
+    "labelForInspVisualBloquearAoSobrepor": {
+        "message": "Blocca alla sovrapposizione",
+        "description": "Etichetta per l'opzione di bloccare l'Ispettore visivo in caso di sovrapposizione di elementi."
+    },
+    "labelForInspVisualLeitorDeTela": {
+        "message": "Screen reader",
+        "description": "Etichetta per l'opzione di abilitare il supporto per screen reader nell'Ispettore visivo."
+    },
+    "labelForInspVisualOcultar": {
+        "message": "Nascondi Ispettore visivo",
+        "description": "Etichetta per l'opzione di nascondere l'Ispettore visivo."
+    },
+    "btnInfo": {
+        "message": "1. Per bloccare l'ispettore sullo schermo, toccalo o premi B.\n2. Per sbloccarlo, se hai solo toccato l'ispettore, tocca al di fuori di esso.\n3. Tocca il pulsante \"bloccato\" o premi nuovamente B per sbloccare.\n4. Per ascoltare la narrazione, abilita lo screen reader e clicca sulla pagina almeno una volta.\n5. Clicca su una delle voci del popup per copiarla.",
+        "description": "Messaggio informativo per l'Ispettore visivo."
+    },
+    "info": {
+        "message": "<ol><li>Per bloccare l'ispettore sullo schermo, toccalo o premi B.</li><li>Per sbloccarlo, se hai solo toccato l'ispettore, tocca un punto esterno ad esso.</li><li>Tocca il pulsante 'bloccato' o premi nuovamente B per sbloccarlo.</li><li>Per ascoltare la narrazione, attiva lo screen reader e clicca sulla pagina almeno una volta.</li><li>Clicca su una delle voci nel popup per copiarla.</li></ol>",
+        "description": "Messaggio informativo per l'ispettore visivo."
+    }
+}
