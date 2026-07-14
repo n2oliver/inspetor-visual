@@ -28,11 +28,11 @@
         "description": "Etiqueta para a opção de ocultar o Inspetor Visual."
     },
     "btnInfo": {
-        "message": "1. Para corrigir o inspetor no ecrã, toque nele ou pressione a tecla B. \n2. Para o libertar, tenha apenas tocado no inspetor, toque para o apagar. \n3. Toque no botão de \"fixado\" ou pressione novamente a tecla B para o libertar. \n4. Para ouvir a narração, ative o leitor de ecrã e clique na página pelo menos uma vez. \n5. Clique num dos itens do pop-up para copiá-lo.",
+        "message": "1. Para bloquear o inspetor no ecrã, toque nele ou prima Alt+Shift+B. \n2. Para o desbloquear, se apenas tocou no inspetor, toque fora dele. \n3. Toque no botão \"bloqueado\" ou prima novamente Alt+Shift+B para desbloquear. \n4. Para ouvir a narração, ative o leitor de ecrã e clique na página pelo menos uma vez. \n5. Clique num dos itens pop-up para a copiar.",
         "description": "Mensagem informativa para o Inspetor Visual."
     },
     "info": {
-        "message": "<ol><li>Para bloquear o inspetor no ecrã, toque nele ou prima B.</li><li>Para o desbloquear, se apenas tocou no inspetor, toque fora dele.</li><li>Toque no botão 'bloqueado' ou prima B novamente para desbloquear.</li><li>Para ouvir a narração, ative o leitor de ecrã e clique na página pelo menos uma vez.</li><li>Clique num dos itens no pop-up para copiá-lo.</li></ol>",
+        "message": "<ol><li>Para bloquear o inspetor no ecrã, toque nele ou prima Alt+Shift+B.</li><li>Para o desbloquear, se apenas tocou no inspetor, toque fora dele.</li><li>Toque no botão 'bloqueado' ou prima novamente Alt+Shift+B para desbloquear.</li><li>Para ouvir a narração, ative o leitor de ecrã e clique na página pelo menos uma vez.</li><li>Clique num dos itens do pop-up para copiar isso.</li></ol>",
         "description": "Mensagem informativa para o Inspetor Visual."
     }
 }

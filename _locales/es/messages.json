@@ -28,11 +28,11 @@
         "description": "Etiqueta para la opción de ocultar el Inspector visual."
     },
     "btnInfo": {
-        "message": "1. Para fijar el inspector en la pantalla, tócalo o pulsa B.\n2. Para desbloquearlo, si solo has tocado el inspector, toca fuera de él.\n3. Toca el botón de «bloqueado» o pulsa B de nuevo para desbloquearlo.\n4. Para escuchar la narración, activa el lector de pantalla y haz clic en la página al menos una vez.\n5. Haz clic en uno de los elementos emergentes para copiarlo.",
+        "message": "1. Para bloquear el inspector en la pantalla, tóquelo o presione Alt+Shift+B.\n2. Para desbloquearlo, si solo tocó el inspector, toque fuera de él.\n3. Toque el botón \"bloqueado\" o presione Alt+Shift+B nuevamente para desbloquearlo.\n4. Para escuchar la narración, habilite el lector de pantalla y haga clic en la página al menos una vez.\n5. Haga clic en uno de los elementos emergentes para copiarlo.",
         "description": "Mensaje informativo para el inspector visual."
     },
     "info": {
-        "message": "<ol><li>Para fijar el inspector en la pantalla, tócalo o pulsa B.</li><li>Para desbloquearlo, si solo habías tocado el inspector, toca fuera de él.</li><li>Toca el botón de «bloqueado» o vuelve a pulsar B para desbloquearlo.</li><li>Para escuchar la narración, activa el lector de pantalla y haz clic en la página al menos una vez.</li><li>Haz clic en uno de los elementos de la ventana emergente para copiarlo.</li></ol>",
+        "message": "<ol><li>Para bloquear el inspector en la pantalla, tóquelo o presione Alt+Shift+B.</li><li>Para desbloquearlo, si solo tocó el inspector, toque fuera de él.</li><li>Toque el botón 'bloqueado' o presione Alt+Shift+B nuevamente para desbloquear.</li><li>Para escuchar la narración, habilite el lector de pantalla y haga clic en la página al menos una vez.</li><li>Haga clic en uno de los elementos en la ventana emergente para copiar eso.</li></ol>",
         "description": "Mensaje informativo para el inspector visual."
     }
 }

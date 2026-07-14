@@ -28,11 +28,11 @@
         "description": "Etichetă pentru opțiunea de ascundere a Inspectorului vizual."
     },
     "btnInfo": {
-        "message": "1. Pentru a bloca inspectorul pe ecran, atingeți-l sau apăsați B.\n2. Pentru a-l debloca, dacă ați atins doar inspectorul, atingeți în afara acestuia.\n3. Atingeți butonul „blocat” sau apăsați din nou B pentru a-l debloca.\n4. Pentru a asculta narațiunea, activați cititorul de ecran și faceți clic pe pagină cel puțin o dată.\n5. Faceți clic pe unul dintre elementele pop-up pentru a-l copia.",
-        "description": "Mesaj informativ pentru Inspectorul vizual."
+        "message": "1. Pentru a bloca inspectorul pe ecran, atingeți-l sau apăsați Alt+Shift+B.\n2. Pentru a-l debloca, dacă ați atins doar inspectorul, atingeți în afara acestuia.\n3. Atingeți butonul \"blocat\" sau apăsați din nou Alt+Shift+B pentru a debloca.\n4. Pentru a auzi narațiunea, activați cititorul de ecran de cel puțin o dată și faceți clic pe \n5 cititorul de ecran pentru a deschide cel puțin o dată. copiați-l.",
+        "description": "Mesaj informativ pentru inspectorul vizual."
     },
     "info": {
-        "message": "<ol><li>Pentru a bloca inspectorul pe ecran, atingeți-l sau apăsați B.</li><li>Pentru a-l debloca, dacă ați atins doar inspectorul, atingeți în afara acestuia.</li><li>Atingeți butonul „blocat” sau apăsați din nou B pentru a-l debloca.</li><li>Pentru a asculta narațiunea, activați cititorul de ecran și faceți clic pe pagină cel puțin o dată.</li><li>Faceți clic pe unul dintre elementele din fereastra pop-up pentru a-l copia.</li></ol>",
-        "description": "Mesaj informativ pentru Inspectorul vizual."
+        "message": "<ol><li>Pentru a bloca inspectorul pe ecran, atingeți-l sau apăsați Alt+Shift+B.</li><li>Pentru a-l debloca, dacă ați atins doar inspectorul, atingeți în afara acestuia.</li><li>Atingeți butonul\"blocat\" sau apăsați din nou Alt+Shift+B pentru a debloca.</li><li>Pentru a auzi cel puțin cititorul de pe ecran, faceți clic pe ecranul de citire și faceți clic pe ecran. o dată.</li><li>Faceți clic pe unul dintre elementele din fereastra pop-up pentru a-l copia.</li></ol>",
+        "description": "Mesaj informativ pentru inspectorul vizual."
     }
 }

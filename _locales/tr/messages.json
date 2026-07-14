@@ -28,11 +28,11 @@
         "description": "Görsel İnceleyici'yi gizleme seçeneği için etiket."
     },
     "btnInfo": {
-        "message": "1. Denetçiyi ekrana sabitlemek için üzerine dokunun veya B tuşuna basın.\n2. Sabitlemeyi kaldırmak için; eğer sadece denetçiye dokunduysanız, denetçinin dışındaki bir alana dokunun.\n3. Sabitlemeyi kaldırmak için \"kilitli\" düğmesine dokunun veya tekrar B tuşuna basın.\n4. Sesli anlatımı duymak için ekran okuyucuyu etkinleştirin ve sayfaya en az bir kez tıklayın.\n5. Kopyalamak için açılır penceredeki öğelerden birine tıklayın.",
-        "description": "Görsel Denetçi için bilgilendirme mesajı."
+        "message": "1. Denetleyiciyi ekrana kilitlemek için ekrana dokunun veya Alt+Shift+B tuşlarına basın.\n2. Kilidi açmak için, yalnızca denetçiye dokunduysanız dışına dokunun.\n3. Kilidi açmak için \"kilitli\" düğmesine dokunun veya tekrar Alt+Shift+B tuşlarına basın.\n4. Anlatımı dinlemek için ekran okuyucuyu etkinleştirin ve sayfayı en az bir kez tıklayın.\n5. Kopyalamak için açılır öğelerden birini tıklayın.",
+        "description": "Görsel Denetçi için bilgi mesajı."
     },
     "info": {
-        "message": "<ol><li>İnceleme aracını ekrana sabitlemek için üzerine dokunun veya B tuşuna basın.</li><li>Sabitlemeyi kaldırmak için; eğer sadece inceleme aracına dokunduysanız, aracın dışındaki bir alana dokunun.</li><li>Sabitlemeyi kaldırmak için 'kilitli' düğmesine dokunun veya tekrar B tuşuna basın.</li><li>Sesli anlatımı duymak için ekran okuyucuyu etkinleştirin ve sayfaya en az bir kez tıklayın.</li><li>Kopyalamak için açılır penceredeki öğelerden birine tıklayın.</li></ol>",
-        "description": "Görsel İnceleme Aracı için bilgilendirme mesajı."
+        "message": "<ol><li>Denetçiyi ekrana kilitlemek için ekrana dokunun veya Alt+Shift+B tuşlarına basın.</li><li>Kilidi açmak için, yalnızca denetçiye dokunduysanız dışına dokunun.</li><li>'Kilitli' düğmesine dokunun veya kilidi açmak için tekrar Alt+Shift+B tuşlarına basın.</li><li>Anlatımı duymak için ekran okuyucuyu etkinleştirin ve sayfayı en az bir kez tıklayın.</li><li>Kopyalamak için açılır penceredeki öğelerden birini tıklayın. bu.</li></ol>",
+        "description": "Görsel Denetçi için bilgilendirme mesajı."
     }
 }

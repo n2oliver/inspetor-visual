@@ -28,11 +28,11 @@
         "description": "Apzīmējums opcijai, kas ļauj paslēpt Vizuālo inspektoru."
     },
     "btnInfo": {
-        "message": "1. Lai bloķētu inspektoru ekrānā, pieskarieties tam vai nospiediet B.\n2. Lai to atbloķētu, ja esat tikai pieskāries inspektoram, pieskarieties ārpus tā.\n3. Pieskarieties pogai \"bloķēts\" vai vēlreiz nospiediet B, lai atbloķētu.\n4. Lai noklausītos stāstījumu, iespējojiet ekrāna lasītāju un vismaz vienu reizi noklikšķiniet uz lapas.\n5. Noklikšķiniet uz viena no uznirstošajiem vienumiem, lai to kopētu.",
-        "description": "Informatīvs ziņojums vizuālajam inspektoram."
+        "message": "1. Om de inspecteur op het scherm te vergrendelen, tikt u erop of drukt u op Alt+Shift+B.\n2. Als u deze wilt ontgrendelen, tikt u buiten de inspecteur als u alleen op de inspecteur hebt getikt.\n3. Tik op de knop \"vergrendeld\" of druk nogmaals op Alt+Shift+B om te ontgrendelen.\n4. Om de gesproken tekst te horen, schakelt u de schermlezer in en klikt u minimaal één keer op de pagina.\n5. Klik op een van de pop-upitems om deze te kopiëren.",
+        "description": "Informatiebericht voor de Visuele Inspecteur."
     },
     "info": {
-        "message": "<ol><li>Lai bloķētu inspektoru ekrānā, pieskarieties tam vai nospiediet B.</li><li>Lai to atbloķētu, ja esat tikai pieskāries inspektoram, pieskarieties ārpus tā.</li><li>Pieskarieties pogai “bloķēts” vai vēlreiz nospiediet B, lai atbloķētu.</li><li>Lai noklausītos stāstījumu, iespējojiet ekrāna lasītāju un vismaz vienu reizi noklikšķiniet uz lapas.</li><li>Noklikšķiniet uz viena no uznirstošajā logā esošajiem vienumiem, lai to kopētu.</li></ol>",
-        "description": "Informatīvs ziņojums vizuālajam inspektoram."
+        "message": "<ol><li>Om de inspecteur op het scherm te vergrendelen, tikt u erop of drukt u op Alt+Shift+B.</li><li>Als u deze wilt ontgrendelen, tikt u buiten de inspecteur als u alleen op de inspecteur hebt getikt.</li><li>Tik op de knop 'vergrendeld' of druk nogmaals op Alt+Shift+B om te ontgrendelen.</li><li>Als u de tekst wilt horen, schakelt u de schermlezer in en klikt u minimaal één keer op de pagina.</li><li>Klik op een van de items in de pop-up om te kopiëren het.</li></ol>",
+        "description": "Informatief bericht voor de Visuele Inspecteur."
     }
 }

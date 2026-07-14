@@ -254,7 +254,7 @@ viewBox="0 0 24 24" fill="currentColor">
     }, timeoutValue);
     
     Object.assign(popupInDocument.style, styles);
-    innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center"><a id="inspetor_visual_ocultar" href="#" style="color: orange !important"><strong>(O) Ocultar</strong></a> <a id="inspetor_visual_link_bloqueador" class="text-decoration-none" href="#" style="color: orange !important"><strong>(B) Bloquear<span id="insp_visual_bloquear" style="' + (!bloqueado ? 'display: none' : '') + '"> (bloqueado)</span></strong></a></div>'
+    innerHTML += '<div tabindex="0" id="insp_visual_bloqueador" class="text-center"><a id="inspetor_visual_ocultar" href="#" style="color: orange !important"><strong>(Alt+Shift+O) Ocultar</strong></a> <a id="inspetor_visual_link_bloqueador" class="text-decoration-none" href="#" style="color: orange !important"><strong>(Alt+Shift+B) Bloquear<span id="insp_visual_bloquear" style="' + (!bloqueado ? 'display: none' : '') + '"> (bloqueado)</span></strong></a></div>'
     popupInDocument.innerHTML = innerHTML;
     popupInDocument.querySelector("#inspetor_visual_link_bloqueador").addEventListener("click", ()=>{
         event.preventDefault();
@@ -387,7 +387,7 @@ async function eventos(event, timeout, popupId) {
     if(!contextoValido()) {
         return;
     }
-    if((event && event.keyCode == 66) || 
+    if((event && event.keyCode == 66 && (event.altKey || event.metaKey) && event.shiftKey) || 
         (window.event.type == 'click' && window.event.target.id == "inspetor_visual_link_bloqueador") || 
             window.event.target.closest('#inspetor_visual_link_bloqueador')) {
                 
@@ -424,7 +424,7 @@ async function eventos(event, timeout, popupId) {
             bloquear(settings);
         }
     }
-    if((event && event.keyCode == 79) || 
+    if((event && event.keyCode == 79 && (event.altKey || event.metaKey) && event.shiftKey) || 
         (window.event && window.event.type == 'click' && (window.event.target.id == "inspetor_visual_ocultar" || 
             window.event.target.closest('#inspetor_visual_ocultar')))) {
         const eventProperties = (event || window.event);

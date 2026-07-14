@@ -28,11 +28,11 @@
         "description": "Etichetta per l'opzione di nascondere l'Ispettore visivo."
     },
     "btnInfo": {
-        "message": "1. Per bloccare l'ispettore sullo schermo, toccalo o premi B.\n2. Per sbloccarlo, se hai solo toccato l'ispettore, tocca al di fuori di esso.\n3. Tocca il pulsante \"bloccato\" o premi nuovamente B per sbloccare.\n4. Per ascoltare la narrazione, abilita lo screen reader e clicca sulla pagina almeno una volta.\n5. Clicca su una delle voci del popup per copiarla.",
-        "description": "Messaggio informativo per l'Ispettore visivo."
+        "message": "1. Per bloccare le impostazioni sullo schermo, toccalo o premi Alt+Shift+B.\n2. Per sbloccarlo, se hai toccato solo le impostazioni, tocca all'esterno di esso.\n3. Tocca il pulsante \"bloccato\" o premi di nuovo Alt+Shift+B per sbloccarlo.\n4. Per ascoltare la narrazione, attiva lo screen reader e fai clic sulla pagina almeno una volta.\n5. Fai clic su uno degli elementi popup per copiarlo.",
+        "description": "Messaggio informativo per l'ispettore visivo."
     },
     "info": {
-        "message": "<ol><li>Per bloccare l'ispettore sullo schermo, toccalo o premi B.</li><li>Per sbloccarlo, se hai solo toccato l'ispettore, tocca un punto esterno ad esso.</li><li>Tocca il pulsante 'bloccato' o premi nuovamente B per sbloccarlo.</li><li>Per ascoltare la narrazione, attiva lo screen reader e clicca sulla pagina almeno una volta.</li><li>Clicca su una delle voci nel popup per copiarla.</li></ol>",
+        "message": "<ol><li>Per bloccare la finestra di impostazioni sullo schermo, toccala o premi Alt+Shift+B.</li><li>Per sbloccarla, se hai toccato solo la finestra di impostazioni, tocca all'esterno di essa.</li><li>Tocca il pulsante \"bloccato\" o premi nuovamente Alt+Shift+B per sbloccare.</li><li>Per ascoltare la narrazione, attiva lo screen reader e fai clic sulla pagina almeno una volta.</li><li>Fai clic su uno degli elementi nel popup da copiare it.</li></ol>",
         "description": "Messaggio informativo per l'ispettore visivo."
     }
 }

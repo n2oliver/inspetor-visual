@@ -28,11 +28,11 @@
         "description": "Label untuk opsi menyembunyikan Visual Inspector."
     },
     "btnInfo": {
-        "message": "1. Untuk mengunci inspektur di layar, ketuk inspektur tersebut atau tekan tombol B.\n2. Untuk membukanya kembali, jika Anda hanya mengetuk inspektur, ketuklah area di luar inspektur.\n3. Ketuk tombol \"terkunci\" atau tekan kembali tombol B untuk membuka kunci.\n4. Untuk mendengarkan narasi, aktifkan pembaca layar (screen reader) dan klik halaman setidaknya satu kali.\n5. Klik salah satu item pada popup untuk menyalinnya.",
+        "message": "1. Untuk mengunci inspektur di layar, ketuk atau tekan Alt+Shift+B.\n2. Untuk membukanya, jika Anda hanya mengetuk inspektur, ketuk di luarnya.\n3. Ketuk tombol \"terkunci\" atau tekan Alt+Shift+B lagi untuk membukanya.\n4. Untuk mendengarkan narasi, aktifkan pembaca layar dan klik halaman setidaknya sekali.\n5. Klik salah satu item popup untuk menyalinnya.",
         "description": "Pesan informasi untuk Inspektur Visual."
     },
     "info": {
-        "message": "<ol><li>Untuk mengunci inspector di layar, ketuk inspector tersebut atau tekan tombol B.</li><li>Untuk membuka kuncinya, jika Anda hanya mengetuk inspector, ketuklah di luar area inspector tersebut.</li><li>Ketuk tombol 'terkunci' atau tekan kembali tombol B untuk membuka kunci.</li><li>Untuk mendengarkan narasi, aktifkan pembaca layar (screen reader) dan klik halaman setidaknya satu kali.</li><li>Klik salah satu item di dalam popup untuk menyalinnya.</li></ol>",
-        "description": "Pesan informasi untuk Visual Inspector."
+        "message": "<ol><li>Untuk mengunci inspektur di layar, ketuk atau tekan Alt+Shift+B.</li><li>Untuk membukanya, jika Anda hanya mengetuk inspektur, ketuk di luarnya.</li><li>Ketuk tombol 'terkunci' atau tekan Alt+Shift+B lagi untuk membukanya.</li><li>Untuk mendengarkan narasi, aktifkan pembaca layar dan klik halaman setidaknya sekali.</li><li>Klik salah satu item di popup untuk menyalin itu.</li></ol>",
+        "description": "Pesan informasi untuk Inspektur Visual."
     }
 }

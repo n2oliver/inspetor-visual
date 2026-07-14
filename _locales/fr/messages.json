@@ -28,11 +28,11 @@
         "description": "Étiquette indiquant l'option de cacher l'inspecteur visuel."
     },
     "btnInfo": {
-        "message": "1. Pour verrouiller l'inspecteur à l'écran, touchez-le ou appuyez sur la touche B.\n2. Pour le déverrouiller, si vous avez simplement touché l'inspecteur, touchez une zone en dehors de celui-ci.\n3. Touchez le bouton « verrouillé » ou appuyez à nouveau sur la touche B pour le déverrouiller.\n4. Pour entendre la narration, activez le lecteur d'écran et cliquez sur la page au moins une fois.\n5. Cliquez sur l'un des éléments de la fenêtre contextuelle pour le copier.",
-        "description": "Message d'information pour l'inspecteur visuel."
+        "message": "1. Pour verrouiller l'inspecteur sur l'écran, appuyez dessus ou appuyez sur Alt+Shift+B.\n2. Pour le déverrouiller, si vous avez seulement appuyé sur l'inspecteur, appuyez à l'extérieur.\n3. Appuyez sur le bouton \"verrouillé\" ou appuyez à nouveau sur Alt+Shift+B pour le déverrouiller.\n4. Pour entendre la narration, activez le lecteur d'écran et cliquez sur la page au moins une fois.\n5. Cliquez sur l'un des éléments contextuels pour le copier.",
+        "description": "Message d'information destiné à l'inspecteur visuel."
     },
     "info": {
-        "message": "<ol><li>Pour verrouiller l'inspecteur à l'écran, appuyez dessus ou sur la touche B.</li><li>Pour le déverrouiller, si vous avez simplement appuyé sur l'inspecteur, appuyez en dehors de celui-ci.</li><li>Appuyez sur le bouton « verrouillé » ou à nouveau sur la touche B pour le déverrouiller.</li><li>Pour entendre la narration, activez le lecteur d'écran et cliquez au moins une fois sur la page.</li><li>Cliquez sur l'un des éléments de la fenêtre contextuelle pour le copier.</li></ol>",
+        "message": "<ol><li>Pour verrouiller l'inspecteur sur l'écran, appuyez dessus ou appuyez sur Alt+Shift+B.</li><li>Pour le déverrouiller, si vous avez seulement appuyé sur l'inspecteur, appuyez à l'extérieur de celui-ci.</li><li>Appuyez sur le bouton « verrouillé » ou appuyez à nouveau sur Alt+Shift+B pour déverrouiller.</li><li>Pour entendre la narration, activez le lecteur d'écran et cliquez sur la page au moins une fois.</li><li>Cliquez sur l'un des éléments de la fenêtre contextuelle pour le copier. il.</li></ol>",
         "description": "Message d'information pour l'inspecteur visuel."
     }
 }
