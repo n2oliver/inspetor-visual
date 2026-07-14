@@ -10,32 +10,24 @@ async function changeLanguage() {
 }
 async function checkInspVisual() {
     const result = await chrome.storage.local.get(["insp_visual_ligado"]);
+    document.getElementById("insp_visual_ligado").checked = result.insp_visual_ligado === true;
 
     if(result.insp_visual_ligado == true) {
-        document.getElementById("insp_visual_ligado").checked = true;
         document.querySelector('#tooltip').innerHTML = chrome.i18n.getMessage("tooltip");
         document.querySelector('[for="insp_visual_ligado"]').innerHTML = chrome.i18n.getMessage("labelForInspVisualLigado");
     } else {
-        document.getElementById("insp_visual_ligado").checked = false;
         document.querySelector('#tooltip').innerHTML = chrome.i18n.getMessage("labelForInspVisualLigado");
         document.querySelector('[for="insp_visual_ligado"]').innerHTML = chrome.i18n.getMessage("labelForInspVisualDesligado");
     }
 }
 async function checkLockOnOverlay() {
     const result = await chrome.storage.local.get(["insp_visual_bloquear_ao_sobrepor"]);
-    if(result.insp_visual_bloquear_ao_sobrepor == true) {
-        document.getElementById("insp_visual_bloquear_ao_sobrepor").checked = true;
-    } else {
-        document.getElementById("insp_visual_bloquear_ao_sobrepor").checked = false;
-    }
+    document.getElementById("insp_visual_bloquear_ao_sobrepor").checked = result.insp_visual_bloquear_ao_sobrepor === true;
 }
+
 async function checkHide() {
     const result = await chrome.storage.local.get(["insp_visual_ocultar"]);
-    if(result.insp_visual_ocultar == true) {
-        document.getElementById("insp_visual_ocultar").checked = true;
-    } else {
-        document.getElementById("insp_visual_ocultar").checked = false;
-    }
+    document.getElementById("insp_visual_ocultar").checked = result.insp_visual_ocultar === true;
 }
 async function checkSpeaker() {
     const result = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
@@ -58,11 +50,10 @@ async function checkSpeaker() {
             }
         });
     }
+    document.getElementById("insp_visual_leitor_de_tela").checked = result.insp_visual_leitor_de_tela === true;
     if(result.insp_visual_leitor_de_tela == true) {
-        document.getElementById("insp_visual_leitor_de_tela").checked = true;
         document.getElementById("vozes").parentElement.classList.remove("d-none");
     } else {
-        document.getElementById("insp_visual_leitor_de_tela").checked = false;
         document.getElementById("vozes").parentElement.classList.add("d-none");
     }
 }
@@ -107,26 +98,22 @@ async function changeState() {
 }
 async function speakerChangeState() {
     const result = await chrome.storage.local.get(["insp_visual_leitor_de_tela"]);
+    await chrome.storage.local.set({insp_visual_leitor_de_tela: !result.insp_visual_leitor_de_tela});
     if(result.insp_visual_leitor_de_tela == true) {
         if ('speechSynthesis' in window) {
             speechSynthesis.cancel();
         }
-        await chrome.storage.local.set({insp_visual_leitor_de_tela: false});
         document.getElementById("vozes").parentElement.classList.add("d-none");
     } else {
-        await chrome.storage.local.set({insp_visual_leitor_de_tela: true});
         document.getElementById("vozes").parentElement.classList.remove("d-none");
     }
 }
 
 async function changeLockOnOverlay() {
     const result = await chrome.storage.local.get(["insp_visual_bloquear_ao_sobrepor"]);
-    if(result.insp_visual_bloquear_ao_sobrepor == true) {
-        await chrome.storage.local.set({insp_visual_bloquear_ao_sobrepor: false});
-    } else {
-        await chrome.storage.local.set({insp_visual_bloquear_ao_sobrepor: true});
-    }
+    await chrome.storage.local.set({insp_visual_bloquear_ao_sobrepor: !result.insp_visual_bloquear_ao_sobrepor});
 }
+
 async function changeHideState(event) {
     const result = await chrome.storage.local.get(["insp_visual_ocultar"]);
     if(result.insp_visual_ocultar == true) {
