@@ -3,13 +3,13 @@
         "message": "Copia un elemento usando el menú contextual del Inspector visual.",
         "description": "Mensaje de información sobre herramientas para el menú contextual del Inspector visual."
     },
-    "labelForInspVisualLigado": {
+    "tooltipForInspVisualDesligado": {
         "message": "Activa el Inspector visual para inspeccionar elementos.",
-        "description": "Mensaje de información sobre herramientas cuando el Inspector visual está desactivado."
+        "description": "Mensaje de información emergente cuando el Inspector visual está desactivado."
     },
     "labelForInspVisualLigado": {
         "message": "Activado",
-        "description": "Etiqueta que indica que el Inspector visual está habilitado."
+        "description": "Etiqueta que indica que el Inspector visual está activado."
     },
     "labelForInspVisualDesligado": {
         "message": "Desactivado",

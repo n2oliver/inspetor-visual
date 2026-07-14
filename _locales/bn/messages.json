@@ -3,13 +3,13 @@
         "message": "Visual Inspector-এর কনটেক্সট মেনু ব্যবহার করে একটি এলিমেন্ট কপি করুন।",
         "description": "Visual Inspector-এর কনটেক্সট মেনুর জন্য টুলটিপ বার্তা।"
     },
-    "labelForInspVisualLigado": {
-        "message": "এলিমেন্ট পরীক্ষা (inspect) করতে Visual Inspector চালু করুন।",
-        "description": "Visual Inspector নিষ্ক্রিয় অবস্থায় টুলটিপ বার্তা।"
+    "tooltipForInspVisualDesligado": {
+        "message": "এলিমেন্ট বা উপাদানগুলো পরীক্ষা করার জন্য ভিজ্যুয়াল ইন্সপেক্টর চালু করুন।",
+        "description": "ভিজ্যুয়াল ইন্সপেক্টর নিষ্ক্রিয় বা বন্ধ থাকা অবস্থায় প্রদর্শিত টুলটিপ বার্তা।"
     },
     "labelForInspVisualLigado": {
         "message": "চালু",
-        "description": "Visual Inspector চালু আছে তা নির্দেশকারী লেবেল।"
+        "description": "ভিজ্যুয়াল ইন্সপেক্টর চালু আছে তা নির্দেশকারী লেবেল।"
     },
     "labelForInspVisualDesligado": {
         "message": "বন্ধ",

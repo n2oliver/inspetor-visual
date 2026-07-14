@@ -3,7 +3,7 @@
         "message": "Copie um elemento pelo menu de contexto Inspetor Visual.",
         "description": "Mensagem de dica para o menu de contexto do Visual Inspector."
     },
-    "labelForInspVisualLigado": {
+    "tooltipForInspVisualDesligado": {
         "message": "Ative o Inspetor Visual para inspecionar elementos.",
         "description": "Mensagem de dica quando o Inspetor Visual está desativado."
     },

@@ -3,12 +3,12 @@
         "message": "使用可视化检查器的上下文菜单复制元素。",
         "description": "可视化检查器上下文菜单的工具提示信息。"
     },
-    "labelForInspVisualLigado": {
-        "message": "激活可视化检查器以检查元素。",
-        "description": "可视化检查器未激活时的工具提示信息。"
+    "tooltipForInspVisualDesligado": {
+        "message": "启用可视化检查器以检查元素。",
+        "description": "可视化检查器处于禁用状态时的工具提示信息。"
     },
     "labelForInspVisualLigado": {
-        "message": "已激活",
+        "message": "已启用",
         "description": "指示可视化检查器已启用的标签。"
     },
     "labelForInspVisualDesligado": {

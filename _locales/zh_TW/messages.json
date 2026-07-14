@@ -3,12 +3,12 @@
         "message": "使用視覺化檢查器上下文選單複製元素。",
         "description": "可視化檢查器上下文選單的工具提示訊息。"
     },
-    "labelForInspVisualLigado": {
-        "message": "啟動視覺化檢查器以檢查元素。",
-        "description": "可視化檢查器停用時的工具提示訊息。"
+    "tooltipForInspVisualDesligado": {
+        "message": "啟用視覺化檢查器以檢查元素。",
+        "description": "可視化檢查器停用時顯示的工具提示訊息。"
     },
     "labelForInspVisualLigado": {
-        "message": "已啟動",
+        "message": "已啟用",
         "description": "指示可視化檢查器已啟用的標籤。"
     },
     "labelForInspVisualDesligado": {

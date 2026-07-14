@@ -3,12 +3,12 @@
         "message": "Kopieer een element via het contextmenu van de Visual Inspector.",
         "description": "Tooltipbericht voor het contextmenu van de Visual Inspector."
     },
-    "labelForInspVisualLigado": {
-        "message": "Activeer de Visual Inspector om elementen te inspecteren.",
-        "description": "Tooltipbericht wanneer de Visual Inspector is gedeactiveerd."
+    "tooltipForInspVisualDesligado": {
+        "message": "Schakel de Visual Inspector in om elementen te inspecteren.",
+        "description": "Tooltipbericht wanneer de Visual Inspector is uitgeschakeld."
     },
     "labelForInspVisualLigado": {
-        "message": "Geactiveerd",
+        "message": "Ingeschakeld",
         "description": "Label dat aangeeft dat de Visual Inspector is ingeschakeld."
     },
     "labelForInspVisualDesligado": {

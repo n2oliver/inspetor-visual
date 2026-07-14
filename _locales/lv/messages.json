@@ -3,13 +3,13 @@
         "message": "Kopēt elementu, izmantojot Vizuālā inspektora konteksta izvēlni.",
         "description": "Rīka padoma ziņojums Vizuālā inspektora konteksta izvēlnei."
     },
-    "labelForInspVisualLigado": {
-        "message": "Aktivizēt Vizuālo inspektoru, lai pārbaudītu elementus.",
-        "description": "Rīka padoma ziņojums, kad Vizuālais inspektors ir deaktivizēts."
+    "tooltipForInspVisualDesligado": {
+        "message": "Iespējot vizuālo inspektoru elementu pārbaudei.",
+        "description": "Rīka padoma ziņojums, ja vizuālais inspektors ir atspējots."
     },
     "labelForInspVisualLigado": {
-        "message": "Aktivizēts",
-        "description": "Apzīmējums, kas norāda, ka Vizuālais inspektors ir iespējots."
+        "message": "Iespējots",
+        "description": "Apzīmējums, kas norāda, ka vizuālais inspektors ir iespējots."
     },
     "labelForInspVisualDesligado": {
         "message": "Deaktivizēts",

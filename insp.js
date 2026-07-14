@@ -10,7 +10,6 @@ async function changeLanguage() {
 }
 async function checkInspVisual() {
     const result = await chrome.storage.local.get(["insp_visual_ligado"]);
-    const langInput = document.getElementById("lang");
 
     if(result.insp_visual_ligado == true) {
         document.getElementById("insp_visual_ligado").checked = true;
@@ -75,8 +74,8 @@ async function changeState() {
         chrome.contextMenus.remove("copiarElemento");
         chrome.contextMenus.remove("copiarHTML");
         chrome.contextMenus.remove("copiarCSS");
-        document.querySelector('#tooltip').innerHTML = "Ative o Inpetor Visual para inspecionar elementos.";
-        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "Desativado";
+        document.querySelector('#tooltip').innerHTML = chrome.i18n.getMessage("tooltipForInspVisualDesligado");
+        document.querySelector('[for="insp_visual_ligado"]').innerHTML = chrome.i18n.getMessage("labelForInspVisualDesligado");
     } else {
         await chrome.storage.local.set({insp_visual_ligado: true});
 
@@ -102,8 +101,8 @@ async function changeState() {
                 contexts: ["all"]
             });
         });
-        document.querySelector('#tooltip').innerHTML = "Copie um elemento pelo menu de contexto Inpetor Visual.";
-        document.querySelector('[for="insp_visual_ligado"]').innerHTML = "Ativado";
+        document.querySelector('#tooltip').innerHTML = chrome.i18n.getMessage("tooltipForInspVisualLigado");
+        document.querySelector('[for="insp_visual_ligado"]').innerHTML = chrome.i18n.getMessage("labelForInspVisualLigado");
     }
 }
 async function speakerChangeState() {

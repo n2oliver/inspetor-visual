@@ -3,12 +3,12 @@
         "message": "Copy an element using the Visual Inspector context menu.",
         "description": "Tooltip message for the Visual Inspector context menu."
     },
-    "labelForInspVisualLigado": {
-        "message": "Activate the Visual Inspector to inspect elements.",
-        "description": "Tooltip message when the Visual Inspector is deactivated."
+    "tooltipForInspVisualDesligado": {
+        "message": "Enable the Visual Inspector to inspect elements.",
+        "description": "Tooltip message when the Visual Inspector is disabled."
     },
     "labelForInspVisualLigado": {
-        "message": "Activated",
+        "message": "Enabled",
         "description": "Label indicating that the Visual Inspector is enabled."
     },
     "labelForInspVisualDesligado": {

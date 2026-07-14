@@ -3,12 +3,12 @@
         "message": "انسخ عنصراً باستخدام القائمة السياقية لأداة الفحص المرئي.",
         "description": "رسالة تلميح للقائمة السياقية لأداة الفحص المرئي."
     },
-    "labelForInspVisualLigado": {
-        "message": "فعّل أداة الفحص المرئي لفحص العناصر.",
+    "tooltipForInspVisualDesligado": {
+        "message": "فعِّل أداة الفحص المرئي لفحص العناصر.",
         "description": "رسالة تلميح تظهر عند تعطيل أداة الفحص المرئي."
     },
     "labelForInspVisualLigado": {
-        "message": "مُفعَّلة",
+        "message": "مُفعَّل",
         "description": "تسمية تشير إلى أن أداة الفحص المرئي مُفعَّلة."
     },
     "labelForInspVisualDesligado": {

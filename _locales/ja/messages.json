@@ -3,9 +3,9 @@
         "message": "Visual Inspectorのコンテキストメニューを使用して要素をコピーします。",
         "description": "Visual Inspectorのコンテキストメニュー用ツールチップメッセージ。"
     },
-    "labelForInspVisualLigado": {
+    "tooltipForInspVisualDesligado": {
         "message": "Visual Inspectorを有効にして要素を調査します。",
-        "description": "Visual Inspectorが無効な時のツールチップメッセージ。"
+        "description": "Visual Inspectorが無効な場合のツールチップメッセージ。"
     },
     "labelForInspVisualLigado": {
         "message": "有効",

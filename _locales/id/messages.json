@@ -3,13 +3,13 @@
         "message": "Salin elemen menggunakan menu konteks Visual Inspector.",
         "description": "Pesan tooltip untuk menu konteks Visual Inspector."
     },
-    "labelForInspVisualLigado": {
-        "message": "Aktifkan Visual Inspector untuk memeriksa elemen.",
-        "description": "Pesan tooltip saat Visual Inspector dinonaktifkan."
+    "tooltipForInspVisualDesligado": {
+        "message": "Aktifkan Inspektur Visual untuk memeriksa elemen.",
+        "description": "Pesan tooltip saat Inspektur Visual dinonaktifkan."
     },
     "labelForInspVisualLigado": {
         "message": "Diaktifkan",
-        "description": "Label yang menunjukkan bahwa Visual Inspector sedang aktif."
+        "description": "Label yang menunjukkan bahwa Inspektur Visual diaktifkan."
     },
     "labelForInspVisualDesligado": {
         "message": "Dinonaktifkan",

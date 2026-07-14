@@ -3,7 +3,7 @@
         "message": "Görsel İnceleyici bağlam menüsünü kullanarak bir öğeyi kopyalayın.",
         "description": "Görsel İnceleyici bağlam menüsü için araç ipucu mesajı."
     },
-    "labelForInspVisualLigado": {
+    "tooltipForInspVisualDesligado": {
         "message": "Öğeleri incelemek için Görsel İnceleyici'yi etkinleştirin.",
         "description": "Görsel İnceleyici devre dışıyken gösterilen araç ipucu mesajı."
     },

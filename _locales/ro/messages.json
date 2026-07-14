@@ -3,13 +3,13 @@
         "message": "Copiați un element folosind meniul contextual Visual Inspector.",
         "description": "Mesaj de tip tooltip pentru meniul contextual Visual Inspector."
     },
-    "labelForInspVisualLigado": {
-        "message": "Activați Visual Inspector pentru a inspecta elementele.",
-        "description": "Mesaj de tip tooltip când Visual Inspector este dezactivat."
+    "tooltipForInspVisualDesligado": {
+        "message": "Activează Inspectorul Vizual să inspecteze elementele.",
+        "description": "Mesaj de tip tooltip când Inspectorul Vizual este dezactivat."
     },
     "labelForInspVisualLigado": {
         "message": "Activat",
-        "description": "Etichetă care indică faptul că Visual Inspector este activat."
+        "description": "Etichetă care indică faptul că Inspectorul Vizual este activat."
     },
     "labelForInspVisualDesligado": {
         "message": "Dezactivat",
