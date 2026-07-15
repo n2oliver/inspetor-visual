@@ -92,7 +92,7 @@ async function changeState() {
                 contexts: ["all"]
             });
         });
-        document.querySelector('#tooltip').innerHTML = chrome.i18n.getMessage("tooltipForInspVisualLigado");
+        document.querySelector('#tooltip').innerHTML = chrome.i18n.getMessage("tooltip");
         document.querySelector('[for="insp_visual_ligado"]').innerHTML = chrome.i18n.getMessage("labelForInspVisualLigado");
     }
 }
