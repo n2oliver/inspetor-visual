@@ -21,7 +21,7 @@ const buildPopUp = async (event, popupId, copyBuffer, visitedElements, bloqueado
         fontSize: '12px',
         display: 'flex',
         flexDirection: 'column',
-        maxWidth: window.innerWidth,
+        maxWidth: '80vw',
         maxHeight: window.innerHeight,
     }
 
@@ -48,7 +48,7 @@ const buildPopUp = async (event, popupId, copyBuffer, visitedElements, bloqueado
 viewBox="0 0 24 24" fill="currentColor">
 <path d="M16 1H4C2.9 1 2 1.9 2 3v12h2V3h12V1zm4 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h12v14z"/>
 </svg>`
-        innerHTML += '<div style="margin-bottom: 4px; max-width: 320px;  max-height: 240px; overflow: auto;" onclick="navigator.clipboard.writeText(`' + copyBuffer.outerHTML.replace(/"/gi, '\'') + `\`)">${ copyBuffer.outerHTML }${copyIcon}</div>`;
+        innerHTML += '<div style="margin-bottom: 4px; max-width: 80vw;  max-height: 240px; overflow: auto;" onclick="navigator.clipboard.writeText(`' + copyBuffer.outerHTML.replace(/"/gi, '\'') + `\`)">${ copyBuffer.outerHTML }${copyIcon}</div>`;
         innerHTML += `<div style="display: flex; white-space: nowrap; justify-content: space-between; margin-bottom: 4px;"><strong>ID:</strong>
             <pre style="
                 background-color: lightgrey;
