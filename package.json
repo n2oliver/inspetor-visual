@@ -182,7 +182,6 @@
     "type-detect": "^4.0.8",
     "type-fest": "^0.21.3",
     "undici-types": "^8.3.0",
-    "unpdf": "^1.6.2",
     "unrs-resolver": "^1.12.2",
     "update-browserslist-db": "^1.2.3",
     "v8-to-istanbul": "^9.3.0",

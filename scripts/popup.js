@@ -388,8 +388,8 @@ async function eventos(event, timeout, popupId) {
         return;
     }
     if((event && event.keyCode == 66 && (event.altKey || event.metaKey) && event.shiftKey) || 
-        (window.event.type == 'click' && window.event.target.id == "inspetor_visual_link_bloqueador") || 
-            window.event.target.closest('#inspetor_visual_link_bloqueador')) {
+        (window.event.type == 'click' && (window.event.target.id == "inspetor_visual_link_bloqueador") || 
+            window.event.target.closest('#inspetor_visual_link_bloqueador'))) {
                 
         const eventProperties = (event || window.event);
         const bloqueioResult = await chrome.storage.local.get(['inspetor_visual_bloqueado']);

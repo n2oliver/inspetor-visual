@@ -1,4 +1,3 @@
-import { extractText, getDocumentProxy } from "unpdf";
 import { buildPopUp, getCssStyles, bloquear, contextoValido, eventos, desbloquear } from "./popup.js";
 import { speak, cancelSpeak } from "./speaker.js";
 let copyBuffer = {};
