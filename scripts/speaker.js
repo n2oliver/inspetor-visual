@@ -1,4 +1,3 @@
-import { ordinais } from "./ordinais.js";
 import { abreviacoes } from "./abreviacoes.js";
 
 const cancelSpeak = () => {
@@ -15,13 +14,6 @@ const speak = async (text) => {
         for (const [regex, substituicao] of abreviacoes) {
             text = text.replace(regex, substituicao);
         }
-        text = text.replace(
-            /(?<!\d)(10|[1-9])(?:\s*\.?\s*)([ºoªa])(?!\d)/gi,
-            (_, numero, genero) => {
-                const feminino = genero === "ª" || genero.toLowerCase() === "a";
-                return ordinais[numero][feminino ? 1 : 0];
-            }
-        );
         const result = await chrome.storage.local.get(["voz"]);
         const utterance = new SpeechSynthesisUtterance(capitalizeSentences(text));
         utterance.lang = 'pt-BR';

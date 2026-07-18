@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Inspetor Visual",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "default_locale": "en",
   "description": "Visualize e copie os elementos do navegador com um clique.",
   "permissions": [
